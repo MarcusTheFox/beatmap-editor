@@ -1,11 +1,15 @@
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
-
 import { ItemsGrid } from "@/components/SpawnerGrid";
 import { EditorLayout } from "@/layouts/EditorLayout";
 import { Spawner } from "@/components/Spawner";
 import { Badge } from "@heroui/badge";
 import { useState } from "react";
 import { PressEvent } from "@react-types/shared";
+import { UploadAudioSection } from "@/sections/UploadAudioSection";
+import { TrackInfoSection } from "@/sections/TrackInfoSection";
+import { SpawnerGridSection } from "@/sections/SpawnerGridSection";
+import { NotePropertiesSection } from "@/sections/NotePropertiesSection";
+import { TimelineSection } from "@/sections/TimelineSection";
 
 interface SpawnerState {
     power: number | "inherit";
@@ -55,14 +59,23 @@ export default function EditorPage() {
     
     return (
         <EditorLayout>
-            <Card className="p-3 text-sm">
-                <CardBody className="overflow-visible">
-                    <ItemsGrid renderItem={createSpawner} />
-                </CardBody>
-                <CardFooter className="p-0 justify-center">
-                    <p><b>Left-click</b> to add/remove a note. <b>Right-click</b> to set custom power.</p>
-                </CardFooter>
-            </Card>
+            <div className="flex flex-col gap-4">
+                <UploadAudioSection />
+                <TrackInfoSection />
+            </div>
+            <SpawnerGridSection>
+                <ItemsGrid renderItem={createSpawner} />
+            </SpawnerGridSection>
+            <NotePropertiesSection>
+                <ul>
+                    {Object.entries(spawnerState).map(([id, state]) => (
+                        <li key={id}>
+                            <Card><CardBody className="bg-neutral-700">Спаунер ID: {id}, Сила: {state.power}</CardBody>
+                            </Card></li>
+                    ))}
+                </ul>
+            </NotePropertiesSection>
+            <TimelineSection />
         </EditorLayout>
     );
 }

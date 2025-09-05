@@ -10,7 +10,7 @@ interface EditorLayoutProps {
 
 export function EditorLayout(props: EditorLayoutProps) {
     return (
-        <div className="relative flex flex-col items-center h-screen">
+        <div className="relative flex flex-col h-screen">
             <Navbar>
                 <NavbarContent>
                     <Title text="Beatmap Editor" />
@@ -19,7 +19,7 @@ export function EditorLayout(props: EditorLayoutProps) {
                     <ThemeSwitch />
                 </NavbarContent>
             </Navbar>
-            <main className="container flex justify-center m-8">{props.children}</main>
+            <main className="grid grid-cols-4 gap-4 m-8 h-screen">{props.children}</main>
             <footer />
         </div>
     );
