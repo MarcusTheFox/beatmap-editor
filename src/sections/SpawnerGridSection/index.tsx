@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export function SpawnerGridSection({ children } : { children: ReactNode }) {
     return (
-        <Card className="col-span-2 p-3 text-sm max-w-fit max-h-fit mx-auto">
+        <Card className="p-3 text-sm max-w-fit max-h-fit mx-auto">
             <CardBody className="overflow-visible">
                 {children}
             </CardBody>

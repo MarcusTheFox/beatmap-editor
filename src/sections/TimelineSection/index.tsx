@@ -2,7 +2,7 @@ import { Card, CardBody } from "@heroui/card";
 
 export function TimelineSection() {
     return (
-        <Card className="col-span-4">
+        <Card className="grow">
             <CardBody></CardBody>
         </Card>
     )

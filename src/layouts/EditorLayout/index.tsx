@@ -19,7 +19,7 @@ export function EditorLayout(props: EditorLayoutProps) {
                     <ThemeSwitch />
                 </NavbarContent>
             </Navbar>
-            <main className="grid grid-cols-4 gap-4 m-8 h-screen">{props.children}</main>
+            <main className="flex flex-col gap-4 m-8 h-full">{props.children}</main>
             <footer />
         </div>
     );

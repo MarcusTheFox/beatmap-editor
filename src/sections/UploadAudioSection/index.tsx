@@ -4,7 +4,7 @@ import { Card, CardHeader, CardBody } from "@heroui/card";
 
 export function UploadAudioSection() {
     return (
-        <Card className="h-max">
+        <Card>
             <CardHeader>
                 <CardTitle>Upload Audio</CardTitle>
             </CardHeader>

@@ -59,22 +59,24 @@ export default function EditorPage() {
     
     return (
         <EditorLayout>
-            <div className="flex flex-col gap-4">
-                <UploadAudioSection />
-                <TrackInfoSection />
+            <div className="grid grid-cols-[25rem_auto_25rem] justify-stretch">
+                <div className="flex flex-col gap-4">
+                    <UploadAudioSection />
+                    <TrackInfoSection />
+                </div>
+                <SpawnerGridSection>
+                    <ItemsGrid renderItem={createSpawner} />
+                </SpawnerGridSection>
+                <NotePropertiesSection>
+                    <ul>
+                        {Object.entries(spawnerState).map(([id, state]) => (
+                            <li key={id}>
+                                <Card><CardBody className="bg-neutral-700">Спаунер ID: {id}, Сила: {state.power}</CardBody>
+                                </Card></li>
+                        ))}
+                    </ul>
+                </NotePropertiesSection>
             </div>
-            <SpawnerGridSection>
-                <ItemsGrid renderItem={createSpawner} />
-            </SpawnerGridSection>
-            <NotePropertiesSection>
-                <ul>
-                    {Object.entries(spawnerState).map(([id, state]) => (
-                        <li key={id}>
-                            <Card><CardBody className="bg-neutral-700">Спаунер ID: {id}, Сила: {state.power}</CardBody>
-                            </Card></li>
-                    ))}
-                </ul>
-            </NotePropertiesSection>
             <TimelineSection />
         </EditorLayout>
     );
