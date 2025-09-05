@@ -9,6 +9,8 @@ export function TrackInfoSection() {
             <CardBody className="pt-0 grid grid-cols-2 grow-0 gap-4">
                 <Input label="Track name" labelPlacement="outside-top"/>
                 <Input label="Artist name" labelPlacement="outside-top"/>
+                <Input label="Mapper name" labelPlacement="outside-top"/>
+                <Input label="Version" defaultValue="1.0.0" labelPlacement="outside-top" placeholder="1.0.0"/>
                 <Input type="number" min={1} defaultValue="120" label="Initial BPM" labelPlacement="outside-top"/>
                 <Input type="number" min={0} defaultValue="1500" label="Initial Power" labelPlacement="outside-top"/>
                 <Input type="number" min={0} defaultValue="0" label="Audio Offset (s)" labelPlacement="outside-top"/>
