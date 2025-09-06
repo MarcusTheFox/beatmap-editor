@@ -5,7 +5,7 @@ import { ReactNode, useRef } from "react";
 interface UploadButtonProps extends ButtonProps {
     children?: ReactNode;
     accept?: string | undefined;
-    onFileSelect?: (file: File | null) => void;
+    onFileSelect?: (file: File) => void;
 }
 
 export function UploadButton(props: UploadButtonProps) {
@@ -17,9 +17,9 @@ export function UploadButton(props: UploadButtonProps) {
     }
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files ? event.target.files[0] : null;
+        const file = event.target.files?.[0];
 
-        if (onFileSelect) {
+        if (onFileSelect && file) {
             onFileSelect(file);
         }
     }
