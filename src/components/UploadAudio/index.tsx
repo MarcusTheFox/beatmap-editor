@@ -1,12 +1,40 @@
-import { Button } from "@heroui/button";
+import { Button, ButtonProps } from "@heroui/button";
 import { Input } from "@heroui/input";
+import { ReactNode, useRef } from "react";
 
-export function UploadAudio() {
+interface UploadButtonProps extends ButtonProps {
+    children?: ReactNode;
+    accept?: string | undefined;
+    onFileSelect?: (file: File | null) => void;
+}
+
+export function UploadButton(props: UploadButtonProps) {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const { children, accept, onFileSelect, ...buttonProps } = props;
+
+    const handleButtonClick = () => {
+        fileInputRef.current?.click();
+    }
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files ? event.target.files[0] : null;
+
+        if (onFileSelect) {
+            onFileSelect(file);
+        }
+    }
+
     return (
-        <div className="flex flex-col gap-2 text-center">
-            <Input type="file" className="hidden"/>
-            <Button>Select .wav File</Button>
-            <p className="text-sm">Loaded: <span className="font-mono font-bold">file.wav</span></p>
+        <div className="flex flex-col">
+            <Input 
+                type="file" 
+                accept={accept ?? ""}
+                ref={fileInputRef} 
+                onChange={handleFileChange}
+                className="hidden"/>
+            <Button {...buttonProps} onPress={handleButtonClick}>
+                {children ?? "Upload File"}
+            </Button>
         </div>
     )
 }
