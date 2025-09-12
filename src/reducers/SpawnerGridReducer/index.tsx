@@ -18,7 +18,7 @@ export function spawnerReducer(state: NotesState, action: NoteAction): NotesStat
             return {
                 ...state,
                 notes: [...state.notes, newSpawner],
-                selectedNote: newSpawner.pos
+                selectedNote: newSpawner
             }
 
         case "REMOVE_NOTE":
@@ -28,13 +28,22 @@ export function spawnerReducer(state: NotesState, action: NoteAction): NotesStat
                     spawner.pos.beat !== action.payload.beat ||
                     spawner.pos.id !== action.payload.id),
                 selectedNote: 
-                    state.selectedNote === action.payload ? null : state.selectedNote
+                    state.selectedNote?.pos.beat === action.payload.beat &&
+                    state.selectedNote?.pos.id === action.payload.id
+                    ? null : state.selectedNote
             };
 
         case "SELECT_NOTE":
+            const selectedNote = action.payload 
+                ? state.notes.find(note => 
+                    note.pos.beat === action.payload?.beat && 
+                    note.pos.id === action.payload.id
+                ) || null
+                : null;
+
             return {
                 ...state,
-                selectedNote: action.payload
+                selectedNote
             };
 
         case "UPDATE_NOTE_PROPERTIES":

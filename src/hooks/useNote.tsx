@@ -21,7 +21,7 @@ export const useNote = () => {
         context.dispatch({type: "SELECT_NOTE", payload: {beat, id}});
     }, []);
 
-    const update = useCallback((beat: number, id: number, properties: NoteProperties) => {
+    const update = useCallback((beat: number, id: number, properties: Partial<NoteProperties>) => {
         context.dispatch({type: "UPDATE_NOTE_PROPERTIES", payload: {pos: {beat, id}, properties}});
     }, []);
 

@@ -25,9 +25,9 @@ export function Spawner({ id }: SpawnerProps) {
     return (
         <Button isIconOnly 
                 onPress={handleLeftClick} 
-                onContextMenu={handleRightClick} 
-                size="lg"
+                onContextMenu={handleRightClick}
                 radius="sm"
+                className="w-20 h-20"
                 color={isChecked ? "warning" : "default"}>
             {id}
         </Button>

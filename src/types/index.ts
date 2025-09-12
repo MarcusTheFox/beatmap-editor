@@ -20,7 +20,7 @@ export interface NoteProperties {
 
 export interface NotesState {
     notes: Note[];
-    selectedNote: NotePosition | null;
+    selectedNote: Note | null;
 }
 
 export type NoteAction = 
