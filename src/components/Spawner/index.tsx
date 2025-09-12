@@ -1,4 +1,4 @@
-import { useSpawner } from "@/hooks/useSpawner";
+import { useNote } from "@/hooks/useNote";
 import { Button } from "@heroui/button";
 
 interface SpawnerProps {
@@ -6,7 +6,7 @@ interface SpawnerProps {
 }
 
 export function Spawner({ id }: SpawnerProps) {
-    const { contains, add, select, remove } = useSpawner();
+    const { contains, add, select, remove } = useNote();
     const isChecked = contains(0, id);
 
     const handleLeftClick = () => {

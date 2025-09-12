@@ -16,6 +16,7 @@ export default function EditorPage() {
                 </div>
             <SpawnerProvider>
                 <SpawnerGridSection />
+                <NotePropertiesSection />
             </SpawnerProvider>
             </div>
             <TimelineSection />

@@ -2,7 +2,7 @@ import { SpawnerContext } from "@/contexts/SpawnerContext";
 import { NoteProperties } from "@/types";
 import { useCallback, useContext } from "react"
 
-export const useSpawner = () => {
+export const useNote = () => {
     const context = useContext(SpawnerContext);
     if (!context) {
       throw new Error('useSpawner must be used within SpawnerProvider');
