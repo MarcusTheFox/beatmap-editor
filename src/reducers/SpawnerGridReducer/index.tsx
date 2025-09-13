@@ -1,6 +1,6 @@
 import { NotesState, NoteAction, Note } from "@/types";
 
-export function spawnerReducer(state: NotesState, action: NoteAction): NotesState {
+export function noteReducer(state: NotesState, action: NoteAction): NotesState {
     switch (action.type) {
         case "ADD_NOTE":
             const exists = state.notes.some(spawner => 

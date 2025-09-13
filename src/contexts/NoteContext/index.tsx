@@ -1,20 +1,20 @@
-import { initialState, spawnerReducer } from "@/reducers/SpawnerGridReducer";
+import { initialState, noteReducer } from "@/reducers/SpawnerGridReducer";
 import { NoteAction, NotesState } from "@/types";
 import { createContext, ReactNode, useReducer } from "react";
 
-interface SpawnerContextType {
+interface NoteContextType {
     state: NotesState;
     dispatch: React.Dispatch<NoteAction>;
 }
 
-export const SpawnerContext = createContext<SpawnerContextType | undefined>(undefined);
+export const NoteContext = createContext<NoteContextType | undefined>(undefined);
 
-export const SpawnerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [state, dispatch] = useReducer(spawnerReducer, initialState);
+export const NoteProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [state, dispatch] = useReducer(noteReducer, initialState);
 
     return (
-        <SpawnerContext.Provider value={{ state, dispatch }}>
+        <NoteContext.Provider value={{ state, dispatch }}>
             {children}
-        </SpawnerContext.Provider>
+        </NoteContext.Provider>
     );
 };

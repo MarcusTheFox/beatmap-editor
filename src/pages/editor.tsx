@@ -4,7 +4,7 @@ import { TrackInfoSection } from "@/sections/TrackInfoSection";
 import { SpawnerGridSection } from "@/sections/SpawnerGridSection";
 import { NotePropertiesSection } from "@/sections/NotePropertiesSection";
 import { TimelineSection } from "@/sections/TimelineSection";
-import { SpawnerProvider } from "@/contexts/NoteContext";
+import { NoteProvider } from "@/contexts/NoteContext";
 
 export default function EditorPage() {
     return (
@@ -14,10 +14,10 @@ export default function EditorPage() {
                     <UploadAudioSection />
                     <TrackInfoSection />
                 </div>
-            <SpawnerProvider>
+            <NoteProvider>
                 <SpawnerGridSection />
                 <NotePropertiesSection />
-            </SpawnerProvider>
+            </NoteProvider>
             </div>
             <TimelineSection />
         </EditorLayout>

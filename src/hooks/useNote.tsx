@@ -1,11 +1,11 @@
-import { SpawnerContext } from "@/contexts/NoteContext";
+import { NoteContext } from "@/contexts/NoteContext";
 import { NoteProperties } from "@/types";
 import { useCallback, useContext } from "react"
 
 export const useNote = () => {
-    const context = useContext(SpawnerContext);
+    const context = useContext(NoteContext);
     if (!context) {
-      throw new Error('useSpawner must be used within SpawnerProvider');
+      throw new Error('useNote must be used within NoteProvider');
     }
 
     const selectedNote = context.state.selectedNote;
