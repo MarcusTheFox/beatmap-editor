@@ -1,4 +1,4 @@
-import { initialState, noteReducer } from "@/reducers/SpawnerGridReducer";
+import { initialState, noteReducer } from "@/reducers/NoteReducer";
 import { NoteAction, NotesState } from "@/types";
 import { createContext, ReactNode, useReducer } from "react";
 
