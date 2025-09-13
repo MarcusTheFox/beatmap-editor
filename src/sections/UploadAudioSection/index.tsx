@@ -4,10 +4,12 @@ import { Card, CardHeader, CardBody } from "@heroui/card";
 import { useState } from "react";
 
 export function UploadAudioSection() {
-    const [ loadedFile, setLoadedFile ] = useState<string | undefined>(undefined);
+    const [ audioFile, setAudioFile ] = useState<File | null>(null);
+    const [ audioUrl, setAudioUrl ] = useState<string>("");
 
     const handleAudioFileSelected = (file: File) => {
-        setLoadedFile(file.name);
+        setAudioFile(file);
+        setAudioUrl(URL.createObjectURL(file));
     }
 
     return (
@@ -26,7 +28,7 @@ export function UploadAudioSection() {
                     onFileSelect={handleAudioFileSelected}>
                     Start with new .wav
                 </UploadButton>
-                {loadedFile && <p className="text-sm text-center">Loaded: <span className="font-mono font-bold">{loadedFile}</span></p>}
+                {audioFile && <p className="text-sm text-center">Loaded: <span className="font-mono font-bold">{audioFile.name}</span></p>}
             </CardBody>
         </Card>
     )

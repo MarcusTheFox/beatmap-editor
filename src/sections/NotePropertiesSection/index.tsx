@@ -25,7 +25,6 @@ export function NotePropertiesSection() {
         }
     }, [selectedNote])
 
-
     const id = selectedNote?.pos.id;
     const beat = selectedNote?.pos.beat;
 

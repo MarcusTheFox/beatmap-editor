@@ -4,7 +4,7 @@ import { TrackInfoSection } from "@/sections/TrackInfoSection";
 import { SpawnerGridSection } from "@/sections/SpawnerGridSection";
 import { NotePropertiesSection } from "@/sections/NotePropertiesSection";
 import { TimelineSection } from "@/sections/TimelineSection";
-import { SpawnerProvider } from "@/contexts/SpawnerContext";
+import { SpawnerProvider } from "@/contexts/NoteContext";
 
 export default function EditorPage() {
     return (

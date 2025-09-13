@@ -1,4 +1,4 @@
-import { SpawnerContext } from "@/contexts/SpawnerContext";
+import { SpawnerContext } from "@/contexts/NoteContext";
 import { NoteProperties } from "@/types";
 import { useCallback, useContext } from "react"
 
