@@ -29,7 +29,7 @@ export function Spawner({ id }: SpawnerProps) {
                 onPress={handleLeftClick} 
                 onContextMenu={handleRightClick}
                 radius="sm"
-                className="w-20 h-20"
+                className="w-18 h-18"
                 color={isChecked ? "warning" : "default"}>
             {id}
         </Button>
