@@ -4,15 +4,13 @@ export function noteReducer(state: NotesState, action: NoteAction): NotesState {
     switch (action.type) {
         case "ADD_NOTE":
             const exists = state.notes.some(spawner => 
-                spawner.pos.beat === action.payload.beat &&
-                spawner.pos.id === action.payload.id);
+                spawner.pos.beat === action.payload.pos.beat &&
+                spawner.pos.id === action.payload.pos.id);
             if (exists) return state;
             
             const newSpawner: Note = {
-                pos: action.payload,
-                properties: {
-                    power: 1500
-                }
+                pos: action.payload.pos,
+                properties: action.payload.properties
             };
 
             return {

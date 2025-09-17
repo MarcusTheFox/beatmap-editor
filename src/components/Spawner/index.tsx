@@ -1,3 +1,4 @@
+import { useLevel } from "@/hooks/useLevel";
 import { useNote } from "@/hooks/useNote";
 import { Button } from "@heroui/button";
 
@@ -6,6 +7,7 @@ interface SpawnerProps {
 }
 
 export function Spawner({ id }: SpawnerProps) {
+    const { power } = useLevel();
     const { contains, add, select, remove } = useNote();
     const isChecked = contains(0, id);
 
@@ -13,7 +15,7 @@ export function Spawner({ id }: SpawnerProps) {
         if (isChecked) {
             remove(0, id);
         } else {
-            add(0, id);
+            add(0, id, { power });
         }
     }
 

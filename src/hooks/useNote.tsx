@@ -13,8 +13,8 @@ export const useNote = () => {
         return context.state.notes.some(spawner => spawner.pos.beat === beat && spawner.pos.id === id);
     }, [context.state.notes]);
 
-    const add = useCallback((beat: number, id: number) => {
-        context.dispatch({type: "ADD_NOTE", payload: {beat, id}});
+    const add = useCallback((beat: number, id: number, properties: NoteProperties) => {
+        context.dispatch({type: "ADD_NOTE", payload: {pos: {beat, id}, properties}});
     }, []);
 
     const select = useCallback((beat: number, id: number) => {

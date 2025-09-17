@@ -1,4 +1,5 @@
 import { useAudio } from "@/hooks/useAudio";
+import { useLevel } from "@/hooks/useLevel";
 import { Card, CardBody } from "@heroui/card";
 import { useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
@@ -6,6 +7,7 @@ import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js'
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js'
 
 export function TimelineSection() {
+    const { bpm, offset } = useLevel();
     const { audioUrl } = useAudio();
     const waveformRef = useRef<HTMLDivElement>(null);
     const wavesurferRef = useRef<WaveSurfer | null>(null);
@@ -23,8 +25,6 @@ export function TimelineSection() {
 
     useEffect(() => {
         if (!waveformRef.current) return;
-        const BPM = 88;
-        const offset = 11.2;
         const regions = RegionsPlugin.create();
         const minimap = Minimap.create({
             height: 20,
@@ -37,7 +37,6 @@ export function TimelineSection() {
             autoCenter: true,
             autoScroll: true,
             hideScrollbar: true,
-            autoplay: true,
             minPxPerSec: 100,
             sampleRate: 16000,
             barWidth: 3,
@@ -54,10 +53,10 @@ export function TimelineSection() {
         wavesurferRef.current.on('ready', () => {
             if (!wavesurferRef.current) return;
             const duration = wavesurferRef.current.getDuration() - offset;
-            const totalBeats = Math.round(duration / (60 / BPM / 4));
+            const totalBeats = Math.round(duration / (60 / bpm / 4));
             for (let index = 0; index < totalBeats; index++) {
                 regions.addRegion({
-                    start: 60 / BPM / 4 * index + offset,
+                    start: 60 / bpm / 4 * index + offset,
                     color: index % 4 === 0 ? colorScheme.regionColors[0] : colorScheme.regionColors[1],
                     resize: false,
                     drag: false,
@@ -74,7 +73,7 @@ export function TimelineSection() {
         return () => {
             wavesurferRef.current?.destroy();
         };
-    }, [audioUrl]);
+    }, [audioUrl, bpm, offset]);
 
     return (
         <Card className="">
