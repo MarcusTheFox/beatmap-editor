@@ -1,15 +1,13 @@
 import { CardTitle } from "@/components/CardTitle";
 import { UploadButton } from "@/components/UploadAudio";
+import { useAudio } from "@/hooks/useAudio";
 import { Card, CardHeader, CardBody } from "@heroui/card";
-import { useState } from "react";
 
 export function UploadAudioSection() {
-    const [ audioFile, setAudioFile ] = useState<File | null>(null);
-    const [ audioUrl, setAudioUrl ] = useState<string>("");
+    const { audioFile, setAudio } = useAudio();
 
     const handleAudioFileSelected = (file: File) => {
-        setAudioFile(file);
-        setAudioUrl(URL.createObjectURL(file));
+        setAudio(file);
     }
 
     return (
