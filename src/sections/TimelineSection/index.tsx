@@ -26,6 +26,7 @@ export function TimelineSection() {
     const waveformRef = useRef<HTMLDivElement>(null);
     const wavesurferRef = useRef<WaveSurfer | null>(null);
     const regionsRef = useRef<RegionsPlugin | null>(null);
+    const cardRef = useRef<HTMLDivElement>(null);
 
     const colorScheme = {
         waveColor: ["rgb(150, 150, 150)", "rgb(100, 100, 100)"],
@@ -114,6 +115,17 @@ export function TimelineSection() {
         const time = Math.min(convertBeatsToTime(Math.floor(currentBeat) + 1), soundDuration);
         wavesurferRef.current.setTime(time);
     };
+    
+    const handleWheel = useCallback((event: WheelEvent) => {
+        if (!wavesurferRef.current || !isLoaded) return;
+        
+        event.preventDefault();
+        
+        const delta = Math.sign(event.deltaY);
+        if (delta < 0) previousBeatButtonHandler();
+        else nextBeatButtonHandler();
+
+    }, [ isLoaded ]);
 
     useEffect(() => {
         if (!waveformRef.current) return;
@@ -153,8 +165,23 @@ export function TimelineSection() {
         };
     }, [audioUrl, bpm, offset]);
 
+    useEffect(() => {
+        const cardElement = cardRef.current;
+        if (!cardElement) return;
+
+        const handleCardWheel = (event: WheelEvent) => {
+            handleWheel(event);
+        };
+
+        cardElement.addEventListener('wheel', handleCardWheel, { passive: false });
+
+        return () => {
+            cardElement.removeEventListener('wheel', handleCardWheel);
+        };
+    }, [handleWheel]);
+
     return (
-        <Card className="">
+        <Card className="" ref={cardRef}>
             <CardHeader className="flex pb-0">
                 <div className="flex gap-2 w-full">
                     <Input disabled startContent={"Time:"} className="max-w-48 align-baseline" value={formatTime(currentTime)}/>
