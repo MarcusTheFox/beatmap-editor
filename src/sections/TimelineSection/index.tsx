@@ -7,9 +7,17 @@ import { Icon24Pause, Icon24Play, Icon24SkipBack, Icon24SkipForward, Icon24SkipN
 import WaveSurfer, { WaveSurferOptions } from "wavesurfer.js";
 import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js';
+import { Input } from "@heroui/input";
 
 export function TimelineSection() {
-    const { bpm, offset } = useLevel();
+    const {
+        bpm,
+        offset,
+        currentTime,
+        currentBeat,
+        setTime,
+        convertBeatsToTime,
+    } = useLevel();
     const { audioUrl } = useAudio();
 
     const [ isLoaded, setIsLoaded ] = useState<boolean>(false);
@@ -42,15 +50,23 @@ export function TimelineSection() {
         cursorColor: colorScheme.cursorColor,
         cursorWidth: 3
     };
+    
+    const formatTime = useCallback((seconds: number): string => {
+        const mins = Math.max(Math.floor(seconds / 60), 0);
+        const secs = Math.max(Math.floor(seconds % 60), 0);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }, []);
 
     const drawBpmMarkers = useCallback(() => {
+        if (!wavesurferRef.current) return;
+
         if (!regionsRef.current) {
             regionsRef.current = RegionsPlugin.create();
         }
 
-        if (!wavesurferRef.current) return;
         const duration = wavesurferRef.current.getDuration() - offset;
         const totalBeats = Math.round(duration / (60 / bpm / 4));
+        
         for (let index = 0; index < totalBeats; index++) {
             regionsRef.current.addRegion({
                 start: 60 / bpm / 4 * index + offset,
@@ -78,6 +94,27 @@ export function TimelineSection() {
         setIsPlaying(v => !v);
     }, [ isPlaying, setIsPlaying, isLoaded ]);
 
+    const previousBeatButtonHandler = () => {
+        if (!wavesurferRef.current || !isLoaded || currentTime === 0) return;
+        if (currentBeat === 0) {
+            wavesurferRef.current.setTime(0);
+            return;
+        }
+
+        const time = convertBeatsToTime(Math.ceil(currentBeat) - 1);
+        wavesurferRef.current.setTime(time);
+    };
+
+    const nextBeatButtonHandler = () => {
+        if (!wavesurferRef.current || !isLoaded) return;
+        const soundDuration = wavesurferRef.current.getDuration();
+        
+        if (currentTime === soundDuration) return;
+
+        const time = Math.min(convertBeatsToTime(Math.floor(currentBeat) + 1), soundDuration);
+        wavesurferRef.current.setTime(time);
+    };
+
     useEffect(() => {
         if (!waveformRef.current) return;
 
@@ -103,26 +140,36 @@ export function TimelineSection() {
         wavesurferRef.current.on("pause", () => setIsPlaying(false));
         wavesurferRef.current.on("finish", () => setIsPlaying(false));
 
+        wavesurferRef.current.on("timeupdate", (time: number) => {
+            setTime(time);
+        });
+
         wavesurferRef.current.load(audioUrl);
 
         return () => {
             wavesurferRef.current?.destroy();
             setIsLoaded(false);
+            setTime(0);
         };
     }, [audioUrl, bpm, offset]);
 
     return (
         <Card className="">
-            <CardHeader className="flex justify-around pb-0">
-                <div className="flex gap-2">
+            <CardHeader className="flex pb-0">
+                <div className="flex gap-2 w-full">
+                    <Input disabled startContent={"Time:"} className="max-w-48 align-baseline" value={formatTime(currentTime)}/>
+                    <Input disabled startContent={"Beat:"} className="max-w-48" value={currentBeat.toFixed(3).toString()}/>
+                </div>
+                <div className="flex gap-2 justify-center w-full">
                     <Button isIconOnly disabled={ !isLoaded }><Icon24SkipPrevious /></Button>
-                    <Button isIconOnly disabled={ !isLoaded }><Icon24SkipBack /></Button>
+                    <Button isIconOnly disabled={ !isLoaded } onPress={ previousBeatButtonHandler }><Icon24SkipBack /></Button>
                     <Button isIconOnly disabled={ !isLoaded } onPress={ playPauseButtonHandler } color={ isPlaying ? "primary" : "default" }>
                         { isPlaying ? <Icon24Pause /> : <Icon24Play /> }
                     </Button>
-                    <Button isIconOnly disabled={ !isLoaded }><Icon24SkipForward /></Button>
+                    <Button isIconOnly disabled={ !isLoaded } onPress={ nextBeatButtonHandler }><Icon24SkipForward /></Button>
                     <Button isIconOnly disabled={ !isLoaded }><Icon24SkipNext /></Button>
                 </div>
+                <div className="w-full"></div>
             </CardHeader>
             <CardBody>
                 <div ref={waveformRef} />
