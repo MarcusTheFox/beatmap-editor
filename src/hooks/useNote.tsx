@@ -9,6 +9,7 @@ export const useNote = () => {
     }
 
     const selectedNote = context.state.selectedNote;
+
     const contains = useCallback((beat: number, id: number) => {
         return context.state.notes.some(spawner => spawner.pos.beat === beat && spawner.pos.id === id);
     }, [context.state.notes]);
@@ -29,12 +30,17 @@ export const useNote = () => {
         context.dispatch({type: "REMOVE_NOTE", payload: {beat, id}});
     }, []);
 
+    const isSelected = (beat: number, id: number): boolean => {
+        return !!selectedNote && selectedNote.pos.beat == beat && selectedNote.pos.id == id;
+    }
+
     return {
         selectedNote,
         contains,
         add,
         select,
         update,
-        remove
+        remove,
+        isSelected
     };
 }

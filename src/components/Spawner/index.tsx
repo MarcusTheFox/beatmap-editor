@@ -8,7 +8,7 @@ interface SpawnerProps {
 
 export function Spawner({ id }: SpawnerProps) {
     const { power, currentBeat, isPlaying } = useLevel();
-    const { contains, add, select, remove } = useNote();
+    const { isSelected, contains, add, select, remove } = useNote();
     const isChecked = contains(currentBeat, id);
     const isHighlighted = isPlaying && contains(Math.floor(currentBeat), id);
 
@@ -31,6 +31,7 @@ export function Spawner({ id }: SpawnerProps) {
                 onContextMenu={handleRightClick}
                 radius="sm"
                 className="w-18 h-18"
+                variant={isSelected(currentBeat, id) || isHighlighted ? "solid" : "ghost"}
                 color={isChecked || isHighlighted ? "warning" : "default"}>
             {id}
         </Button>
