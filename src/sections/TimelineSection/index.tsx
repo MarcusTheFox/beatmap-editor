@@ -153,7 +153,6 @@ export function TimelineSection() {
     }
 
     const handleBeatDisplayClick = () => {
-        console.log("hello")
         setIsBeatEditing(true);
         setBeatInput(currentBeat.toFixed(3))
     }
