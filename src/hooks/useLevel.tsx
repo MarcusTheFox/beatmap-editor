@@ -20,6 +20,14 @@ export const useLevel = () => {
         const timeInSong = beat / beatsPerSecond;
         return timeInSong + context.offset;
     }, [ context ]);
+
+    const setPlay = useCallback(() => {
+        context.setIsPlaying(true);
+    }, []);
+
+    const setPause = useCallback(() => {
+        context.setIsPlaying(false);
+    }, []);
     
     const setTime = (time: number) => {
         context.setCurrentTime(time);
@@ -32,10 +40,13 @@ export const useLevel = () => {
         offset: context.offset,
         currentTime: context.currentTime,
         currentBeat: context.currentBeat,
+        isPlaying: context.isPlaying,
 
         setBpm: context.setBpm,
         setPower: context.setPower,
         setOffset: context.setOffset,
+        setPlay,
+        setPause,
         setTime,
         convertTimeToBeats,
         convertBeatsToTime,

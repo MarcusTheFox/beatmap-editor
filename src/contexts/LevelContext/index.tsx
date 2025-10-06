@@ -11,6 +11,8 @@ interface LevelContextType {
     setCurrentTime: (time: number) => void;
     currentBeat: number;
     setCurrentBeat: (beat: number) => void;
+    isPlaying: boolean;
+    setIsPlaying: (value: boolean) => void;
 }
 
 export const LevelContext = createContext<LevelContextType | undefined>(undefined);
@@ -21,6 +23,7 @@ export const LevelProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const [ offset, setOffset ] = useState<number>(0);
     const [ currentTime, setCurrentTime ] = useState<number>(0);
     const [ currentBeat, setCurrentBeat ] = useState<number>(0);
+    const [ isPlaying, setIsPlaying ] = useState<boolean>(false);
 
     const value = {
         bpm, setBpm,
@@ -28,6 +31,7 @@ export const LevelProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         offset, setOffset,
         currentTime, setCurrentTime,
         currentBeat, setCurrentBeat,
+        isPlaying, setIsPlaying,
     };
 
     return (

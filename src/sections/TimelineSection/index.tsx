@@ -15,13 +15,15 @@ export function TimelineSection() {
         offset,
         currentTime,
         currentBeat,
+        isPlaying,
+        setPlay,
+        setPause,
         setTime,
         convertBeatsToTime,
     } = useLevel();
     const { audioUrl } = useAudio();
 
     const [ isLoaded, setIsLoaded ] = useState<boolean>(false);
-    const [ isPlaying, setIsPlaying ] = useState<boolean>(false);
 
     const waveformRef = useRef<HTMLDivElement>(null);
     const wavesurferRef = useRef<WaveSurfer | null>(null);
@@ -101,8 +103,7 @@ export function TimelineSection() {
         if (!wavesurferRef.current || !isLoaded) return;
         if (isPlaying) wavesurferRef.current.pause();
         else wavesurferRef.current.play();
-        setIsPlaying(v => !v);
-    }, [ isPlaying, setIsPlaying, isLoaded ]);
+    }, [ isPlaying, isLoaded ]);
 
     const previousBeatButtonHandler = () => {
         if (!wavesurferRef.current || !isLoaded || currentTime === 0) return;
@@ -160,9 +161,9 @@ export function TimelineSection() {
             drawBpmMarkers();
             setIsLoaded(true);
         });
-        wavesurferRef.current.on("play", () => setIsPlaying(true));
-        wavesurferRef.current.on("pause", () => setIsPlaying(false));
-        wavesurferRef.current.on("finish", () => setIsPlaying(false));
+        wavesurferRef.current.on("play", () => setPlay());
+        wavesurferRef.current.on("pause", () => setPause());
+        wavesurferRef.current.on("finish", () => setPause());
         wavesurferRef.current.on("timeupdate", (time: number) => setTime(time));
 
         wavesurferRef.current.load(audioUrl);
