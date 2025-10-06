@@ -7,21 +7,21 @@ interface SpawnerProps {
 }
 
 export function Spawner({ id }: SpawnerProps) {
-    const { power } = useLevel();
+    const { power, currentBeat } = useLevel();
     const { contains, add, select, remove } = useNote();
-    const isChecked = contains(0, id);
+    const isChecked = contains(currentBeat, id);
 
     const handleLeftClick = () => {
         if (isChecked) {
-            remove(0, id);
+            remove(currentBeat, id);
         } else {
-            add(0, id, { power });
+            add(currentBeat, id, { power });
         }
     }
 
     const handleRightClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        select(0, id);
+        select(currentBeat, id);
     }
 
     return (
