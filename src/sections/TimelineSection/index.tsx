@@ -85,13 +85,8 @@ export function TimelineSection() {
     
     const playPauseButtonHandler = useCallback(() => {
         if (!wavesurferRef.current || !isLoaded) return;
-
-        if (isPlaying) {
-            wavesurferRef.current.pause();
-        } else {
-            wavesurferRef.current.play();
-        }
-
+        if (isPlaying) wavesurferRef.current.pause();
+        else wavesurferRef.current.play();
         setIsPlaying(v => !v);
     }, [ isPlaying, setIsPlaying, isLoaded ]);
 
@@ -108,24 +103,28 @@ export function TimelineSection() {
 
     const nextBeatButtonHandler = () => {
         if (!wavesurferRef.current || !isLoaded) return;
-        const soundDuration = wavesurferRef.current.getDuration();
         
+        const soundDuration = wavesurferRef.current.getDuration();        
         if (currentTime === soundDuration) return;
+
+        if (currentTime < offset) {
+            wavesurferRef.current.setTime(offset);
+            return;
+        }
 
         const time = Math.min(convertBeatsToTime(Math.floor(currentBeat) + 1), soundDuration);
         wavesurferRef.current.setTime(time);
     };
     
-    const handleWheel = useCallback((event: WheelEvent) => {
+    const handleWheel = (event: WheelEvent) => {
         if (!wavesurferRef.current || !isLoaded) return;
         
         event.preventDefault();
         
         const delta = Math.sign(event.deltaY);
-        if (delta < 0) previousBeatButtonHandler();
+        if (delta > 0) previousBeatButtonHandler();
         else nextBeatButtonHandler();
-
-    }, [ isLoaded ]);
+    };
 
     useEffect(() => {
         if (!waveformRef.current) return;
@@ -147,14 +146,10 @@ export function TimelineSection() {
             drawBpmMarkers();
             setIsLoaded(true);
         });
-
         wavesurferRef.current.on("play", () => setIsPlaying(true));
         wavesurferRef.current.on("pause", () => setIsPlaying(false));
         wavesurferRef.current.on("finish", () => setIsPlaying(false));
-
-        wavesurferRef.current.on("timeupdate", (time: number) => {
-            setTime(time);
-        });
+        wavesurferRef.current.on("timeupdate", (time: number) => setTime(time));
 
         wavesurferRef.current.load(audioUrl);
 
@@ -181,26 +176,28 @@ export function TimelineSection() {
     }, [handleWheel]);
 
     return (
-        <Card className="" ref={cardRef}>
-            <CardHeader className="flex pb-0">
-                <div className="flex gap-2 w-full">
-                    <Input disabled startContent={"Time:"} className="max-w-48 align-baseline" value={formatTime(currentTime)}/>
-                    <Input disabled startContent={"Beat:"} className="max-w-48" value={currentBeat.toFixed(3).toString()}/>
-                </div>
-                <div className="flex gap-2 justify-center w-full">
-                    <Button isIconOnly disabled={ !isLoaded }><Icon24SkipPrevious /></Button>
-                    <Button isIconOnly disabled={ !isLoaded } onPress={ previousBeatButtonHandler }><Icon24SkipBack /></Button>
-                    <Button isIconOnly disabled={ !isLoaded } onPress={ playPauseButtonHandler } color={ isPlaying ? "primary" : "default" }>
-                        { isPlaying ? <Icon24Pause /> : <Icon24Play /> }
-                    </Button>
-                    <Button isIconOnly disabled={ !isLoaded } onPress={ nextBeatButtonHandler }><Icon24SkipForward /></Button>
-                    <Button isIconOnly disabled={ !isLoaded }><Icon24SkipNext /></Button>
-                </div>
-                <div className="w-full"></div>
-            </CardHeader>
-            <CardBody>
-                <div ref={waveformRef} />
-            </CardBody>
-        </Card>
+        <div>
+            <Card className="" ref={cardRef}>
+                <CardHeader className="flex pb-0">
+                    <div className="flex gap-2 w-full">
+                        <Input disabled startContent={"Time:"} className="max-w-48 align-baseline" value={formatTime(currentTime)}/>
+                        <Input disabled startContent={"Beat:"} className="max-w-48" value={currentBeat.toFixed(3).toString()}/>
+                    </div>
+                    <div className="flex gap-2 justify-center w-full">
+                        <Button isIconOnly disabled={ !isLoaded }><Icon24SkipPrevious /></Button>
+                        <Button isIconOnly disabled={ !isLoaded } onPress={ previousBeatButtonHandler }><Icon24SkipBack /></Button>
+                        <Button isIconOnly disabled={ !isLoaded } onPress={ playPauseButtonHandler } color={ isPlaying ? "primary" : "default" }>
+                            { isPlaying ? <Icon24Pause /> : <Icon24Play /> }
+                        </Button>
+                        <Button isIconOnly disabled={ !isLoaded } onPress={ nextBeatButtonHandler }><Icon24SkipForward /></Button>
+                        <Button isIconOnly disabled={ !isLoaded }><Icon24SkipNext /></Button>
+                    </div>
+                    <div className="w-full"></div>
+                </CardHeader>
+                <CardBody>
+                    <div ref={waveformRef} />
+                </CardBody>
+            </Card>
+        </div>
     )
-}
+}6
