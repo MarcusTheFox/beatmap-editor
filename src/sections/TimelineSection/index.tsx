@@ -8,6 +8,7 @@ import WaveSurfer, { WaveSurferOptions } from "wavesurfer.js";
 import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js';
 import { Input } from "@heroui/input";
+import { Label } from "@/components/Label";
 
 export function TimelineSection() {
     const {
@@ -24,11 +25,14 @@ export function TimelineSection() {
     const { audioUrl } = useAudio();
 
     const [ isLoaded, setIsLoaded ] = useState<boolean>(false);
+    const [ isBeatEditing, setIsBeatEditing ] = useState<boolean>(false);
+    const [ beatInput, setBeatInput ] = useState<string>('');
 
     const waveformRef = useRef<HTMLDivElement>(null);
     const wavesurferRef = useRef<WaveSurfer | null>(null);
     const regionsRef = useRef<RegionsPlugin | null>(null);
     const cardRef = useRef<HTMLDivElement>(null);
+    const beatInputRef = useRef<HTMLInputElement>(null);
 
     const colorScheme = {
         waveColor: ["rgb(150, 150, 150)", "rgb(100, 100, 100)"],
@@ -141,6 +145,24 @@ export function TimelineSection() {
         else nextBeatButtonHandler();
     };
 
+    const handleBeatInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        wavesurferRef.current?.setTime(convertBeatsToTime(Number(beatInput)));
+        setIsBeatEditing(false);
+        setBeatInput('');
+    }
+
+    const handleBeatDisplayClick = () => {
+        console.log("hello")
+        setIsBeatEditing(true);
+        setBeatInput(currentBeat.toFixed(3))
+    }
+
+    const handleBeatInputBlur = () => {
+        setIsBeatEditing(false);
+        setBeatInput('');
+    }
+
     useEffect(() => {
         if (!waveformRef.current) return;
 
@@ -190,13 +212,38 @@ export function TimelineSection() {
         };
     }, [handleWheel]);
 
+    useEffect(() => {
+        if (isBeatEditing) {
+            beatInputRef.current?.focus();
+            beatInputRef.current?.select();
+        }
+    }, [isBeatEditing]);
+
     return (
         <div>
             <Card className="" ref={cardRef}>
                 <CardHeader className="flex pb-0">
                     <div className="flex gap-2 w-full">
-                        <Input disabled startContent={"Time:"} className="max-w-48 align-baseline" value={formatTime(currentTime)}/>
-                        <Input disabled startContent={"Beat:"} className="max-w-48" value={currentBeat.toFixed(3).toString()}/>
+                        <Label className="w-48">Time: {formatTime(currentTime)}</Label>
+                        { !isBeatEditing
+                            ? <Label className="w-48" onClick={handleBeatDisplayClick}>Beat: {currentBeat.toFixed(3)}</Label>
+                            : (
+                                <form onSubmit={handleBeatInputSubmit}>
+                                    <Input
+                                        ref={beatInputRef}
+                                        type="number"
+                                        min={0}
+                                        step={0.001}
+                                        variant="faded"
+                                        startContent={"Beat:"}
+                                        className="max-w-48"
+                                        value={beatInput}
+                                        onValueChange={(v) => setBeatInput(v)}
+                                        onBlur={handleBeatInputBlur}
+                                        />
+                                </form>
+                            )
+                        }
                     </div>
                     <div className="flex gap-2 justify-center w-full">
                         <Button isIconOnly disabled={ !isLoaded }><Icon24SkipPrevious /></Button>
