@@ -4,28 +4,22 @@ import { TrackInfoSection } from "@/sections/TrackInfoSection";
 import { SpawnerGridSection } from "@/sections/SpawnerGridSection";
 import { NotePropertiesSection } from "@/sections/NotePropertiesSection";
 import { TimelineSection } from "@/sections/TimelineSection";
-import { NoteProvider } from "@/contexts/NoteContext";
-import { AudioProvider } from "@/contexts/AudioContext";
-import { LevelProvider } from "@/contexts/LevelContext";
+import { AppProvider } from "@/contexts/AppContext";
 
 export default function EditorPage() {
     return (
         <EditorLayout>
-            <LevelProvider>
-                <AudioProvider>
-                    <div className="grid grid-cols-[1fr_2fr_1fr] justify-stretch">
-                        <div className="flex flex-col gap-4">
-                            <UploadAudioSection />
-                            <TrackInfoSection />
-                        </div>
-                    <NoteProvider>
-                        <SpawnerGridSection />
-                        <NotePropertiesSection />
-                    </NoteProvider>
+            <AppProvider>
+                <div className="grid grid-cols-[1fr_2fr_1fr] justify-stretch">
+                    <div className="flex flex-col gap-4">
+                        <UploadAudioSection />
+                        <TrackInfoSection />
                     </div>
-                    <TimelineSection />
-                </AudioProvider>
-            </LevelProvider>
+                    <SpawnerGridSection />
+                    <NotePropertiesSection />
+                </div>
+                <TimelineSection />
+            </AppProvider>
         </EditorLayout>
     );
 }
