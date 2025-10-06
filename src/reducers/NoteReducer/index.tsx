@@ -15,7 +15,7 @@ export function noteReducer(state: NotesState, action: NoteAction): NotesState {
 
             return {
                 ...state,
-                notes: [...state.notes, newSpawner],
+                notes: [...state.notes, newSpawner].sort((a, b) => a.pos.beat - b.pos.beat),
                 selectedNote: newSpawner
             }
 
