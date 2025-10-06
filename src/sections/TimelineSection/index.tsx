@@ -66,12 +66,26 @@ export function TimelineSection() {
         }
 
         const duration = wavesurferRef.current.getDuration() - offset;
-        const totalBeats = Math.round(duration / (60 / bpm / 4));
+        // const totalBeats = Math.round(duration / (60 / bpm / 4));
         
-        for (let index = 0; index < totalBeats; index++) {
+        // for (let index = 0; index <= totalBeats; index++) {
+        //     regionsRef.current.addRegion({
+        //         start: 60 / bpm / 4 * index + offset,
+        //         color: index % 4 === 0 ? colorScheme.regionColors[0] : colorScheme.regionColors[1],
+        //         resize: false,
+        //         drag: false,
+        //         minLength: 1,
+        //         id: index.toString(),
+        //         contentEditable: false,
+        //         channelIdx: 3,
+        //     });
+        // }
+        const totalBeats = Math.round(duration / (60 / bpm));
+        
+        for (let index = 0; index <= totalBeats; index++) {
             regionsRef.current.addRegion({
-                start: 60 / bpm / 4 * index + offset,
-                color: index % 4 === 0 ? colorScheme.regionColors[0] : colorScheme.regionColors[1],
+                start: 60 / bpm * index + offset,
+                color: colorScheme.regionColors[0],
                 resize: false,
                 drag: false,
                 minLength: 1,
