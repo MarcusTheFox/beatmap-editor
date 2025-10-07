@@ -2,7 +2,9 @@ import { CardTitle } from "@/components/CardTitle";
 import { UploadButton } from "@/components/UploadAudio";
 import { useAudio } from "@/hooks/useAudio";
 import { useLevel } from "@/hooks/useLevel";
+import { useNote } from "@/hooks/useNote";
 import { useZip } from "@/hooks/useZip";
+import { BeatmapJson, BeatmapNote, Note } from "@/types";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { useEffect } from "react";
 
@@ -10,6 +12,7 @@ export function UploadAudioSection() {
     const audio = useAudio();
     const level = useLevel();
     const zip = useZip();
+    const notes = useNote();
 
     useEffect(() => {
         if (!zip.info || !zip.audioFile || !zip.beatmap) return;
@@ -18,6 +21,7 @@ export function UploadAudioSection() {
         level.setBpm(zip.beatmap.settings.bpm || zip.info.bpm || 120);
         level.setOffset(zip.beatmap.settings.offset || 0);
         level.setPower(zip.beatmap.settings.power || 1500);
+        notes.set(makeNotes(zip.beatmap));
 
     }, [zip.info, zip.audioFile, zip.beatmap]);
 
@@ -27,6 +31,23 @@ export function UploadAudioSection() {
 
     const handleAudioFileSelected = (file: File) => {
         audio.setAudio(file);
+    }
+
+    const makeNotes = (beatmap: BeatmapJson): Note[] => {
+        const noteArray: Note[] = [];
+        beatmap.notes.map((note: BeatmapNote) => {
+            const newNote: Note = {
+                pos: {
+                    beat: note.beat,
+                    id: note.id
+                },
+                properties: {
+                    power: note.power || beatmap.settings.power || 1500
+                }
+            }
+            noteArray.push(newNote);
+        });
+        return noteArray;
     }
 
     return (

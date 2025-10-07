@@ -60,6 +60,16 @@ export function noteReducer(state: NotesState, action: NoteAction): NotesState {
                     : spawner
                 )
             }
+        case "CLEAR_NOTES":
+            return {
+                notes: [],
+                selectedNote: null,
+            }
+        case "SET_NOTES":
+            return {
+                notes: action.payload,
+                selectedNote: null
+            }
         default:
             return state;
     }

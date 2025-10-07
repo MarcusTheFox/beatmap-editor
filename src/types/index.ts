@@ -29,6 +29,8 @@ export type NoteAction =
     | { type: 'SELECT_NOTE'; payload: NotePosition | null }
     | { type: 'UPDATE_NOTE_PROPERTIES'; payload: { pos: NotePosition; properties: Partial<NoteProperties> } }
     | { type: 'REMOVE_NOTE'; payload: NotePosition }
+    | { type: 'CLEAR_NOTES' }
+    | { type: 'SET_NOTES'; payload: Note[] }
 
 export interface InfoJson {
     trackID: string;

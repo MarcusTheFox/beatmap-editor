@@ -1,5 +1,5 @@
 import { NoteContext } from "@/contexts/NoteContext";
-import { NoteProperties } from "@/types";
+import { Note, NoteProperties } from "@/types";
 import { useCallback, useContext } from "react"
 
 type ExactMatchArgs = [beat: number, id: number];
@@ -51,6 +51,14 @@ export const useNote = () => {
         context.dispatch({type: "REMOVE_NOTE", payload: {beat, id}});
     }, []);
 
+    const clear = useCallback(() => {
+        context.dispatch({type: "CLEAR_NOTES"})
+    }, []);
+
+    const set = useCallback((notes: Note[]) => {
+        context.dispatch({type: "SET_NOTES", payload: notes})
+    }, []);
+
     const isSelected = (beat: number, id: number): boolean => {
         return !!selectedNote && selectedNote.pos.beat == beat && selectedNote.pos.id == id;
     }
@@ -62,6 +70,8 @@ export const useNote = () => {
         select,
         update,
         remove,
+        clear,
+        set,
         isSelected
     };
 }
