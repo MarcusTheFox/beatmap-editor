@@ -2,6 +2,15 @@ import { NoteContext } from "@/contexts/NoteContext";
 import { NoteProperties } from "@/types";
 import { useCallback, useContext } from "react"
 
+type ExactMatchArgs = [beat: number, id: number];
+type RangeMatchArgs = [beatMin: number, beatMax: number, id: number];
+type ContainsArgs = ExactMatchArgs | RangeMatchArgs;
+
+interface ContainsFunction {
+    (...args: ExactMatchArgs): boolean;
+    (...args: RangeMatchArgs): boolean;
+}
+
 export const useNote = () => {
     const context = useContext(NoteContext);
     if (!context) {
@@ -10,9 +19,21 @@ export const useNote = () => {
 
     const selectedNote = context.state.selectedNote;
 
-    const contains = useCallback((beat: number, id: number) => {
-        return context.state.notes.some(spawner => spawner.pos.beat === beat && spawner.pos.id === id);
-    }, [context.state.notes]);
+    const contains = useCallback<ContainsFunction>((...args: ContainsArgs): boolean => {
+        if (args.length === 2) {
+            const [beat, id] = args as ExactMatchArgs;
+            return context.state.notes.some(spawner => 
+                spawner.pos.beat === beat && spawner.pos.id === id
+            );
+        } else {
+            const [beatMin, beatMax, id] = args as RangeMatchArgs;
+            return context.state.notes.some(spawner => 
+                spawner.pos.beat >= beatMin && 
+                spawner.pos.beat <= beatMax && 
+                spawner.pos.id === id
+            );
+        }
+    }, [context.state.notes]) as ContainsFunction;
 
     const add = useCallback((beat: number, id: number, properties: NoteProperties) => {
         context.dispatch({type: "ADD_NOTE", payload: {pos: {beat, id}, properties}});

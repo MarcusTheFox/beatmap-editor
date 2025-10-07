@@ -10,7 +10,7 @@ export function Spawner({ id }: SpawnerProps) {
     const { power, currentBeat, isPlaying } = useLevel();
     const { isSelected, contains, add, select, remove } = useNote();
     const isChecked = contains(currentBeat, id);
-    const isHighlighted = isPlaying && contains(Math.floor(currentBeat), id);
+    const isHighlighted = isPlaying && contains(Math.floor(currentBeat), currentBeat, id);
 
     const handleLeftClick = () => {
         if (isChecked) {
