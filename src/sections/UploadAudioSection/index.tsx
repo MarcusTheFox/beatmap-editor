@@ -6,27 +6,33 @@ import { useNote } from "@/hooks/useNote";
 import { useZip } from "@/hooks/useZip";
 import { BeatmapJson, BeatmapNote, Note } from "@/types";
 import { Card, CardHeader, CardBody } from "@heroui/card";
-import { useEffect } from "react";
+import { useState } from "react";
 
 export function UploadAudioSection() {
     const audio = useAudio();
     const level = useLevel();
-    const zip = useZip();
     const notes = useNote();
-
-    useEffect(() => {
-        if (!zip.info || !zip.audioFile || !zip.beatmap) return;
-
-        audio.setAudio(zip.audioFile);
-        level.setBpm(zip.beatmap.settings.bpm || zip.info.bpm || 120);
-        level.setOffset(zip.beatmap.settings.offset || 0);
-        level.setPower(zip.beatmap.settings.power || 1500);
-        notes.set(makeNotes(zip.beatmap));
-
-    }, [zip.info, zip.audioFile, zip.beatmap]);
+    const { importZip } = useZip();
+    
+    const [ loading, setLoading ] = useState(false);
+    const [ error, setError ] = useState('');
 
     const handleZipFileSelected = async (file: File) => {
-        await zip.importZip(file);
+        setLoading(true);
+        setError('');
+        try {
+            const unzippedData = await importZip(file);
+            audio.setAudio(unzippedData.audioFile);
+            level.setBpm(unzippedData.beatmap.settings.bpm || unzippedData.info.bpm || 120);
+            level.setOffset(unzippedData.beatmap.settings.offset || 0);
+            level.setPower(unzippedData.beatmap.settings.power || 1500);
+            notes.set(makeNotes(unzippedData.beatmap));
+        } catch (e: any) {
+            console.error(e);
+            setError(e.message || "Ошибка при чтении архива");
+        } finally {
+            setLoading(false);
+        }
     }
 
     const handleAudioFileSelected = (file: File) => {
