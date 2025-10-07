@@ -197,17 +197,17 @@ export function TimelineSection() {
     }, [audioUrl, bpm, offset]);
 
     useEffect(() => {
-        const cardElement = cardRef.current;
-        if (!cardElement) return;
+        const wheelContainer = document.getElementById("main-container");
+        if (!wheelContainer) return;
 
         const handleCardWheel = (event: WheelEvent) => {
             handleWheel(event);
         };
 
-        cardElement.addEventListener('wheel', handleCardWheel, { passive: false });
+        wheelContainer.addEventListener('wheel', handleCardWheel, { passive: false });
 
         return () => {
-            cardElement.removeEventListener('wheel', handleCardWheel);
+            wheelContainer.removeEventListener('wheel', handleCardWheel);
         };
     }, [handleWheel]);
 
