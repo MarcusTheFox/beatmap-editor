@@ -38,7 +38,7 @@ export function TrackInfoSection() {
                 <Input label="Artist name" labelPlacement="outside-top"/>
                 <Input label="Mapper name" labelPlacement="outside-top"/>
                 <Input label="Version" defaultValue="1.0.0" labelPlacement="outside-top" placeholder="1.0.0"/>
-                <Input type="number" min={1.0} defaultValue="120" onValueChange={handleBpmChange} label="Initial BPM" labelPlacement="outside-top"/>
+                <Input type="number" min={1} step={0.001} defaultValue="120" onValueChange={handleBpmChange} label="Initial BPM" labelPlacement="outside-top"/>
                 <Input type="number" min={0} defaultValue="1500" onValueChange={handlePowerChange} label="Initial Power" labelPlacement="outside-top"/>
                 <Input type="number" min={0} step={0.001} defaultValue="0" onValueChange={handleOffsetChange} label="Audio Offset (s)" labelPlacement="outside-top"/>
             </CardBody>
