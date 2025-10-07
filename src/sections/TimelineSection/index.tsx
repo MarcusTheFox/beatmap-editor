@@ -134,6 +134,26 @@ export function TimelineSection() {
         const time = Math.min(convertBeatsToTime(Math.floor(currentBeat) + 1), soundDuration);
         wavesurferRef.current.setTime(time);
     };
+
+    const startBeatButtonHandler = () => {
+        if (!wavesurferRef.current || !isLoaded || currentTime === 0) return;
+        if (currentBeat === 0) {
+            wavesurferRef.current.setTime(0);
+            return;
+        }
+
+        const time = convertBeatsToTime(0);
+        wavesurferRef.current.setTime(time);
+    }
+
+    const lastBeatButtonHandler = () => {
+        if (!wavesurferRef.current || !isLoaded) return;
+        
+        const soundDuration = wavesurferRef.current.getDuration();        
+        if (currentTime === soundDuration) return;
+
+        wavesurferRef.current.setTime(soundDuration);
+    }
     
     const handleWheel = (event: WheelEvent) => {
         if (!wavesurferRef.current || !isLoaded) return;
@@ -245,13 +265,13 @@ export function TimelineSection() {
                         }
                     </div>
                     <div className="flex gap-2 justify-center w-full">
-                        <Button isIconOnly disabled={ !isLoaded }><Icon24SkipPrevious /></Button>
+                        <Button isIconOnly disabled={ !isLoaded } onPress={ startBeatButtonHandler }><Icon24SkipPrevious /></Button>
                         <Button isIconOnly disabled={ !isLoaded } onPress={ previousBeatButtonHandler }><Icon24SkipBack /></Button>
                         <Button isIconOnly disabled={ !isLoaded } onPress={ playPauseButtonHandler } color={ isPlaying ? "primary" : "default" }>
                             { isPlaying ? <Icon24Pause /> : <Icon24Play /> }
                         </Button>
                         <Button isIconOnly disabled={ !isLoaded } onPress={ nextBeatButtonHandler }><Icon24SkipForward /></Button>
-                        <Button isIconOnly disabled={ !isLoaded }><Icon24SkipNext /></Button>
+                        <Button isIconOnly disabled={ !isLoaded } onPress={ lastBeatButtonHandler }><Icon24SkipNext /></Button>
                     </div>
                     <div className="w-full"></div>
                 </CardHeader>
