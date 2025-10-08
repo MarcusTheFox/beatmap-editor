@@ -4,22 +4,19 @@ import { TrackInfoSection } from "@/sections/TrackInfoSection";
 import { SpawnerGridSection } from "@/sections/SpawnerGridSection";
 import { NotePropertiesSection } from "@/sections/NotePropertiesSection";
 import { TimelineSection } from "@/sections/TimelineSection";
-import { AppProvider } from "@/contexts/AppContext";
 
 export default function EditorPage() {
-    return (
-        <EditorLayout>
-            <AppProvider>
-                <div className="grid grid-cols-[1fr_2fr_1fr] justify-stretch">
-                    <div className="flex flex-col gap-4">
-                        <UploadAudioSection />
-                        <TrackInfoSection />
-                    </div>
-                    <SpawnerGridSection />
-                    <NotePropertiesSection />
-                </div>
-                <TimelineSection />
-            </AppProvider>
-        </EditorLayout>
-    );
+  return (
+    <EditorLayout>
+      <div className="grid grid-cols-[1fr_2fr_1fr] justify-stretch">
+        <div className="flex flex-col gap-4">
+          <UploadAudioSection />
+          <TrackInfoSection />
+        </div>
+        <SpawnerGridSection />
+        <NotePropertiesSection />
+      </div>
+      <TimelineSection />
+    </EditorLayout>
+  );
 }

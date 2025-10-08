@@ -21,12 +21,12 @@ export function UploadAudioSection() {
         setLoading(true);
         setError('');
         try {
-            const unzippedData = await importZip(file);
-            audio.setAudio(unzippedData.audioFile);
-            level.setBpm(unzippedData.beatmap.settings.bpm || unzippedData.info.bpm || 120);
-            level.setOffset(unzippedData.beatmap.settings.offset || 0);
-            level.setPower(unzippedData.beatmap.settings.power || 1500);
-            notes.set(makeNotes(unzippedData.beatmap));
+            const levelData = await importZip(file);
+            audio.setAudio(levelData.audioFile);
+            level.setBpm(levelData.beatmap.settings.bpm || levelData.info.bpm || 120);
+            level.setOffset(levelData.beatmap.settings.offset || 0);
+            level.setPower(levelData.beatmap.settings.power || 1500);
+            notes.set(makeNotes(levelData.beatmap));
         } catch (e: any) {
             console.error(e);
             setError(e.message || "Ошибка при чтении архива");

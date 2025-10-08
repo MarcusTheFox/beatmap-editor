@@ -54,3 +54,9 @@ export interface BeatmapJson {
     settings: BeatmapSettings;
     notes: BeatmapNote[];
 }
+
+export interface LevelData {
+    info: InfoJson;
+    audioFile: File;
+    beatmap: BeatmapJson;
+}

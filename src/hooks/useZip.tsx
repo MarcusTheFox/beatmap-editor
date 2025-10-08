@@ -1,14 +1,8 @@
-import { BeatmapJson, InfoJson } from "@/types";
+import { InfoJson, LevelData } from "@/types";
 import JSZip from "jszip";
 
-interface UnzippedData {
-    info: InfoJson;
-    audioFile: File;
-    beatmap: BeatmapJson;
-}
-
 export const useZip = () => {
-    const importZip = async(file: File): Promise<UnzippedData> => {
+    const importZip = async(file: File): Promise<LevelData> => {
         if (!file) {
             return Promise.reject(new Error("Файл не предоставлен"));
         }
