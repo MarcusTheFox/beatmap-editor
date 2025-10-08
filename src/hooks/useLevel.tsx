@@ -1,11 +1,18 @@
 import { LevelContext } from "@/contexts/LevelContext";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 
 export const useLevel = () => {
     const context = useContext(LevelContext);
     if (!context) {
         throw new Error('useAudio must be used within LevelProvider');
     }
+
+    useEffect(() => {
+        return () => {
+            setPause();
+            setTime(0);
+        }
+    }, []);
     
     const convertTimeToBeats = useCallback((time: number) => {
         if (time < context.offset) return 0;

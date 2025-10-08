@@ -24,7 +24,7 @@ export const useZip = () => {
         }
 
         const audioBlob = await audioZipFile.async("blob");
-        const audioFileObject = new File([audioBlob], infoJson.audioFile, { type: audioBlob.type });
+        const audioFileObject = new File([audioBlob], infoJson.audioFile, { type: 'audio/wav' });
         
         const beatmapFileName = infoJson.beatmapFile || "beatmap.json";
         const beatmapFile = zipFile.file(beatmapFileName);

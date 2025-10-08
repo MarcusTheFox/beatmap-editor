@@ -210,9 +210,13 @@ export function TimelineSection() {
         wavesurferRef.current.load(audioUrl);
 
         return () => {
-            wavesurferRef.current?.destroy();
+            if (wavesurferRef.current) {
+                wavesurferRef.current.unAll();
+                wavesurferRef.current.destroy();
+                wavesurferRef.current = null;
+            }
+            regionsRef.current = null;
             setIsLoaded(false);
-            setTime(0);
         };
     }, [audioUrl, bpm, offset]);
 
