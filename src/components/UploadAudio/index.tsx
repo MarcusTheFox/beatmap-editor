@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from "@heroui/button";
 import { Input } from "@heroui/input";
-import { ReactNode, useRef } from "react";
+import { forwardRef, ReactNode, useImperativeHandle, useRef } from "react";
 
 interface UploadButtonProps extends ButtonProps {
     children?: ReactNode;
@@ -8,7 +8,11 @@ interface UploadButtonProps extends ButtonProps {
     onFileSelect?: (file: File) => void;
 }
 
-export function UploadButton(props: UploadButtonProps) {
+export interface UploadButtonRef {
+    clearFile: () => void;
+}
+
+export const UploadButton = forwardRef<UploadButtonRef, UploadButtonProps>((props, ref) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { children, accept, onFileSelect, ...buttonProps } = props;
 
@@ -24,6 +28,16 @@ export function UploadButton(props: UploadButtonProps) {
         }
     }
 
+    const clearFile = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    }
+
+    useImperativeHandle(ref, () => ({
+        clearFile
+    }), []);
+
     return (
         <div className="flex flex-col">
             <Input 
@@ -37,4 +51,4 @@ export function UploadButton(props: UploadButtonProps) {
             </Button>
         </div>
     )
-}
+});

@@ -27,6 +27,9 @@ export const useZip = () => {
         const audioFileObject = new File([audioBlob], infoJson.audioFile, { type: 'audio/wav' });
         
         const beatmapFileName = infoJson.beatmapFile || "beatmap.json";
+        if (!beatmapFileName.endsWith('.json')) {
+            throw new Error("Неверный формат файла карты битов.\nИспользуйте формат JSON");
+        }
         const beatmapFile = zipFile.file(beatmapFileName);
         if (!beatmapFile) {
             throw new Error("Файл карты битов не найден");
