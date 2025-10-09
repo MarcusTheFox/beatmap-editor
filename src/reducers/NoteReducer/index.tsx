@@ -1,75 +1,79 @@
-import { NotesState, NoteAction, Note } from "@/types";
+import { NotesState, NotesAction, Note, NotePosition, NotePositionKey } from "@/types";
 
-export function noteReducer(state: NotesState, action: NoteAction): NotesState {
+const getPositionKey = (position: NotePosition): NotePositionKey => `${position.beat}-${position.id}`;
+
+const noteExists = (notes: Note[], position: NotePosition): boolean =>
+    notes.some(note => getPositionKey(note.position) === getPositionKey(position));
+
+const findNoteByPosition = (notes: Note[], position: NotePosition): Note | undefined =>
+    notes.find(note => getPositionKey(note.position) === getPositionKey(position));
+
+const sortNotesByBeat = (notes: Note[]): Note[] => 
+    [...notes].sort((a, b) => a.position.beat - b.position.beat)
+
+export function noteReducer(state: NotesState, action: NotesAction): NotesState {
     switch (action.type) {
         case "ADD_NOTE":
-            const exists = state.notes.some(spawner => 
-                spawner.pos.beat === action.payload.pos.beat &&
-                spawner.pos.id === action.payload.pos.id);
-            if (exists) return state;
+            if (noteExists(state.notes, action.payload)) return state;
             
-            const newSpawner: Note = {
-                pos: action.payload.pos,
-                properties: action.payload.properties
+            const newNote: Note = {
+                position: action.payload
             };
 
             return {
                 ...state,
-                notes: [...state.notes, newSpawner].sort((a, b) => a.pos.beat - b.pos.beat),
-                selectedNote: newSpawner
+                notes: sortNotesByBeat([...state.notes, newNote]),
+                selectedNote: newNote
             }
 
         case "REMOVE_NOTE":
             return {
                 ...state,
-                notes: state.notes.filter(spawner => 
-                    spawner.pos.beat !== action.payload.beat ||
-                    spawner.pos.id !== action.payload.id),
+                notes: state.notes.filter(note => 
+                    getPositionKey(note.position) !== getPositionKey(action.payload)
+                ),
                 selectedNote: 
-                    state.selectedNote?.pos.beat === action.payload.beat &&
-                    state.selectedNote?.pos.id === action.payload.id
+                    state.selectedNote &&
+                    getPositionKey(state.selectedNote.position) === getPositionKey(action.payload)
                     ? null : state.selectedNote
             };
 
         case "SELECT_NOTE":
-            const selectedNote = action.payload 
-                ? state.notes.find(note => 
-                    note.pos.beat === action.payload?.beat && 
-                    note.pos.id === action.payload.id
-                ) || null
-                : null;
+            if (!action.payload) {
+                return { ...state, selectedNote: null };
+            }
 
-            return {
-                ...state,
-                selectedNote
-            };
+            const selectedNote = findNoteByPosition(state.notes, action.payload)  || null;
+            return { ...state, selectedNote };
 
         case "UPDATE_NOTE_PROPERTIES":
             return {
                 ...state,
-                notes: state.notes.map(spawner => 
-                    spawner.pos.beat === action.payload.pos.beat &&
-                    spawner.pos.id === action.payload.pos.id
+                notes: state.notes.map(note => 
+                    getPositionKey(note.position) === getPositionKey(action.payload.position)
                     ? {
-                        ...spawner,
+                        ...note,
                         properties: {
-                            ...spawner.properties,
+                            ...note.properties,
                             ...action.payload.properties
                         }
                     }
-                    : spawner
+                    : note
                 )
-            }
+            };
+            
         case "CLEAR_NOTES":
             return {
                 notes: [],
                 selectedNote: null,
-            }
+            };
+
         case "SET_NOTES":
             return {
                 notes: action.payload,
                 selectedNote: null
-            }
+            };
+
         default:
             return state;
     }

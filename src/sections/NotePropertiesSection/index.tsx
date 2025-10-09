@@ -6,27 +6,29 @@ import { useNote } from "@/hooks/useNote";
 
 export function NotePropertiesSection() {
     const { selectedNote, update } = useNote();
-    const [ powerInput, setPowerInput ] = useState<number>(0);
+    const [ powerInput, setPowerInput ] = useState<string>("");
 
     const handlePowerChange = useCallback((value: string) => {
         if (!selectedNote) return;
 
         const power = Number(value);
-        setPowerInput(power);
+        setPowerInput(power.toString());
 
-        if (selectedNote.properties.power !== power) {
-            update(selectedNote.pos.beat, selectedNote.pos.id, { power });
+        if (selectedNote.properties?.power !== power) {
+            update(selectedNote.position.beat, selectedNote.position.id, { power });
         }
     }, [selectedNote, update, setPowerInput]);
 
     useEffect(() => {
-        if (selectedNote) {
-            setPowerInput(selectedNote.properties.power);
+        if (selectedNote?.properties?.power) {
+            setPowerInput(selectedNote.properties.power.toString());
+        } else {
+            setPowerInput('')
         }
     }, [selectedNote])
 
-    const id = selectedNote?.pos.id;
-    const beat = selectedNote?.pos.beat;
+    const id = selectedNote?.position.id;
+    const beat = selectedNote?.position.beat;
 
     return (
         <Card>
@@ -52,11 +54,13 @@ export function NotePropertiesSection() {
                         />
                         <Input
                             type="number"
-                            value={powerInput.toString()}
+                            placeholder="1500"
+                            value={powerInput}
                             min={0}
                             onValueChange={handlePowerChange}
                             label="Power"
                             labelPlacement="outside-top"
+                            variant={powerInput ? "flat" : "bordered"}
                         />
                     </>
                 ) : (

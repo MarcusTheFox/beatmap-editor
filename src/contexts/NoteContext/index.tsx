@@ -1,10 +1,10 @@
 import { initialState, noteReducer } from "@/reducers/NoteReducer";
-import { NoteAction, NotesState } from "@/types";
+import { NotesAction, NotesState } from "@/types";
 import { createContext, ReactNode, useReducer } from "react";
 
 interface NoteContextType {
     state: NotesState;
-    dispatch: React.Dispatch<NoteAction>;
+    dispatch: React.Dispatch<NotesAction>;
 }
 
 export const NoteContext = createContext<NoteContextType | undefined>(undefined);

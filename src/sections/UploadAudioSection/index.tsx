@@ -4,7 +4,7 @@ import { useAudio } from "@/hooks/useAudio";
 import { useLevel } from "@/hooks/useLevel";
 import { useNote } from "@/hooks/useNote";
 import { useZip } from "@/hooks/useZip";
-import { BeatmapJson, BeatmapNote, Note } from "@/types";
+import { Beatmap, Note } from "@/types";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { useState } from "react";
 
@@ -23,9 +23,9 @@ export function UploadAudioSection() {
         try {
             const levelData = await importZip(file);
             audio.setAudio(levelData.audioFile);
-            level.setBpm(levelData.beatmap.settings.bpm || levelData.info.bpm || 120);
+            level.setBpm(levelData.beatmap.settings.bpm || 120);
             level.setOffset(levelData.beatmap.settings.offset || 0);
-            level.setPower(levelData.beatmap.settings.power || 1500);
+            level.setPower(levelData.beatmap.settings.properties.power || 1500);
             notes.set(makeNotes(levelData.beatmap));
         } catch (e: any) {
             console.error(e);
@@ -39,16 +39,13 @@ export function UploadAudioSection() {
         audio.setAudio(file);
     }
 
-    const makeNotes = (beatmap: BeatmapJson): Note[] => {
+    const makeNotes = (beatmap: Beatmap): Note[] => {
         const noteArray: Note[] = [];
-        beatmap.notes.map((note: BeatmapNote) => {
+        beatmap.notes.map((note: Note) => {
             const newNote: Note = {
-                pos: {
-                    beat: note.beat,
-                    id: note.id
-                },
+                position: { ...note.position },
                 properties: {
-                    power: note.power || beatmap.settings.power || 1500
+                    power: note.properties?.power || beatmap.settings.properties.power || 1500
                 }
             }
             noteArray.push(newNote);

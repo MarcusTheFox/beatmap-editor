@@ -1,4 +1,4 @@
-import { BeatmapJson, BeatmapNote, BeatmapSettings, LevelData, Note } from "@/types";
+import { Beatmap, BeatmapSettings, Level, Note } from "@/types";
 import { useAudio } from "./useAudio";
 import { useLevel } from "./useLevel";
 import { useNote } from "./useNote";
@@ -6,7 +6,9 @@ import { useNote } from "./useNote";
 const levelSettingsDefaults: BeatmapSettings = {
   bpm: 120,
   offset: 0,
-  power: 1500
+  properties: {
+    power: 1500
+  }
 }
 
 export const useLevelLoader = () => {
@@ -14,16 +16,15 @@ export const useLevelLoader = () => {
   const audio = useAudio();
   const notes = useNote();
 
-  const makeNotes = (beatmap: BeatmapJson): Note[] => {
+  const makeNotes = (beatmap: Beatmap): Note[] => {
       const noteArray: Note[] = [];
-      beatmap.notes.map((note: BeatmapNote) => {
+      beatmap.notes.map((note: Note) => {
           const newNote: Note = {
-              pos: {
-                  beat: note.beat,
-                  id: note.id
+              position: {
+                  ...note.position
               },
               properties: {
-                  power: note.power || beatmap.settings.power || levelSettingsDefaults.power
+                  power: note.properties?.power || beatmap.settings.properties.power || levelSettingsDefaults.properties.power
               }
           }
           noteArray.push(newNote);
@@ -31,10 +32,10 @@ export const useLevelLoader = () => {
       return noteArray;
   }
 
-  const load = (data: LevelData) => {
-    level.setBpm(data.beatmap.settings.bpm || data.info.bpm || levelSettingsDefaults.bpm );
+  const load = (data: Level) => {
+    level.setBpm(data.beatmap.settings.bpm || levelSettingsDefaults.bpm );
     level.setOffset(data.beatmap.settings.offset || levelSettingsDefaults.offset);
-    level.setPower(data.beatmap.settings.power || levelSettingsDefaults.power);
+    level.setPower(data.beatmap.settings.properties.power || levelSettingsDefaults.properties.power);
     notes.set(makeNotes(data.beatmap));
     audio.setAudio(data.audioFile);
   }
@@ -42,7 +43,7 @@ export const useLevelLoader = () => {
   const create = (audioFile: File) => {
     level.setBpm(levelSettingsDefaults.bpm);
     level.setOffset(levelSettingsDefaults.offset);
-    level.setPower(levelSettingsDefaults.power);
+    level.setPower(levelSettingsDefaults.properties.power);
     notes.clear();
     audio.setAudio(audioFile);
   }

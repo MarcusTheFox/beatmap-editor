@@ -23,20 +23,20 @@ export const useNote = () => {
         if (args.length === 2) {
             const [beat, id] = args as ExactMatchArgs;
             return context.state.notes.some(spawner => 
-                spawner.pos.beat === beat && spawner.pos.id === id
+                spawner.position.beat === beat && spawner.position.id === id
             );
         } else {
             const [beatMin, beatMax, id] = args as RangeMatchArgs;
             return context.state.notes.some(spawner => 
-                spawner.pos.beat >= beatMin && 
-                spawner.pos.beat <= beatMax && 
-                spawner.pos.id === id
+                spawner.position.beat >= beatMin && 
+                spawner.position.beat <= beatMax && 
+                spawner.position.id === id
             );
         }
     }, [context.state.notes]) as ContainsFunction;
 
-    const add = useCallback((beat: number, id: number, properties: NoteProperties) => {
-        context.dispatch({type: "ADD_NOTE", payload: {pos: {beat, id}, properties}});
+    const add = useCallback((beat: number, id: number) => {
+        context.dispatch({type: "ADD_NOTE", payload: {beat, id}});
     }, []);
 
     const select = useCallback((beat: number, id: number) => {
@@ -44,7 +44,7 @@ export const useNote = () => {
     }, []);
 
     const update = useCallback((beat: number, id: number, properties: Partial<NoteProperties>) => {
-        context.dispatch({type: "UPDATE_NOTE_PROPERTIES", payload: {pos: {beat, id}, properties}});
+        context.dispatch({type: "UPDATE_NOTE_PROPERTIES", payload: {position: {beat, id}, properties}});
     }, []);
 
     const remove = useCallback((beat: number, id: number) => {
@@ -60,7 +60,7 @@ export const useNote = () => {
     }, []);
 
     const isSelected = (beat: number, id: number): boolean => {
-        return !!selectedNote && selectedNote.pos.beat == beat && selectedNote.pos.id == id;
+        return !!selectedNote && selectedNote.position.beat == beat && selectedNote.position.id == id;
     }
 
     return {

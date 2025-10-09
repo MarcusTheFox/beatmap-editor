@@ -1,8 +1,8 @@
-import { InfoJson, LevelData } from "@/types";
+import { Beatmap, Level, SongPackage } from "@/types";
 import JSZip from "jszip";
 
 export const useZip = () => {
-    const importZip = async(file: File): Promise<LevelData> => {
+    const importZip = async(file: File): Promise<Level> => {
         if (!file) {
             return Promise.reject(new Error("Файл не предоставлен"));
         }
@@ -15,18 +15,18 @@ export const useZip = () => {
         }
 
         const infoContent = await infoFile.async('string');
-        const infoJson = JSON.parse(infoContent) as InfoJson;
+        const infoJson = JSON.parse(infoContent) as SongPackage;
         
-        const audioFileName = infoJson.audioFile;
+        const audioFileName = infoJson.audio.fileName;
         const audioZipFile = zipFile.file(audioFileName);
         if (!audioZipFile) {
             throw new Error("Аудио файл не найден.\nВозможно он отсутствует или не указан в info.json");
         }
 
         const audioBlob = await audioZipFile.async("blob");
-        const audioFileObject = new File([audioBlob], infoJson.audioFile, { type: 'audio/wav' });
+        const audioFile = new File([audioBlob], audioFileName, { type: 'audio/wav' });
         
-        const beatmapFileName = infoJson.beatmapFile || "beatmap.json";
+        const beatmapFileName = infoJson.level.beatmapFileName || "beatmap.json";
         if (!beatmapFileName.endsWith('.json')) {
             throw new Error("Неверный формат файла карты битов.\nИспользуйте формат JSON");
         }
@@ -36,12 +36,13 @@ export const useZip = () => {
         }
         
         const beatmapContent = await beatmapFile.async("string");
-        const beatmapJson = JSON.parse(beatmapContent);
+        const beatmap = JSON.parse(beatmapContent) as Beatmap;
 
         return {
-            info: infoJson,
-            audioFile: audioFileObject,
-            beatmap: beatmapJson
+            levelInfo: infoJson.level,
+            audioInfo: infoJson.audio,
+            audioFile,
+            beatmap
         }
     }
 

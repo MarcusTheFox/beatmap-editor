@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useZip } from "@/hooks/useZip";
 import { useLevelLoader } from "@/hooks/useLevelLoader";
 import { addToast } from "@heroui/toast";
-import { LevelData } from "@/types";
+import { Level } from "@/types";
 import { useRef } from "react";
 
 export default function IndexPage() {
@@ -25,7 +25,7 @@ export default function IndexPage() {
   }
 
   const handleZipImport = async (file: File) => {
-    let levelData: LevelData | null;
+    let levelData: Level | null;
 
     try {
       levelData = await zip.importZip(file);

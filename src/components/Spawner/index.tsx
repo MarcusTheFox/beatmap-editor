@@ -7,7 +7,7 @@ interface SpawnerProps {
 }
 
 export function Spawner({ id }: SpawnerProps) {
-    const { power, currentBeat, isPlaying } = useLevel();
+    const { currentBeat, isPlaying } = useLevel();
     const { isSelected, contains, add, select, remove } = useNote();
     const isChecked = contains(currentBeat, id);
     const isHighlighted = isPlaying && contains(Math.floor(currentBeat), currentBeat, id);
@@ -16,7 +16,7 @@ export function Spawner({ id }: SpawnerProps) {
         if (isChecked) {
             remove(currentBeat, id);
         } else {
-            add(currentBeat, id, { power });
+            add(currentBeat, id);
         }
     }
 
