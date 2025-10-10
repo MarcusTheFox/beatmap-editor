@@ -51,10 +51,10 @@ export const useZip = () => {
 
         const info: SongPackage = {
             id: level.id,
-            levelInfo: { ...level.levelInfo },
-            audioInfo: { ...level.audioInfo }
+            audioInfo: { ...level.audioInfo },
+            levelInfo: { ...level.levelInfo }
         };
-        console.log(info)
+
         const beatmap: Beatmap = { ...level.beatmap };
         const zipFileName: string = info.id;
 
