@@ -4,6 +4,7 @@ import { TrackInfoSection } from "@/sections/TrackInfoSection";
 import { SpawnerGridSection } from "@/sections/SpawnerGridSection";
 import { NotePropertiesSection } from "@/sections/NotePropertiesSection";
 import { TimelineSection } from "@/sections/TimelineSection";
+import { ExportSection } from "@/sections/ExportSection";
 
 export default function EditorPage() {
   return (
@@ -14,7 +15,10 @@ export default function EditorPage() {
           <TrackInfoSection />
         </div>
         <SpawnerGridSection />
-        <NotePropertiesSection />
+        <div className="flex flex-col gap-4">
+          <ExportSection />
+          <NotePropertiesSection />
+        </div>
       </div>
       <TimelineSection />
     </EditorLayout>

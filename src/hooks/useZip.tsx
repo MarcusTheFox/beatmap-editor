@@ -1,5 +1,6 @@
 import { Beatmap, Level, SongPackage } from "@/types";
 import JSZip from "jszip";
+import { saveAs } from "file-saver";
 
 export const useZip = () => {
     const importZip = async(file: File): Promise<Level> => {
@@ -46,7 +47,24 @@ export const useZip = () => {
     }
 
     const exportZip = async(level: Level): Promise<boolean> => {
-        console.log(level)
+        const zipFile = new JSZip();
+
+        const info: SongPackage = {
+            id: level.id,
+            levelInfo: { ...level.levelInfo },
+            audioInfo: { ...level.audioInfo }
+        };
+        console.log(info)
+        const beatmap: Beatmap = { ...level.beatmap };
+        const zipFileName: string = info.id;
+
+        zipFile.file('info.json', JSON.stringify(info));
+        zipFile.file(info.levelInfo.beatmapFileName, JSON.stringify(beatmap));
+        zipFile.file(info.audioInfo.fileName, level.audioFile);
+
+        const content = await zipFile.generateAsync({ type: "blob" });
+        saveAs(content, zipFileName);
+        
         return true;
     }
 

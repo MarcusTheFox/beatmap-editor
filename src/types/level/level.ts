@@ -1,8 +1,6 @@
-import { AudioInfo, Beatmap, LevelInfo } from "..";
+import { Beatmap, SongPackage } from "..";
 
-export interface Level {
-    levelInfo: LevelInfo,
-    audioInfo: AudioInfo,
+export interface Level extends SongPackage {
     audioFile: File,
     beatmap: Beatmap
 }
