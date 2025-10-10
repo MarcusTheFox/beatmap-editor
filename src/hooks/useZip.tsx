@@ -17,7 +17,7 @@ export const useZip = () => {
         const infoContent = await infoFile.async('string');
         const infoJson = JSON.parse(infoContent) as SongPackage;
         
-        const audioFileName = infoJson.audio.fileName;
+        const audioFileName = infoJson.audioInfo.fileName;
         const audioZipFile = zipFile.file(audioFileName);
         if (!audioZipFile) {
             throw new Error("Аудио файл не найден.\nВозможно он отсутствует или не указан в info.json");
@@ -26,7 +26,7 @@ export const useZip = () => {
         const audioBlob = await audioZipFile.async("blob");
         const audioFile = new File([audioBlob], audioFileName, { type: 'audio/wav' });
         
-        const beatmapFileName = infoJson.level.beatmapFileName || "beatmap.json";
+        const beatmapFileName = infoJson.levelInfo.beatmapFileName || "beatmap.json";
         if (!beatmapFileName.endsWith('.json')) {
             throw new Error("Неверный формат файла карты битов.\nИспользуйте формат JSON");
         }
@@ -39,14 +39,19 @@ export const useZip = () => {
         const beatmap = JSON.parse(beatmapContent) as Beatmap;
 
         return {
-            levelInfo: infoJson.level,
-            audioInfo: infoJson.audio,
+            ...infoJson,
             audioFile,
             beatmap
         }
     }
 
+    const exportZip = async(level: Level): Promise<boolean> => {
+        console.log(level)
+        return true;
+    }
+
     return {
-        importZip
+        importZip,
+        exportZip
     }
 }

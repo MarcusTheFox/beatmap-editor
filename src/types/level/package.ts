@@ -1,6 +1,6 @@
 import { AudioInfo, LevelInfo } from "..";
 
 export interface SongPackage {
-    audio: AudioInfo,
-    level: LevelInfo
+    audioInfo: AudioInfo,
+    levelInfo: LevelInfo
 }

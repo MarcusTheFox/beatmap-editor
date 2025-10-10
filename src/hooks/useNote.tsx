@@ -1,5 +1,5 @@
 import { NoteContext } from "@/contexts/NoteContext";
-import { Note, NoteProperties } from "@/types";
+import { Note } from "@/types";
 import { useCallback, useContext } from "react"
 
 type ExactMatchArgs = [beat: number, id: number];
@@ -22,15 +22,15 @@ export const useNote = () => {
     const contains = useCallback<ContainsFunction>((...args: ContainsArgs): boolean => {
         if (args.length === 2) {
             const [beat, id] = args as ExactMatchArgs;
-            return context.state.notes.some(spawner => 
-                spawner.position.beat === beat && spawner.position.id === id
+            return context.state.notes.some(note => 
+                note.beat === beat && note.id === id
             );
         } else {
             const [beatMin, beatMax, id] = args as RangeMatchArgs;
-            return context.state.notes.some(spawner => 
-                spawner.position.beat >= beatMin && 
-                spawner.position.beat <= beatMax && 
-                spawner.position.id === id
+            return context.state.notes.some(note => 
+                note.beat >= beatMin && 
+                note.beat <= beatMax && 
+                note.id === id
             );
         }
     }, [context.state.notes]) as ContainsFunction;
@@ -43,8 +43,8 @@ export const useNote = () => {
         context.dispatch({type: "SELECT_NOTE", payload: {beat, id}});
     }, []);
 
-    const update = useCallback((beat: number, id: number, properties: Partial<NoteProperties>) => {
-        context.dispatch({type: "UPDATE_NOTE_PROPERTIES", payload: {position: {beat, id}, properties}});
+    const update = useCallback((note: Required<Note>) => {
+        context.dispatch({type: "UPDATE_NOTE_PROPERTIES", payload: note});
     }, []);
 
     const remove = useCallback((beat: number, id: number) => {
@@ -59,8 +59,12 @@ export const useNote = () => {
         context.dispatch({type: "SET_NOTES", payload: notes})
     }, []);
 
+    const get = useCallback(() => {
+        return context.state.notes
+    }, [context]);
+
     const isSelected = (beat: number, id: number): boolean => {
-        return !!selectedNote && selectedNote.position.beat == beat && selectedNote.position.id == id;
+        return !!selectedNote && selectedNote.beat == beat && selectedNote.id == id;
     }
 
     return {
@@ -72,6 +76,7 @@ export const useNote = () => {
         remove,
         clear,
         set,
+        get,
         isSelected
     };
 }

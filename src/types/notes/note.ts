@@ -1,5 +1,4 @@
-export interface Note {
-    position: NotePosition,
+export interface Note extends NotePosition {
     properties?: Partial<NoteProperties>
 }
 

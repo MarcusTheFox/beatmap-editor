@@ -15,7 +15,7 @@ export function NotePropertiesSection() {
         setPowerInput(power.toString());
 
         if (selectedNote.properties?.power !== power) {
-            update(selectedNote.position.beat, selectedNote.position.id, { power });
+            update({ ...selectedNote, properties: { power }});
         }
     }, [selectedNote, update, setPowerInput]);
 
@@ -27,11 +27,11 @@ export function NotePropertiesSection() {
         }
     }, [selectedNote])
 
-    const id = selectedNote?.position.id;
-    const beat = selectedNote?.position.beat;
+    const id = selectedNote?.id;
+    const beat = selectedNote?.beat;
 
     return (
-        <Card>
+        <Card className="grow">
             <CardHeader>
                 <CardTitle>Note Properties</CardTitle>
             </CardHeader>
@@ -64,7 +64,7 @@ export function NotePropertiesSection() {
                         />
                     </>
                 ) : (
-                    <p className="text-gray-500">No note selected</p>
+                    <p className="text-default-500">No note selected</p>
                 )}
             </CardBody>
         </Card>

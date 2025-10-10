@@ -43,7 +43,7 @@ export function UploadAudioSection() {
         const noteArray: Note[] = [];
         beatmap.notes.map((note: Note) => {
             const newNote: Note = {
-                position: { ...note.position },
+                ...note,
                 properties: {
                     power: note.properties?.power || beatmap.settings.properties.power || 1500
                 }

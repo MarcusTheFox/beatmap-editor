@@ -17,19 +17,17 @@ export const useLevelLoader = () => {
   const notes = useNote();
 
   const makeNotes = (beatmap: Beatmap): Note[] => {
-      const noteArray: Note[] = [];
-      beatmap.notes.map((note: Note) => {
-          const newNote: Note = {
-              position: {
-                  ...note.position
-              },
-              properties: {
-                  power: note.properties?.power || beatmap.settings.properties.power || levelSettingsDefaults.properties.power
-              }
-          }
-          noteArray.push(newNote);
-      });
-      return noteArray;
+    const noteArray: Note[] = [];
+    beatmap.notes.map((note: Note) => {
+      const newNote: Note = {
+        ...note,
+        properties: {
+          power: note.properties?.power || beatmap.settings.properties.power || levelSettingsDefaults.properties.power
+        }
+      }
+      noteArray.push(newNote);
+    });
+    return noteArray;
   }
 
   const load = (data: Level) => {

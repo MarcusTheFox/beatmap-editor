@@ -1,24 +1,21 @@
 import { NotesState, NotesAction, Note, NotePosition, NotePositionKey } from "@/types";
 
-const getPositionKey = (position: NotePosition): NotePositionKey => `${position.beat}-${position.id}`;
+const getPositionKey = (note: NotePosition): NotePositionKey => `${note.beat}-${note.id}`;
 
 const noteExists = (notes: Note[], position: NotePosition): boolean =>
-    notes.some(note => getPositionKey(note.position) === getPositionKey(position));
+    notes.some(note => getPositionKey(note) === getPositionKey(position));
 
 const findNoteByPosition = (notes: Note[], position: NotePosition): Note | undefined =>
-    notes.find(note => getPositionKey(note.position) === getPositionKey(position));
+    notes.find(note => getPositionKey(note) === getPositionKey(position));
 
-const sortNotesByBeat = (notes: Note[]): Note[] => 
-    [...notes].sort((a, b) => a.position.beat - b.position.beat)
+const sortNotesByBeat = (notes: Note[]): Note[] => [...notes].sort((a, b) => a.beat - b.beat)
 
 export function noteReducer(state: NotesState, action: NotesAction): NotesState {
     switch (action.type) {
         case "ADD_NOTE":
             if (noteExists(state.notes, action.payload)) return state;
             
-            const newNote: Note = {
-                position: action.payload
-            };
+            const newNote: Note = { ...action.payload };
 
             return {
                 ...state,
@@ -30,11 +27,11 @@ export function noteReducer(state: NotesState, action: NotesAction): NotesState 
             return {
                 ...state,
                 notes: state.notes.filter(note => 
-                    getPositionKey(note.position) !== getPositionKey(action.payload)
+                    getPositionKey(note) !== getPositionKey(action.payload)
                 ),
                 selectedNote: 
                     state.selectedNote &&
-                    getPositionKey(state.selectedNote.position) === getPositionKey(action.payload)
+                    getPositionKey(state.selectedNote) === getPositionKey(action.payload)
                     ? null : state.selectedNote
             };
 
@@ -50,7 +47,7 @@ export function noteReducer(state: NotesState, action: NotesAction): NotesState 
             return {
                 ...state,
                 notes: state.notes.map(note => 
-                    getPositionKey(note.position) === getPositionKey(action.payload.position)
+                    getPositionKey(note) === getPositionKey(action.payload)
                     ? {
                         ...note,
                         properties: {
