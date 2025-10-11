@@ -1,4 +1,5 @@
 import { LevelContext } from "@/contexts/LevelContext";
+import { convertTimeToBeats } from "@/utils";
 import { useCallback, useContext, useEffect } from "react";
 
 export const useLevel = () => {
@@ -13,20 +14,6 @@ export const useLevel = () => {
             setTime(0);
         }
     }, []);
-    
-    const convertTimeToBeats = useCallback((time: number) => {
-        if (time < context.offset) return 0;
-
-        const timeInSong = time - context.offset;
-        const beatsPerSecond = context.bpm / 60;
-        return Math.round(timeInSong * beatsPerSecond * 1000) / 1000;
-    }, [ context ]);
-
-    const convertBeatsToTime = useCallback((beat: number): number => {
-        const beatsPerSecond = context.bpm / 60;
-        const timeInSong = beat / beatsPerSecond;
-        return timeInSong + context.offset;
-    }, [ context ]);
 
     const setPlay = useCallback(() => {
         context.setIsPlaying(true);
@@ -38,7 +25,7 @@ export const useLevel = () => {
     
     const setTime = (time: number) => {
         context.setCurrentTime(time);
-        context.setCurrentBeat(convertTimeToBeats(time));
+        context.setCurrentBeat(convertTimeToBeats(time, context.bpm, context.offset));
     };
 
     return {
@@ -55,7 +42,5 @@ export const useLevel = () => {
         setPlay,
         setPause,
         setTime,
-        convertTimeToBeats,
-        convertBeatsToTime,
     };
 }

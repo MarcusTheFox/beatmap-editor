@@ -4,11 +4,13 @@ import { Button } from "@heroui/button";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon24Pause, Icon24Play, Icon24SkipBack, Icon24SkipForward, Icon24SkipNext, Icon24SkipPrevious } from "@vkontakte/icons";
-import WaveSurfer, { WaveSurferOptions } from "wavesurfer.js";
+import WaveSurfer from "wavesurfer.js";
 import Minimap from 'wavesurfer.js/dist/plugins/minimap.esm.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js';
 import { Input } from "@heroui/input";
 import { Label } from "@/components/Label";
+import { convertBeatsToTime, formatTime } from "@/utils";
+import { WaveSurferComponent, WaveSurferComponentRef } from "./WaveSurferComponent";
 
 export function TimelineSection() {
     const {
@@ -19,8 +21,7 @@ export function TimelineSection() {
         isPlaying,
         setPlay,
         setPause,
-        setTime,
-        convertBeatsToTime,
+        setTime
     } = useLevel();
     const { audioUrl } = useAudio();
 
@@ -28,135 +29,32 @@ export function TimelineSection() {
     const [ isBeatEditing, setIsBeatEditing ] = useState<boolean>(false);
     const [ beatInput, setBeatInput ] = useState<string>('');
 
-    const waveformRef = useRef<HTMLDivElement>(null);
-    const wavesurferRef = useRef<WaveSurfer | null>(null);
-    const regionsRef = useRef<RegionsPlugin | null>(null);
+    const wavesurferRef = useRef<WaveSurferComponentRef>(null);
     const cardRef = useRef<HTMLDivElement>(null);
     const beatInputRef = useRef<HTMLInputElement>(null);
-
-    const colorScheme = {
-        waveColor: ["rgb(150, 150, 150)", "rgb(100, 100, 100)"],
-        progressColor: ["rgb(0, 200, 255)", "rgb(0, 100, 255)"],
-        cursorColor: "#ff8a00",
-        regionColors: ["#ffffff30", "#ffffff15"],
-        minimapProgress: "#3b82f6",
-    };
-
-    const waveformSettings: Partial<WaveSurferOptions> = {
-        autoCenter: true,
-        autoScroll: true,
-        hideScrollbar: true,
-        minPxPerSec: 100,
-        sampleRate: 16000,
-        barWidth: 3,
-        barRadius: 5,
-        barGap: 1,
-        barAlign: "bottom",
-        waveColor: colorScheme.waveColor,
-        progressColor: colorScheme.progressColor,
-        cursorColor: colorScheme.cursorColor,
-        cursorWidth: 3
-    };
     
-    const formatTime = useCallback((seconds: number): string => {
-        const mins = Math.max(Math.floor(seconds / 60), 0);
-        const secs = Math.max(Math.floor(seconds % 60), 0);
-        return `${mins}:${secs.toString().padStart(2, '0')}`;
-    }, []);
-
-    const drawBpmMarkers = useCallback(() => {
-        if (!wavesurferRef.current) return;
-
-        if (!regionsRef.current) {
-            regionsRef.current = RegionsPlugin.create();
-        }
-
-        const duration = wavesurferRef.current.getDuration() - offset;
-        // const totalBeats = Math.round(duration / (60 / bpm / 4));
-        
-        // for (let index = 0; index <= totalBeats; index++) {
-        //     regionsRef.current.addRegion({
-        //         start: 60 / bpm / 4 * index + offset,
-        //         color: index % 4 === 0 ? colorScheme.regionColors[0] : colorScheme.regionColors[1],
-        //         resize: false,
-        //         drag: false,
-        //         minLength: 1,
-        //         id: index.toString(),
-        //         contentEditable: false,
-        //         channelIdx: 3,
-        //     });
-        // }
-        const totalBeats = Math.round(duration / (60 / bpm));
-        
-        for (let index = 0; index <= totalBeats; index++) {
-            regionsRef.current.addRegion({
-                start: 60 / bpm * index + offset,
-                color: colorScheme.regionColors[0],
-                resize: false,
-                drag: false,
-                minLength: 1,
-                id: index.toString(),
-                contentEditable: false,
-                channelIdx: 3,
-            });
-        }
-        
-    }, [ wavesurferRef, regionsRef, bpm, offset ]);
-    
-    const playPauseButtonHandler = useCallback(() => {
-        if (!wavesurferRef.current || !isLoaded) return;
-        if (isPlaying) wavesurferRef.current.pause();
-        else wavesurferRef.current.play();
-    }, [ isPlaying, isLoaded ]);
-
-    const previousBeatButtonHandler = () => {
-        if (!wavesurferRef.current || !isLoaded || currentTime === 0) return;
-        if (currentBeat === 0) {
-            wavesurferRef.current.setTime(0);
-            return;
-        }
-
-        const time = convertBeatsToTime(Math.ceil(currentBeat) - 1);
-        wavesurferRef.current.setTime(time);
+    const playPauseButtonHandler = () => {
+        wavesurferRef.current?.togglePlay();
     };
 
     const nextBeatButtonHandler = () => {
-        if (!wavesurferRef.current || !isLoaded) return;
-        
-        const soundDuration = wavesurferRef.current.getDuration();        
-        if (currentTime === soundDuration) return;
+        wavesurferRef.current?.next();
+    };
 
-        if (currentTime < offset) {
-            wavesurferRef.current.setTime(offset);
-            return;
-        }
-
-        const time = Math.min(convertBeatsToTime(Math.floor(currentBeat) + 1), soundDuration);
-        wavesurferRef.current.setTime(time);
+    const previousBeatButtonHandler = () => {
+        wavesurferRef.current?.previous();
     };
 
     const startBeatButtonHandler = () => {
-        if (!wavesurferRef.current || !isLoaded || currentTime === 0) return;
-        if (currentBeat === 0) {
-            wavesurferRef.current.setTime(0);
-            return;
-        }
-
-        const time = convertBeatsToTime(0);
-        wavesurferRef.current.setTime(time);
+        wavesurferRef.current?.start()
     }
 
     const lastBeatButtonHandler = () => {
-        if (!wavesurferRef.current || !isLoaded) return;
-        
-        const soundDuration = wavesurferRef.current.getDuration();        
-        if (currentTime === soundDuration) return;
-
-        wavesurferRef.current.setTime(soundDuration);
+        wavesurferRef.current?.end();
     }
     
     const handleWheel = (event: WheelEvent) => {
-        if (!wavesurferRef.current || !isLoaded) return;
+        if (!wavesurferRef.current) return;
         
         event.preventDefault();
         
@@ -167,7 +65,7 @@ export function TimelineSection() {
 
     const handleBeatInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        wavesurferRef.current?.setTime(convertBeatsToTime(Number(beatInput)));
+        wavesurferRef.current?.setBeat(Number(beatInput));
         setIsBeatEditing(false);
         setBeatInput('');
     }
@@ -181,44 +79,6 @@ export function TimelineSection() {
         setIsBeatEditing(false);
         setBeatInput('');
     }
-
-    useEffect(() => {
-        if (!waveformRef.current) return;
-
-        regionsRef.current = RegionsPlugin.create();
-        const minimap = Minimap.create({
-            height: 20,
-            dragToSeek: true,
-            progressColor: colorScheme.minimapProgress,
-        });
-
-        wavesurferRef.current = WaveSurfer.create({
-            container: waveformRef.current,
-            plugins: [ minimap, regionsRef.current ],
-            ...waveformSettings
-        });
-        
-        wavesurferRef.current.on("ready", () => {
-            drawBpmMarkers();
-            setIsLoaded(true);
-        });
-        wavesurferRef.current.on("play", () => setPlay());
-        wavesurferRef.current.on("pause", () => setPause());
-        wavesurferRef.current.on("finish", () => setPause());
-        wavesurferRef.current.on("timeupdate", (time: number) => setTime(time));
-
-        wavesurferRef.current.load(audioUrl);
-
-        return () => {
-            if (wavesurferRef.current) {
-                wavesurferRef.current.unAll();
-                wavesurferRef.current.destroy();
-                wavesurferRef.current = null;
-            }
-            regionsRef.current = null;
-            setIsLoaded(false);
-        };
-    }, [audioUrl, bpm, offset]);
 
     useEffect(() => {
         const wheelContainer = document.getElementById("main-container");
@@ -280,7 +140,12 @@ export function TimelineSection() {
                     <div className="w-full"></div>
                 </CardHeader>
                 <CardBody>
-                    <div ref={waveformRef} />
+                    <WaveSurferComponent
+                        ref={wavesurferRef}
+                        audioUrl={audioUrl}
+                        bpm={bpm}
+                        offset={offset}
+                    />
                 </CardBody>
             </Card>
         </div>
