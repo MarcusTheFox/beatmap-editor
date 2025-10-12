@@ -31,3 +31,8 @@ export const getPreviousBeatTime = (time: number, bpm: number, offset: number = 
 export const getFirstBeatTime = (bpm: number, offset: number) => {
     return convertBeatsToTime(0, bpm, offset);
 }
+
+export const getTotalBeats = (duration: number, bpm: number, offset: number) => {
+    const beatsDuration = duration - offset;
+    return Math.round(beatsDuration / (60 / bpm));
+}

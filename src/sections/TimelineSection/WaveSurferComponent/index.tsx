@@ -1,9 +1,10 @@
 import { minimapOptions, regionOptions, wavesurferOptions } from "@/config/wavesurfer";
-import { convertBeatsToTime, convertTimeToBeats, getFirstBeatTime, getNextBeatTime, getPreviousBeatTime } from "@/utils";
+import { getTotalBeats } from "@/utils";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import WaveSurfer from "wavesurfer.js";
 import MinimapPlugin from "wavesurfer.js/dist/plugins/minimap.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.js";
+import { useWaveSurfer, WaveSurferControls } from "./useWaveSurfer";
 
 interface WaveSurferComponentOptions {
     audioUrl: string;
@@ -17,200 +18,98 @@ interface WaveSurferComponentEvents {
     onPause: () => void;
     onFinish: () => void;
     onTimeUpdate: (time: number) => void;
+    onControlsUpdate: (controls: WaveSurferControls) => void;
 }
 
 export interface WaveSurferComponentRef {
-    play: () => void,
-    pause: () => void,
-    togglePlay: () => void,
-    next: () => void,
-    previous: () => void,
-    start: () => void,
-    end: () => void,
-    isPlaying: () => boolean,
-    getDuration: () => number,
-    getTime: () => number,
-    getBeat: () => number,
-    setBeat: (value: number) => void,
+    getControls: () => WaveSurferControls | undefined;
 }
 
 export type WaveSurferComponentProps = WaveSurferComponentOptions & Partial<WaveSurferComponentEvents>;
 
-const getTotalBeats = (waveSurfer: WaveSurfer, bpm: number, offset: number) => {
-    const duration = waveSurfer.getDuration() - offset;
-    return Math.round(duration / (60 / bpm));
-}
-
 export const WaveSurferComponent = forwardRef<WaveSurferComponentRef, WaveSurferComponentProps>((props, ref) => {
-    const {
-        audioUrl,
-        bpm,
-        offset,
-        onReady,
-        onPlay,
-        onPause,
-        onFinish,
-        onTimeUpdate
-    } = props;
+    const waveSurfer = useWaveSurfer(props.bpm, props.offset);
 
-    const waveformRef = useRef<HTMLDivElement>(null);
-
-    const regionsPlugin = RegionsPlugin.create();
-    const minimapPlugin = MinimapPlugin.create({ ...minimapOptions, container: "#minimapContainer" });
-    let waveSurfer: WaveSurfer;
+    const waveSurferRef = useRef<WaveSurfer | undefined>();
+    const waveSurferControlsRef = useRef<WaveSurferControls | undefined>();
+    const regionsPluginRef = useRef<RegionsPlugin>(RegionsPlugin.create());
 
     const drawBpmMarkers = () => {
+        const controls = getControls();
+        const regionsPlugin = regionsPluginRef.current;
+        if (!controls) return;
+
         regionsPlugin.clearRegions();
-        const totalBeats = getTotalBeats(waveSurfer, bpm, offset)
+        const totalBeats = getTotalBeats(controls.getDuration(), props.bpm, props.offset)
         for (let index = 0; index <= totalBeats; index++) {
             regionsPlugin.addRegion({
-                start: 60 / bpm * index + offset,
+                start: 60 / props.bpm * index + props.offset,
                 id: index.toString(),
                 ...regionOptions
             });
         }
     };
-
-    useEffect(() => {
-        waveSurfer.load(audioUrl);
-    }, [audioUrl]);
-
-    useEffect(() => {
-        drawBpmMarkers();
-    }, [bpm, offset]);
-
-    const getDuration = () => {
-        return waveSurfer.getDuration();
-    }
-
-    const getTime = () => {
-        return waveSurfer.getCurrentTime();
-    }
-
-    const getBeat = () => {
-        return convertTimeToBeats(waveSurfer.getCurrentTime(), bpm, offset);
-    }
-
-    const isPlaying = () => {
-        return waveSurfer.isPlaying();
-    }
-
-    const play = () => {
-        waveSurfer.play();
-    }
-
-    const pause = () => {
-        waveSurfer.pause();
-    }
-
-    const togglePlay = () => {
-        if (isPlaying()) pause();
-        else play();
-    }
-
-    const next = () => {
-        const current = waveSurfer.getCurrentTime();
-        const duration = getDuration();
-
-        if (current === duration) return;
-        if (current < offset) {
-            waveSurfer.setTime(offset);
-            return;
-        }
-        
-        const time = getNextBeatTime(current, duration, bpm, offset);
-        waveSurfer.setTime(time);
-    }
-
-    const previous = () => {
-        const current = waveSurfer.getCurrentTime();
-        if (current === 0) return;
-
-        const currentBeat = convertTimeToBeats(current, bpm, offset);
-        if (currentBeat === 0) {
-            waveSurfer.setTime(0);
-            return;
-        }
-
-        const time = getPreviousBeatTime(current, bpm, offset);
-        waveSurfer.setTime(time);
-    }
-
-    const start = () => {
-        const current = waveSurfer.getCurrentTime();
-        if (current === 0) return;
-
-        const currentBeat = convertTimeToBeats(current, bpm, offset);
-        if (currentBeat === 0) {
-            waveSurfer.setTime(0);
-            return;
-        }
-
-        const time = getFirstBeatTime(bpm, offset);
-        waveSurfer.setTime(time);
-    }
-
-    const end = () => {
-        const current = waveSurfer.getCurrentTime();
-        const duration = getDuration();
-        if (current === duration) return;
-
-        waveSurfer.setTime(duration);
-    }
-
-    const setBeat = (value: number) => {
-        const beatTime = convertBeatsToTime(value, bpm, offset);
-        const duration = getDuration();
-
-        const time = Math.max(Math.min(beatTime, duration), 0);
-        waveSurfer.setTime(time);
+    
+    const getControls = (): WaveSurferControls | undefined => {
+        return waveSurferControlsRef.current
     }
 
     useEffect(() => {
-        if (!waveformRef.current) return;
-
-        waveSurfer = WaveSurfer.create({
-            container: waveformRef.current,
+        const minimapPlugin = MinimapPlugin.create({ ...minimapOptions, container: "#minimapContainer" });
+        waveSurferRef.current = WaveSurfer.create({
+            container: "#waveform",
             ...wavesurferOptions,
-            plugins: [ regionsPlugin, minimapPlugin ]
+            plugins: [ regionsPluginRef.current, minimapPlugin ]
         });
-        
-        if (onReady) waveSurfer.on("ready", onReady);
-        if (onPlay) waveSurfer.on("play", onPlay);
-        if (onPause) waveSurfer.on("pause", onPause);
-        if (onFinish) waveSurfer.on("finish", onFinish);
-        if (onTimeUpdate) waveSurfer.on("timeupdate", onTimeUpdate);
-    }, [waveformRef]);
 
-    useEffect(() => {
+        const waveSurferInstance = waveSurferRef.current;
+        waveSurferRef.current.load(props.audioUrl);
+
+        const onReady = () => {
+            waveSurferControlsRef.current = waveSurfer.set(waveSurferInstance);
+            drawBpmMarkers();
+            if (props.onReady) props.onReady();
+        }
+        
+        waveSurferRef.current.on("ready", onReady);
+        if (props.onPlay) waveSurferRef.current.on("play", props.onPlay);
+        if (props.onPause) waveSurferRef.current.on("pause", props.onPause);
+        if (props.onFinish) waveSurferRef.current.on("finish", props.onFinish);
+        if (props.onTimeUpdate) waveSurferRef.current.on("timeupdate", props.onTimeUpdate);
+
         return () => {
-            regionsPlugin.clearRegions();
-            waveSurfer.unregisterPlugin(regionsPlugin);
-            waveSurfer.unregisterPlugin(minimapPlugin);
-            waveSurfer.unAll();
-            waveSurfer.empty();
-            waveSurfer.destroy();
+            regionsPluginRef.current.clearRegions();
+            if (waveSurferRef.current) {
+                waveSurferRef.current.unregisterPlugin(regionsPluginRef.current);
+                waveSurferRef.current.unregisterPlugin(minimapPlugin);
+                waveSurferRef.current.unAll();
+                waveSurferRef.current.empty();
+                waveSurferRef.current.destroy();
+            }
         };
     }, []);
 
+    useEffect(() => {
+        const waveSurferInstance = waveSurferRef.current;
+        if (!waveSurferInstance) return;
+
+        const newControls = waveSurfer.set(waveSurferInstance)
+        waveSurferControlsRef.current = newControls;
+
+        if (props.onControlsUpdate) {
+            props.onControlsUpdate(newControls);
+        }
+
+        drawBpmMarkers();
+    }, [props.bpm, props.offset]);
+
     useImperativeHandle(ref, () => ({
-        play,
-        pause,
-        togglePlay,
-        next,
-        previous,
-        start,
-        end,
-        isPlaying,
-        getDuration,
-        getTime,
-        getBeat,
-        setBeat,
+        getControls
     }), []);
 
     return (
         <>
-            <div ref={waveformRef} id="waveform" />
+            <div id="waveform" />
             <div id="minimapContainer" />
         </>
     )

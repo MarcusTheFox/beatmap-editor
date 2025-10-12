@@ -4,9 +4,9 @@ import { RegionParams } from "wavesurfer.js/dist/plugins/regions.js";
 
 const colorScheme = {
     waveColor: ["rgb(150, 150, 150)", "rgb(100, 100, 100)"],
-    progressColor: ["rgb(0, 200, 255)", "rgb(0, 100, 255)"],
+    progressColor: ["rgb(0, 200, 255)", "rgb(0, 100, 255)",],
     cursorColor: "#ff8a00",
-    regionColors: ["#ffffff30", "#ffffff15"],
+    regionColors: "hsl(var(--heroui-default-600) / 1)",
     minimapProgress: "#3b82f6",
 };
 
@@ -27,7 +27,7 @@ export const wavesurferOptions: Partial<WaveSurferOptions> = {
 };
 
 export const regionOptions: Partial<RegionParams> = {
-    color: colorScheme.regionColors[0],
+    color: colorScheme.regionColors,
     resize: false,
     drag: false,
     minLength: 1,
