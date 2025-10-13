@@ -1,37 +1,24 @@
-import { useLevel } from "@/hooks/useLevel";
-import { useNote } from "@/hooks/useNote";
 import { Button } from "@heroui/button";
 
 interface SpawnerProps {
   id: number;
+  isChecked: boolean;
+  isHighlighted: boolean;
+  isSelected: boolean;
+  onLeftClick: () => void;
+  onRightClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export function Spawner({ id }: SpawnerProps) {
-    const { currentBeat, isPlaying } = useLevel();
-    const { isSelected, contains, add, select, remove } = useNote();
-    const isChecked = contains(currentBeat, id);
-    const isHighlighted = isPlaying && contains(Math.floor(currentBeat), currentBeat, id);
-
-    const handleLeftClick = () => {
-        if (isChecked) {
-            remove(currentBeat, id);
-        } else {
-            add(currentBeat, id);
-        }
-    }
-
-    const handleRightClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        select(currentBeat, id);
-    }
+export function Spawner(props: SpawnerProps) {
+    const { id, isChecked, isHighlighted, isSelected, onLeftClick, onRightClick } = props;
 
     return (
         <Button isIconOnly 
-                onPress={handleLeftClick} 
-                onContextMenu={handleRightClick}
+                onPress={onLeftClick} 
+                onContextMenu={onRightClick}
                 radius="sm"
                 className="w-18 h-18"
-                variant={isSelected(currentBeat, id) || isHighlighted ? "solid" : "ghost"}
+                variant={isSelected || isHighlighted ? "solid" : "ghost"}
                 color={isChecked || isHighlighted ? "warning" : "default"}>
             {id}
         </Button>
