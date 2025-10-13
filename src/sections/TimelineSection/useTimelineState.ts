@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { WaveSurferControls } from "./WaveSurferComponent/useWaveSurfer"
 
-export const useTimelineState = (setControls: (controls: WaveSurferControls) => void) => {
+interface TimelineStateProps {
+    setControls: (controls: WaveSurferControls | null) => void;
+    setIsPlaying: (playing: boolean) => void;
+    setCurrentTime: (time: number) => void;
+}
+
+export const useTimelineState = (props: TimelineStateProps) => {
+    const { setControls, setIsPlaying, setCurrentTime } = props;
     const [ loading, setLoading ] = useState<boolean>(false);
-    const [ currentTime, setCurrentTime ] = useState<number>(0);
-    const [ isPlaying, setIsPlaying ] = useState<boolean>(false);
 
     const onReady = (controls: WaveSurferControls) => {
         setControls(controls);
@@ -22,8 +27,6 @@ export const useTimelineState = (setControls: (controls: WaveSurferControls) => 
 
     return {
         loading,
-        currentTime,
-        isPlaying,
 
         onReady,
         onTimeUpdate,

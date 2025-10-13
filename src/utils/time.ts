@@ -4,7 +4,7 @@ export const formatTime = (seconds: number): string => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
-export const convertTimeToBeats = (time: number, bpm: number, offset: number = 0) => {
+export const convertTimeToBeats = (time: number, bpm: number, offset: number) => {
     if (time < offset) return 0;
 
     const timeInSong = time - offset;
@@ -12,18 +12,18 @@ export const convertTimeToBeats = (time: number, bpm: number, offset: number = 0
     return Math.round(timeInSong * beatsPerSecond * 1000) / 1000;
 };
 
-export const convertBeatsToTime = (beat: number, bpm: number, offset: number = 0) => {
+export const convertBeatsToTime = (beat: number, bpm: number, offset: number) => {
     const beatsPerSecond = bpm / 60;
     const timeInSong = beat / beatsPerSecond;
     return timeInSong + offset;
 };
 
-export const getNextBeatTime = (time: number, duration: number, bpm: number, offset: number = 0) => {
+export const getNextBeatTime = (time: number, duration: number, bpm: number, offset: number) => {
     const beat = convertTimeToBeats(time, bpm, offset);
     return Math.min(convertBeatsToTime(Math.floor(beat) + 1, bpm, offset), duration)
 }
 
-export const getPreviousBeatTime = (time: number, bpm: number, offset: number = 0) => {
+export const getPreviousBeatTime = (time: number, bpm: number, offset: number) => {
     const beat = convertTimeToBeats(time, bpm, offset);
     return Math.max(convertBeatsToTime(Math.ceil(beat) - 1, bpm, offset), 0);
 }

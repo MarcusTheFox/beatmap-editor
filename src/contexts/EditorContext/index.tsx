@@ -4,13 +4,25 @@ import { WaveSurferControls } from "@/sections/TimelineSection/WaveSurferCompone
 interface EditorContextType {
     controls: WaveSurferControls | null;
     setControls: (controls: WaveSurferControls | null) => void;
+
+    isPlaying: boolean;
+    setIsPlaying: (playing: boolean) => void;
+    currentTime: number;
+    setCurrentTime: (beat: number) => void;
 }
 
 export const EditorContext = createContext<EditorContextType | undefined>(undefined);
 
 export const EditorProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [ controls, setControls ] = useState<WaveSurferControls | null>(null);
-    const value = { controls, setControls };
+    const [ isPlaying, setIsPlaying ] = useState<boolean>(false);
+    const [ currentTime, setCurrentTime ] = useState<number>(0);
+
+    const value = {
+        controls, setControls,
+        isPlaying, setIsPlaying,
+        currentTime, setCurrentTime
+    };
 
     return (
         <EditorContext.Provider value={value}>

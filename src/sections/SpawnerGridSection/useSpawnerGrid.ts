@@ -1,9 +1,14 @@
-import { useLevel } from "@/hooks/useLevel"
+import { useEditorContext } from "@/contexts/EditorContext";
+import { useLevel } from "@/hooks/useLevel";
 import { useNote } from "@/hooks/useNote";
+import { convertTimeToBeats } from "@/utils";
 
 export const useSpawnerGrid = () => {
-    const { currentBeat, isPlaying } = useLevel();
+    const { currentTime, isPlaying } = useEditorContext();
+    const { bpm, offset } = useLevel();
     const { contains, add, remove, select, isSelected: IsNoteSelected } = useNote();
+
+    const currentBeat = convertTimeToBeats(currentTime, bpm, offset);
 
     const getSpawnerState = (id: number) => {
         const isChecked = contains(currentBeat, id);

@@ -14,12 +14,12 @@ import { usePlaybackControls } from "./usePlaybackControls";
 import { useTimelineState } from "./useTimelineState";
 
 export function TimelineSection() {
-    const { controls, setControls } = useEditorContext();
+    const { controls, setControls, currentTime, setCurrentTime, isPlaying, setIsPlaying } = useEditorContext();
     const { bpm, offset } = useLevel();
     const { audioUrl } = useAudio();
     const beatInput = useBeatInput(controls);
     const { nextBeat, playPause, prevBeat, toEnd, toStart } = usePlaybackControls(controls);
-    const { currentTime, isPlaying, loading, onPlayPause, onReady, onTimeUpdate } = useTimelineState(setControls);
+    const { loading, onPlayPause, onReady, onTimeUpdate } = useTimelineState({ setControls, setCurrentTime, setIsPlaying });
 
     const waveSurferRef = useRef<WaveSurferComponentRef>(null);
     const cardRef = useRef<HTMLDivElement>(null);
