@@ -58,8 +58,8 @@ export const useZip = () => {
         const beatmap: Beatmap = { ...level.beatmap };
         const zipFileName: string = info.id;
 
-        zipFile.file('info.json', JSON.stringify(info));
-        zipFile.file(info.levelInfo.beatmapFileName, JSON.stringify(beatmap));
+        zipFile.file('info.json', JSON.stringify(info, null, 2));
+        zipFile.file(info.levelInfo.beatmapFileName, JSON.stringify(beatmap, null, 2));
         zipFile.file(info.audioInfo.fileName, level.audioFile);
 
         const content = await zipFile.generateAsync({ type: "blob" });
