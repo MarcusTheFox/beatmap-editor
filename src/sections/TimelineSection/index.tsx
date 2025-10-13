@@ -8,11 +8,11 @@ import { Input } from "@heroui/input";
 import { Label } from "@/components/Label";
 import { convertTimeToBeats, formatTime } from "@/utils";
 import { WaveSurferComponent, WaveSurferComponentRef } from "./WaveSurferComponent";
-import { EditorModel } from "@/contexts/EditorContext/useEditorModel";
 import { WaveSurferControls } from "./WaveSurferComponent/useWaveSurfer";
+import { useEditorContext } from "@/contexts/EditorContext";
 
-export function TimelineSection(props: { model: EditorModel }) {
-    const { model } = props;
+export function TimelineSection() {
+    const { controls, setControls } = useEditorContext();
     const { bpm, offset } = useLevel();
     const { audioUrl } = useAudio();
 
@@ -25,18 +25,16 @@ export function TimelineSection(props: { model: EditorModel }) {
     const waveSurferRef = useRef<WaveSurferComponentRef>(null);
     const cardRef = useRef<HTMLDivElement>(null);
     const beatInputRef = useRef<HTMLInputElement>(null);
-
-    const getControls = () => model.get("controls") as WaveSurferControls;
     
     const playPauseButtonHandler = () => {
-        const controls = getControls();
+        if (!controls) return;
         controls.playPause();
         setIsPlaying(controls.isPlaying);
     }
-    const nextBeatButtonHandler = () => getControls()?.next();
-    const previousBeatButtonHandler = () => getControls()?.previous();
-    const startBeatButtonHandler = () => getControls()?.start();
-    const lastBeatButtonHandler = () => getControls()?.end();
+    const nextBeatButtonHandler = () => controls?.next();
+    const previousBeatButtonHandler = () => controls?.previous();
+    const startBeatButtonHandler = () => controls?.start();
+    const lastBeatButtonHandler = () => controls?.end();
     
     const handleWheel = (event: WheelEvent) => {
         event.preventDefault();
@@ -48,14 +46,15 @@ export function TimelineSection(props: { model: EditorModel }) {
 
     const handleBeatInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        getControls().setBeat(Number(beatInput));
+        controls?.setBeat(Number(beatInput));
         setIsBeatEditing(false);
         setBeatInput('');
     }
 
     const handleBeatDisplayClick = () => {
+        if (!controls) return;
         setIsBeatEditing(true);
-        setBeatInput(getControls().getBeat().toFixed(3))
+        setBeatInput(controls.getBeat().toFixed(3))
     }
 
     const handleBeatInputBlur = () => {
@@ -66,12 +65,12 @@ export function TimelineSection(props: { model: EditorModel }) {
     const handleWaveSurferReady = () => {
         if (!waveSurferRef.current) return;
 
-        const controls = waveSurferRef.current.getControls();
-        if (!controls) return;
+        const newControls = waveSurferRef.current.getControls();
+        if (!newControls) return;
 
-        model.set("controls", controls);
+        setControls(newControls);
 
-        setIsPlaying(controls.isPlaying());
+        setIsPlaying(newControls.isPlaying());
         setIsLoaded(true);
     }
 
@@ -79,8 +78,8 @@ export function TimelineSection(props: { model: EditorModel }) {
         setCurrentTime(time);
     }
 
-    const handleControlsUpdate = (controls: WaveSurferControls) => {
-        model.set("controls", controls);
+    const handleControlsUpdate = (newControls: WaveSurferControls) => {
+        setControls(newControls);
     }
 
     useEffect(() => {
@@ -99,8 +98,6 @@ export function TimelineSection(props: { model: EditorModel }) {
             beatInputRef.current?.select();
         }
     }, [isBeatEditing]);
-
-    const controls = getControls();
 
     const beatLabel = (
         <Label className="w-48" onClick={handleBeatDisplayClick}>
