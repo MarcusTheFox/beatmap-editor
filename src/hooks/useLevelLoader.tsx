@@ -1,10 +1,27 @@
-import { Beatmap, Level, Note } from "@/types";
+import { AudioInfo, Beatmap, Level, LevelInfo, Note, NoteProperties, TimelineSettings } from "@/types";
 import { useAudio } from "./useAudio";
 import { useNote } from "./useNote";
 import { useTimelineSettings } from "@/contexts/TimelineSettingsContext";
 import { useLevelProperties } from "@/contexts/LevelProperties";
+import { useLevelMetadata } from "@/contexts/LevelMetadataContext";
 
-const levelSettingsDefaults = {
+interface LevelDefaults {
+  audioInfo: AudioInfo;
+  levelInfo: LevelInfo;
+  timeline: TimelineSettings;
+  properties: NoteProperties;
+}
+
+const levelDefaults: LevelDefaults = {
+  audioInfo: {
+    title: "Song title",
+    artist: "Song artist"
+  },
+  levelInfo: {
+    authors: [],
+    difficulty: "Normal",
+    version: "0.0.0"
+  },
   timeline: {
     bpm: 120,
     offset: 0
@@ -17,6 +34,7 @@ const levelSettingsDefaults = {
 export const useLevelLoader = () => {
   const { setTimelineSettings } = useTimelineSettings();
   const { setLevelProperties } = useLevelProperties();
+  const { setMetadata } = useLevelMetadata();
   const audio = useAudio();
   const notes = useNote();
 
@@ -26,7 +44,7 @@ export const useLevelLoader = () => {
       const newNote: Note = {
         ...note,
         properties: {
-          power: note.properties?.power || beatmap.settings.properties.power || levelSettingsDefaults.properties.power
+          power: note.properties?.power || beatmap.settings.properties.power || levelDefaults.properties.power
         }
       }
       noteArray.push(newNote);
@@ -35,19 +53,22 @@ export const useLevelLoader = () => {
   }
 
   const load = (data: Level) => {
-    setTimelineSettings({
-      bpm: data.beatmap.settings.bpm || levelSettingsDefaults.timeline.bpm,
-      offset: data.beatmap.settings.offset || levelSettingsDefaults.timeline.offset
-    });
-    const levelProperties = data.beatmap.settings.properties || levelSettingsDefaults.properties;
+    const bpm = data.beatmap.settings.bpm;
+    const offset = data.beatmap.settings.offset;
+    setTimelineSettings({ bpm, offset });
+
+    const levelProperties = data.beatmap.settings.properties || levelDefaults.properties;
     setLevelProperties({ ...levelProperties });
+
+    setMetadata({ ...data.audioInfo, ...data.levelInfo });
     notes.set(makeNotes(data.beatmap));
     audio.setAudio(data.audioFile);
   }
 
   const create = (audioFile: File) => {
-    setTimelineSettings({ ...levelSettingsDefaults.timeline })
-    setLevelProperties({ ...levelSettingsDefaults.properties });
+    setTimelineSettings({ ...levelDefaults.timeline });
+    setLevelProperties({ ...levelDefaults.properties });
+    setMetadata({ ...levelDefaults.audioInfo, ...levelDefaults.levelInfo });
     notes.clear();
     audio.setAudio(audioFile);
   }
