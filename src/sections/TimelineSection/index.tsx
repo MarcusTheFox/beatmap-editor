@@ -1,5 +1,4 @@
 import { useAudio } from "@/hooks/useAudio";
-import { useLevel } from "@/hooks/useLevel";
 import { Button } from "@heroui/button";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { useRef } from "react";
@@ -12,10 +11,11 @@ import { useEditorContext } from "@/contexts/EditorContext";
 import { useBeatInput } from "./useBeatInput";
 import { usePlaybackControls } from "./usePlaybackControls";
 import { useTimelineState } from "./useTimelineState";
+import { useTimelineSettings } from "@/contexts/TimelineSettingsContext";
 
 export function TimelineSection() {
     const { controls, setControls, currentTime, setCurrentTime, isPlaying, setIsPlaying } = useEditorContext();
-    const { bpm, offset } = useLevel();
+    const { timelineSettings: { bpm, offset } } = useTimelineSettings();
     const { audioUrl } = useAudio();
     const beatInput = useBeatInput(controls);
     const { nextBeat, playPause, prevBeat, toEnd, toStart } = usePlaybackControls(controls);

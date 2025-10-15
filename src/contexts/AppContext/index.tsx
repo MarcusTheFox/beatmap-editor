@@ -1,16 +1,22 @@
 import { ReactNode } from "react";
-import { LevelProvider } from "../LevelContext";
 import { AudioProvider } from "../AudioContext";
 import { NoteProvider } from "../NoteContext";
+import { TimelineSettingsProvider } from "../TimelineSettingsContext";
+import { LevelMetadataProvider } from "../LevelMetadataContext";
+import { LevelPropertiesProvider } from "../LevelProperties";
 
 export const AppProvider = ({ children } : { children: ReactNode }) => {
     return (
-        <LevelProvider>
-            <AudioProvider>
-                <NoteProvider>
-                    {children}
-                </NoteProvider>
-            </AudioProvider>
-        </LevelProvider>
+        <AudioProvider>
+            <NoteProvider>
+                <LevelMetadataProvider>
+                    <LevelPropertiesProvider>
+                        <TimelineSettingsProvider>
+                                    {children}
+                        </TimelineSettingsProvider>
+                    </LevelPropertiesProvider>
+                </LevelMetadataProvider>
+            </NoteProvider>
+        </AudioProvider>
     )
 }

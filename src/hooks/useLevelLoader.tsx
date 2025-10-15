@@ -1,18 +1,22 @@
-import { Beatmap, BeatmapSettings, Level, Note } from "@/types";
+import { Beatmap, Level, Note } from "@/types";
 import { useAudio } from "./useAudio";
-import { useLevel } from "./useLevel";
 import { useNote } from "./useNote";
+import { useTimelineSettings } from "@/contexts/TimelineSettingsContext";
+import { useLevelProperties } from "@/contexts/LevelProperties";
 
-const levelSettingsDefaults: BeatmapSettings = {
-  bpm: 120,
-  offset: 0,
+const levelSettingsDefaults = {
+  timeline: {
+    bpm: 120,
+    offset: 0
+  },
   properties: {
     power: 1500
   }
 }
 
 export const useLevelLoader = () => {
-  const level = useLevel();
+  const { setTimelineSettings } = useTimelineSettings();
+  const { setLevelProperties } = useLevelProperties();
   const audio = useAudio();
   const notes = useNote();
 
@@ -31,17 +35,19 @@ export const useLevelLoader = () => {
   }
 
   const load = (data: Level) => {
-    level.setBpm(data.beatmap.settings.bpm || levelSettingsDefaults.bpm );
-    level.setOffset(data.beatmap.settings.offset || levelSettingsDefaults.offset);
-    level.setPower(data.beatmap.settings.properties.power || levelSettingsDefaults.properties.power);
+    setTimelineSettings({
+      bpm: data.beatmap.settings.bpm || levelSettingsDefaults.timeline.bpm,
+      offset: data.beatmap.settings.offset || levelSettingsDefaults.timeline.offset
+    });
+    const levelProperties = data.beatmap.settings.properties || levelSettingsDefaults.properties;
+    setLevelProperties({ ...levelProperties });
     notes.set(makeNotes(data.beatmap));
     audio.setAudio(data.audioFile);
   }
 
   const create = (audioFile: File) => {
-    level.setBpm(levelSettingsDefaults.bpm);
-    level.setOffset(levelSettingsDefaults.offset);
-    level.setPower(levelSettingsDefaults.properties.power);
+    setTimelineSettings({ ...levelSettingsDefaults.timeline })
+    setLevelProperties({ ...levelSettingsDefaults.properties });
     notes.clear();
     audio.setAudio(audioFile);
   }

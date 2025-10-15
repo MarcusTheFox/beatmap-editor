@@ -1,7 +1,8 @@
 import { CardTitle } from "@/components/CardTitle";
 import { UploadButton } from "@/components/UploadAudio";
+import { useLevelProperties } from "@/contexts/LevelProperties";
+import { useTimelineSettings } from "@/contexts/TimelineSettingsContext";
 import { useAudio } from "@/hooks/useAudio";
-import { useLevel } from "@/hooks/useLevel";
 import { useNote } from "@/hooks/useNote";
 import { useZip } from "@/hooks/useZip";
 import { Beatmap, Note } from "@/types";
@@ -10,7 +11,8 @@ import { useState } from "react";
 
 export function UploadAudioSection() {
     const audio = useAudio();
-    const level = useLevel();
+    const { setTimelineSettings } = useTimelineSettings();
+    const { setLevelProperties } = useLevelProperties();
     const notes = useNote();
     const { importZip } = useZip();
     
@@ -23,9 +25,13 @@ export function UploadAudioSection() {
         try {
             const levelData = await importZip(file);
             audio.setAudio(levelData.audioFile);
-            level.setBpm(levelData.beatmap.settings.bpm || 120);
-            level.setOffset(levelData.beatmap.settings.offset || 0);
-            level.setPower(levelData.beatmap.settings.properties.power || 1500);
+            setTimelineSettings({
+                bpm: levelData.beatmap.settings.bpm || 120,
+                offset: levelData.beatmap.settings.offset || 0
+            });
+            setLevelProperties({
+                power: levelData.beatmap.settings.properties.power || 1500
+            });
             notes.set(makeNotes(levelData.beatmap));
         } catch (e: any) {
             console.error(e);

@@ -1,7 +1,10 @@
 import { NoteProperties } from "..";
 
-export interface BeatmapSettings {
+export interface TimelineSettings {
     bpm: number,
-    offset: number,
+    offset: number
+}
+
+export interface BeatmapSettings extends TimelineSettings {
     properties: NoteProperties
 }

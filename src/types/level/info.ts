@@ -1,8 +1,7 @@
 export interface LevelInfo {
     authors: string[],
     version: string,
-    difficulty: DifficultyName,
-    beatmapFileName: string
+    difficulty: DifficultyName
 }
 
 export type DifficultyName = "Easy" | "Normal" | "Hard" | "Expert";

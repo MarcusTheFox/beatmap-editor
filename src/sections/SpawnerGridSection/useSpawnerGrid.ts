@@ -1,11 +1,11 @@
 import { useEditorContext } from "@/contexts/EditorContext";
-import { useLevel } from "@/hooks/useLevel";
+import { useTimelineSettings } from "@/contexts/TimelineSettingsContext";
 import { useNote } from "@/hooks/useNote";
 import { convertTimeToBeats } from "@/utils";
 
 export const useSpawnerGrid = () => {
     const { currentTime, isPlaying } = useEditorContext();
-    const { bpm, offset } = useLevel();
+    const { timelineSettings: { bpm, offset } } = useTimelineSettings();
     const { contains, add, remove, select, isSelected: IsNoteSelected } = useNote();
 
     const currentBeat = convertTimeToBeats(currentTime, bpm, offset);

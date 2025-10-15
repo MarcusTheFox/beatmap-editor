@@ -1,6 +1,8 @@
 import { CardTitle } from "@/components/CardTitle"
+import { useLevelMetadata } from "@/contexts/LevelMetadataContext"
+import { useLevelProperties } from "@/contexts/LevelProperties"
+import { useTimelineSettings } from "@/contexts/TimelineSettingsContext"
 import { useAudio } from "@/hooks/useAudio"
-import { useLevel } from "@/hooks/useLevel"
 import { useNote } from "@/hooks/useNote"
 import { useZip } from "@/hooks/useZip"
 import { Level } from "@/types"
@@ -8,7 +10,9 @@ import { Button } from "@heroui/button"
 import { Card, CardBody, CardHeader } from "@heroui/card"
 
 export const ExportSection = () => {
-    const level = useLevel();
+    const { metadata } = useLevelMetadata();
+    const { levelProperties } = useLevelProperties();
+    const { timelineSettings } = useTimelineSettings();
     const notes = useNote();
     const audio = useAudio();
     const { exportZip } = useZip();
@@ -19,36 +23,27 @@ export const ExportSection = () => {
             return;
         }
 
-        const title = "Song name";
-        const artist = "Artist name";
-        const id = `${title} - ${artist}`;
-
         const exportLevel: Level = {
+            id: `${metadata.title} - ${metadata.artist}`,
             audioFile: audio.audioFile,
             audioInfo: {
-                title,
-                artist,
+                title: metadata.title,
+                artist: metadata.artist,
                 fileName: audio.audioFile.name
             },
             levelInfo: {
-                authors: [
-                    "test author"
-                ],
-                version: "0.0.0",
-                difficulty: "Normal",
+                authors: metadata.authors,
+                version: metadata.version,
+                difficulty: metadata.difficulty,
                 beatmapFileName: "beatmap.json"
             },
             beatmap: {
                 settings: {
-                    bpm: level.bpm,
-                    offset: level.offset,
-                    properties: {
-                        power: level.power
-                    }
+                    ...timelineSettings,
+                    properties: { ...levelProperties }
                 },
                 notes: notes.get()
-            },
-            id
+            }
         }
 
         await exportZip(exportLevel);
