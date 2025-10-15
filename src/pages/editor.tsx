@@ -7,8 +7,16 @@ import { TimelineSection } from "@/sections/TimelineSection";
 import { ExportSection } from "@/sections/ExportSection";
 import { EditorProvider } from "@/contexts/EditorContext";
 import { useEffect } from "react";
+import { EditorNotFound } from "./editorNotFound";
+import { useAudio } from "@/hooks/useAudio";
 
 export default function EditorPage() {
+    const { audioUrl } = useAudio();
+    
+    if (!audioUrl) {
+        return <EditorNotFound />;
+    }
+
     useEffect(() => {
         const handleBeforeUnload = (e: BeforeUnloadEvent) => {
             e.preventDefault();
