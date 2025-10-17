@@ -2,6 +2,26 @@ import * as React from "react";
 
 import { IconSvgProps } from "@/types";
 
+export const GameLogo: React.FC<IconSvgProps> = ({
+  size = 20,
+  height,
+  width,
+  ...props
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height={size || height}
+    width={size || width}
+    viewBox="0 0 20 20"
+    {...props}
+  >
+    <path
+      d="M3 0h6v6L6 9H0V3zm14 0h-6v6l3 3h6V3zM3 20h6v-6l-3-3H0v6zm14 0h-6v-6l3-3h6v6z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
 export const Logo: React.FC<IconSvgProps> = ({
   size = 36,
   height,

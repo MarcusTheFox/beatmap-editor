@@ -1,8 +1,8 @@
-import { Navbar, NavbarContent } from "@heroui/navbar";
+import { Navbar, NavbarBrand, NavbarContent } from "@heroui/navbar";
 import { ReactNode } from "react";
-
 import { ThemeSwitch } from "@/components/theme-switch";
-import { Title } from "@/components/Title";
+import { GameLogo } from "@/components/icons";
+import { Link } from "@heroui/link";
 
 interface EditorLayoutProps {
   children: ReactNode;
@@ -11,9 +11,18 @@ interface EditorLayoutProps {
 export function EditorLayout(props: EditorLayoutProps) {
     return (
         <div className="relative flex flex-col h-screen">
-            <Navbar>
+            <Navbar maxWidth="xl">
                 <NavbarContent>
-                    <Title text="Beatmap Editor" />
+                    <NavbarBrand>
+                        <Link
+                            className="flex justify-start items-center gap-2"
+                            color="foreground"
+                            href="/"
+                        >
+                            <GameLogo />
+                            <p className="font-bold text-inherit">Beam & Beat</p>
+                        </Link>
+                    </NavbarBrand>
                 </NavbarContent>
                 <NavbarContent justify="end">
                     <ThemeSwitch />
