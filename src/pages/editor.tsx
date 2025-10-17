@@ -27,7 +27,7 @@ export default function EditorPage() {
     return (
         <EditorProvider>
             <EditorLayout>
-                <div className="grid grid-cols-[1fr_2fr_1fr] justify-stretch">
+                <div className="flex-1 mx-8 grid grid-cols-[2fr_3fr_2fr] justify-stretch">
                     <TrackInfoSection />
                     <SpawnerGridSection />
                     <NotePropertiesSection />

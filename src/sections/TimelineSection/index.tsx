@@ -54,7 +54,7 @@ export function TimelineSection() {
     )
 
     const timelineHeader = (
-        <CardHeader className="flex pb-0">
+        <CardHeader className="flex pb-0 px-8">
             <div className="flex gap-2 w-full">
                 <Label className="w-48">Time: {formatTime(currentTime)}</Label>
                 { beatInput.isEditing ? beatForm : beatLabel }
@@ -74,9 +74,9 @@ export function TimelineSection() {
 
     return (
         <div>
-            <Card className="" ref={cardRef}>
+            <Card className="rounded-none bg-transparent border-t-1 border-t-default-200 shadow-none" ref={cardRef}>
                 { !loading && controls && timelineHeader }
-                <CardBody>
+                <CardBody className="px-0">
                     <WaveSurferComponent
                         ref={waveSurferRef}
                         audioUrl={audioUrl}

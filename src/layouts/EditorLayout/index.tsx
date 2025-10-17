@@ -14,7 +14,7 @@ interface EditorLayoutProps {
 export function EditorLayout(props: EditorLayoutProps) {
     return (
         <div className="relative flex flex-col h-screen">
-            <Navbar maxWidth="2xl">
+            <Navbar maxWidth="2xl" className="border-b-1 border-b-default-200">
                 <NavbarContent>
                     <NavbarBrand className="max-w-fit mr-10">
                         <Link
@@ -56,7 +56,7 @@ export function EditorLayout(props: EditorLayoutProps) {
                     </ExportButton>
                 </NavbarContent>
             </Navbar>
-            <main id="main-container" className="flex flex-col gap-4 m-8 h-full">
+            <main id="main-container" className="flex flex-col gap-8 mt-8 justify-between h-full">
                 {props.children}
             </main>
             <footer />

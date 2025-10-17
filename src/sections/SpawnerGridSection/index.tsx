@@ -32,7 +32,7 @@ export function SpawnerGridSection() {
     });
 
     return (
-        <Card className="p-3 text-sm max-w-fit max-h-fit mx-auto">
+        <Card className="p-3 text-sm max-w-fit max-h-fit mx-auto rounded-none bg-transparent border-none shadow-none self-center">
             <CardBody className="overflow-visible">
                 <div className="grid grid-cols-7 grid-rows-7 gap-1 max-w-fit">
                     {spawners}
