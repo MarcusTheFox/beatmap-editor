@@ -7,6 +7,7 @@ import { useLevelLoader } from "@/hooks/useLevelLoader";
 import { addToast } from "@heroui/toast";
 import { Level } from "@/types";
 import { useRef } from "react";
+import { getURIFromFileName, getURIFromString } from "@/utils";
 
 export default function IndexPage() {
   const navigate = useNavigate();
@@ -15,13 +16,9 @@ export default function IndexPage() {
 
   const archiveButtonRef = useRef<UploadButtonRef>(null);
 
-  const getURISongName = (file: File) => {
-    return decodeURIComponent(file.name.replace(/\.[^/.]+$/, "").replace(/ /g, '_'));
-  }
-
   const handleWavImport = (file: File) => {
     create(file);
-    navigate(`/edit/${getURISongName(file)}`);
+    navigate(`/edit/${getURIFromFileName(file)}`);
   }
 
   const handleZipImport = async (file: File) => {
@@ -42,12 +39,12 @@ export default function IndexPage() {
       if (archiveButtonRef.current) {
         archiveButtonRef.current.clearFile();
       }
-      
+
       return;
     }
     
     load(levelData);
-    navigate(`/edit/${getURISongName(levelData.audioFile)}`);
+    navigate(`/edit/${getURIFromString(levelData.id)}`);
   }
 
   return (
