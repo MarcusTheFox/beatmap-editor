@@ -8,13 +8,18 @@ import AboutPage from "@/pages/about";
 import EditorPage from "./pages/editor";
 import { AppProvider } from "./contexts/AppContext";
 import NotFoundPage from "./pages/notFoundPage";
+import { EditorDetailsPage } from "./pages/editorDetails";
+import { EditorLayout } from "./layouts/EditorLayout";
 
 function App() {
   return (
     <AppProvider>
       <Routes>
         <Route element={<IndexPage />} path="/" />
-        <Route element={<EditorPage />} path="/edit/:song" />
+        <Route element={<EditorLayout />} path="/edit/:song">
+          <Route element={<EditorPage />} index />
+          <Route element={<EditorDetailsPage />} path="/edit/:song/details" />
+        </Route>
         <Route element={<DocsPage />} path="/docs" />
         <Route element={<PricingPage />} path="/pricing" />
         <Route element={<BlogPage />} path="/blog" />

@@ -1,5 +1,5 @@
 import { Navbar, NavbarBrand, NavbarContent } from "@heroui/navbar";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GameLogo } from "@/components/icons";
 import { Link } from "@heroui/link";
@@ -7,12 +7,31 @@ import { Icon20DownloadOutline, Icon20ListBulletOutline, Icon20SquareOutline } f
 import { Button } from "@heroui/button";
 import { ExportButton } from "@/components/ExportButton";
 import { TimelineSection } from "@/sections/TimelineSection";
+import { Outlet, useParams } from "react-router-dom";
+import { useAudio } from "@/hooks/useAudio";
+import { EditorNotFound } from "@/pages/editorNotFound";
 
 interface EditorLayoutProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export function EditorLayout(props: EditorLayoutProps) {
+    const { song } = useParams();
+    const { audioUrl } = useAudio();
+    
+    if (!audioUrl) {
+        return <EditorNotFound />;
+    }
+
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            e.preventDefault();
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, []);
+
     return (
         <div className="relative flex flex-col h-screen">
             <Navbar maxWidth="2xl" className="border-b-1 border-b-default-200">
@@ -32,7 +51,7 @@ export function EditorLayout(props: EditorLayoutProps) {
                 <NavbarContent justify="center">
                     <Button
                         as={Link}
-                        href="#"
+                        href={`edit/${song}`}
                         variant="light"
                         startContent={<Icon20SquareOutline />}
                     >
@@ -40,7 +59,7 @@ export function EditorLayout(props: EditorLayoutProps) {
                     </Button>
                     <Button
                         as={Link}
-                        href="#"
+                        href={`edit/${song}/details`}
                         variant="light"
                         startContent={<Icon20ListBulletOutline />}
                     >
@@ -58,7 +77,7 @@ export function EditorLayout(props: EditorLayoutProps) {
                 </NavbarContent>
             </Navbar>
             <main id="main-container" className="flex flex-col gap-8 m-8 justify-between h-full">
-                {props.children}
+                { props.children ?? <Outlet /> }
             </main>
             <footer>
                 <TimelineSection />
