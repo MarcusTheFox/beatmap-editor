@@ -6,6 +6,7 @@ import { Link } from "@heroui/link";
 import { Icon20DownloadOutline, Icon20ListBulletOutline, Icon20SquareOutline } from "@vkontakte/icons";
 import { Button } from "@heroui/button";
 import { ExportButton } from "@/components/ExportButton";
+import { TimelineSection } from "@/sections/TimelineSection";
 
 interface EditorLayoutProps {
   children: ReactNode;
@@ -56,10 +57,12 @@ export function EditorLayout(props: EditorLayoutProps) {
                     </ExportButton>
                 </NavbarContent>
             </Navbar>
-            <main id="main-container" className="flex flex-col gap-8 mt-8 justify-between h-full">
+            <main id="main-container" className="flex flex-col gap-8 m-8 justify-between h-full">
                 {props.children}
             </main>
-            <footer />
+            <footer>
+                <TimelineSection />
+            </footer>
         </div>
     );
 }

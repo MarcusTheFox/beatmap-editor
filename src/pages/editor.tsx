@@ -2,7 +2,6 @@ import { EditorLayout } from "@/layouts/EditorLayout";
 import { TrackInfoSection } from "@/sections/TrackInfoSection";
 import { SpawnerGridSection } from "@/sections/SpawnerGridSection";
 import { NotePropertiesSection } from "@/sections/NotePropertiesSection";
-import { TimelineSection } from "@/sections/TimelineSection";
 import { EditorProvider } from "@/contexts/EditorContext";
 import { useEffect } from "react";
 import { EditorNotFound } from "./editorNotFound";
@@ -27,12 +26,11 @@ export default function EditorPage() {
     return (
         <EditorProvider>
             <EditorLayout>
-                <div className="flex-1 mx-8 grid grid-cols-[2fr_3fr_2fr] justify-stretch">
+                <div className="grow grid grid-cols-[2fr_3fr_2fr] justify-stretch">
                     <TrackInfoSection />
                     <SpawnerGridSection />
                     <NotePropertiesSection />
                 </div>
-                <TimelineSection />
             </EditorLayout>
         </EditorProvider>
     );
