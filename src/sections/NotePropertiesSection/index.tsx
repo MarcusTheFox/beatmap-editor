@@ -3,8 +3,10 @@ import { CardTitle } from "@/components/CardTitle";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Input } from "@heroui/input";
 import { useNote } from "@/hooks/useNote";
+import { useLevelProperties } from "@/contexts/LevelProperties";
 
 export function NotePropertiesSection() {
+    const { levelProperties: { power } } = useLevelProperties();
     const { selectedNote, update } = useNote();
     const [ powerInput, setPowerInput ] = useState<string>("");
 
@@ -54,7 +56,7 @@ export function NotePropertiesSection() {
                         />
                         <Input
                             type="number"
-                            placeholder="1500"
+                            placeholder={power.toString()}
                             value={powerInput}
                             min={0}
                             onValueChange={handlePowerChange}

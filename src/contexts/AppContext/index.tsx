@@ -4,6 +4,7 @@ import { NoteProvider } from "../NoteContext";
 import { TimelineSettingsProvider } from "../TimelineSettingsContext";
 import { LevelMetadataProvider } from "../LevelMetadataContext";
 import { LevelPropertiesProvider } from "../LevelProperties";
+import { EditorProvider } from "../EditorContext";
 
 export const AppProvider = ({ children } : { children: ReactNode }) => {
     return (
@@ -12,7 +13,9 @@ export const AppProvider = ({ children } : { children: ReactNode }) => {
                 <LevelMetadataProvider>
                     <LevelPropertiesProvider>
                         <TimelineSettingsProvider>
-                                    {children}
+                            <EditorProvider>
+                                {children}
+                            </EditorProvider>
                         </TimelineSettingsProvider>
                     </LevelPropertiesProvider>
                 </LevelMetadataProvider>

@@ -11,31 +11,17 @@ export function TrackInfoSection() {
     const { timelineSettings, setTimelineSettings } = useTimelineSettings();
     const { levelProperties, setLevelProperties } = useLevelProperties();
 
-    const handleValueChange = useCallback((
-        setter: (value: number) => void,
-        condition: (value: number) => boolean,
-        value: string
-    ) => {
-        const numericValue = Number(value);
-        if (!isNaN(numericValue) && condition(numericValue)) {
-            setter(numericValue);
-        }
-    }, []);
-
     const handleBpmChange = useCallback((value: string) => {
-        const setter = (v: number) => setTimelineSettings({ ...timelineSettings, bpm: v });
-        handleValueChange( setter, (v: number) => v > 0, value );
-    }, [ handleValueChange ]);
+        setTimelineSettings({ ...timelineSettings, bpm: Number(value) });
+    }, [ setTimelineSettings, timelineSettings ]);
 
     const handleOffsetChange = useCallback((value: string) => {
-        const setter = (v: number) => setTimelineSettings({ ...timelineSettings, offset: v });
-        handleValueChange( setter, (v: number) => v >= 0, value );
-    }, [ handleValueChange ]);
+        setTimelineSettings({ ...timelineSettings, offset: Number(value) });
+    }, [ setTimelineSettings, timelineSettings ]);
 
     const handlePowerChange = useCallback((value: string) => {
-        const setter = (v: number) => setLevelProperties({ ...levelProperties, power: v });
-        handleValueChange( setter, (v: number) => v > 0, value );
-    }, [ handleValueChange ]);
+        setLevelProperties({ ...levelProperties, power: Number(value) });
+    }, [ setLevelProperties, levelProperties ]);
 
     return (
         <Card className="grow">

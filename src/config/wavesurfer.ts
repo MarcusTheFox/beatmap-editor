@@ -6,7 +6,7 @@ const colorScheme = {
     waveColor: ["rgb(150, 150, 150)", "rgb(100, 100, 100)"],
     progressColor: ["rgb(0, 200, 255)", "rgb(0, 100, 255)",],
     cursorColor: "#ff8a00",
-    regionColors: "hsl(var(--heroui-default-600) / 1)",
+    regionColors: "hsl(var(--heroui-default-600) / 0.5)",
     minimapProgress: "#3b82f6",
 };
 
