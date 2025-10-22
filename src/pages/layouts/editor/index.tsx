@@ -8,8 +8,8 @@ import { ExportButton } from "@/features/level-export";
 import { TimelineSection } from "@/features/timeline";
 import { Outlet, useParams } from "react-router-dom";
 import { useAudio } from "@/entities/audio";
-import { GameLogo } from "@/shared/ui";
 import { EditorNotFound } from "@/pages/editor-not-found";
+import { GameLogo } from "@/shared/ui";
 
 interface EditorLayoutProps {
   children?: ReactNode;
@@ -34,16 +34,15 @@ export function EditorLayout(props: EditorLayoutProps) {
 
     return (
         <div className="relative flex flex-col h-screen">
-            <Navbar maxWidth="2xl" className="border-b-1 border-b-default-200">
-                <NavbarContent>
-                    <NavbarBrand className="max-w-fit mr-10">
+            <Navbar maxWidth="xl" className="border-b-1 border-b-default-200">
+                <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+                    <NavbarBrand className="max-w-fit gap-3">
                         <Link
-                            className="flex justify-start items-center gap-2"
+                            className="flex justify-start items-center"
                             color="foreground"
                             href="/"
                         >
                             <GameLogo />
-                            <p className="font-bold text-inherit">Beam & Beat</p>
                         </Link>
                     </NavbarBrand>
                     <ThemeSwitch />
