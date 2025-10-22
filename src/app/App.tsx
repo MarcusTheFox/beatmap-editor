@@ -35,9 +35,14 @@ function App() {
           <Route element={<AboutPage />} index />
         </Route>
 
-        <Route element={<DefaultLayout />} path="*">
-          <Route element={<NotFoundPage />} index />
-        </Route>
+        <Route
+          path="*" 
+          element={
+            <DefaultLayout>
+              <NotFoundPage />
+            </DefaultLayout>
+          }
+        />
       </Routes>
     </AppProvider>
   );
