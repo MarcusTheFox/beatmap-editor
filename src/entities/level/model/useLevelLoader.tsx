@@ -39,12 +39,7 @@ export const useLevelLoader = () => {
   const makeNotes = (beatmap: Beatmap): Note[] => {
     const noteArray: Note[] = [];
     beatmap.notes.map((note: Note) => {
-      const newNote: Note = {
-        ...note,
-        properties: {
-          power: note.properties?.power || beatmap.settings.properties.power || levelDefaults.properties.power
-        }
-      }
+      const newNote: Note = { ...note };
       noteArray.push(newNote);
     });
     return noteArray;
