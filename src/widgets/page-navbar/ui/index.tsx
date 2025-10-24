@@ -1,29 +1,30 @@
+import {
+  Navbar as HeroUINavbar,
+  NavbarContent,
+  NavbarMenu,
+  NavbarMenuToggle,
+  NavbarBrand,
+  NavbarItem,
+  NavbarMenuItem,
+} from "@heroui/navbar";
 import { Button } from "@heroui/button";
 import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
-import {
-  Navbar as HeroUINavbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
-} from "@heroui/navbar";
 import { link as linkStyles } from "@heroui/theme";
+import NextLink from "next/link";
 import clsx from "clsx";
 
-import { siteConfig } from "@/shared/config";
-import { ThemeSwitch } from "@/features/theme-switch";
+import { siteConfig } from "@/config/site";
+import { ThemeSwitch } from "@/src/features/theme-switch/";
 import {
   TwitterIcon,
   GithubIcon,
   DiscordIcon,
   HeartFilledIcon,
   SearchIcon,
-  GameLogo,
-} from "@/shared/ui";
+  Logo,
+} from "@/src/shared/ui/icons";
 
 export const Navbar = () => {
   const searchInput = (
@@ -50,19 +51,16 @@ export const Navbar = () => {
   return (
     <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand className="gap-3 max-w-fit">
-          <Link
-            className="flex justify-start items-center"
-            color="foreground"
-            href="/"
-          >
-            <GameLogo />
-          </Link>
+        <NavbarBrand as="li" className="gap-3 max-w-fit">
+          <NextLink className="flex justify-start items-center gap-1" href="/">
+            <Logo />
+            <p className="font-bold text-inherit">ACME</p>
+          </NextLink>
         </NavbarBrand>
-        <div className="hidden lg:flex gap-4 justify-start ml-2">
+        <ul className="hidden lg:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
-              <Link
+              <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
                   "data-[active=true]:text-primary data-[active=true]:font-medium",
@@ -71,10 +69,10 @@ export const Navbar = () => {
                 href={item.href}
               >
                 {item.label}
-              </Link>
+              </NextLink>
             </NavbarItem>
           ))}
-        </div>
+        </ul>
       </NavbarContent>
 
       <NavbarContent
@@ -82,13 +80,13 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal href={siteConfig.links.twitter} title="Twitter">
+          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
             <TwitterIcon className="text-default-500" />
           </Link>
-          <Link isExternal href={siteConfig.links.discord} title="Discord">
+          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
             <DiscordIcon className="text-default-500" />
           </Link>
-          <Link isExternal href={siteConfig.links.github} title="GitHub">
+          <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
@@ -109,7 +107,7 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal href={siteConfig.links.github}>
+        <Link isExternal aria-label="Github" href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />

@@ -1,9 +1,11 @@
+"use client"
+
 import { useCallback, useEffect, useState } from "react";
-import { CardTitle } from "@/shared/ui";
+import { CardTitle } from "@/src/shared/ui";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Input } from "@heroui/input";
-import { useNote } from "@/entities/note";
-import { useLevelProperties } from "@/entities/level";
+import { useNote } from "@/src/entities/note";
+import { useLevelProperties } from "@/src/entities/level";
 
 export function NotePropertiesSection() {
     const { levelProperties: { power } } = useLevelProperties();

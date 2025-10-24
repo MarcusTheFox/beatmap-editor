@@ -1,5 +1,5 @@
-import { useLevelMetadata, useLevelProperties, useTimelineSettings } from "@/entities/level";
-import { CardTitle } from "@/shared/ui";
+import { useLevelMetadata, useLevelProperties, useTimelineSettings } from "@/src/entities/level";
+import { CardTitle } from "@/src/shared/ui";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Input } from "@heroui/input";
 import { useCallback } from "react";

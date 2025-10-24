@@ -1,3 +1,5 @@
+"use client"
+
 import { NotesAction, NotesState } from "../types";
 import { initialState, noteReducer } from "./reducer";
 import { createContext, ReactNode, useReducer } from "react";

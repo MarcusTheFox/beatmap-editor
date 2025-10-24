@@ -1,4 +1,4 @@
-import { Spawner } from "@/entities/spawner";
+import { Spawner } from "@/src/entities/spawner";
 import { Card, CardBody, CardFooter } from "@heroui/card";
 import { useSpawnerGrid } from "../model/useSpawnerGrid";
 

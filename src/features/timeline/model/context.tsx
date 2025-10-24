@@ -1,4 +1,6 @@
-import { WaveSurferControls } from "@/entities/wavesurfer";
+"use client"
+
+import { WaveSurferControls } from "@/src/entities/wavesurfer";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface TimelineContextType {

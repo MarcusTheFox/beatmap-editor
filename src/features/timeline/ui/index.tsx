@@ -1,14 +1,16 @@
-import { useAudio } from "@/entities/audio";
-import { useTimelineSettings } from "@/entities/level";
-import { useBeatInput, usePlaybackControls, useTimelineState } from "@/entities/wavesurfer/model";
+"use client"
+
+import { useAudio } from "@/src/entities/audio";
+import { useTimelineSettings } from "@/src/entities/level";
+import { useBeatInput, usePlaybackControls, useTimelineState } from "@/src/entities/wavesurfer/model";
 import { useRef } from "react";
-import { Label } from "@/shared/ui";
-import { convertTimeToBeats, formatTime } from "@/shared/lib";
+import { Label } from "@/src/shared/ui";
+import { convertTimeToBeats, formatTime } from "@/src/shared/lib";
 import { Input } from "@heroui/input";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
 import { Icon24Pause, Icon24Play, Icon24SkipBack, Icon24SkipForward, Icon24SkipNext, Icon24SkipPrevious } from "@vkontakte/icons";
-import { WaveSurferComponent, WaveSurferComponentRef } from "@/entities/wavesurfer";
+import { WaveSurferComponent, WaveSurferComponentRef } from "@/src/entities/wavesurfer";
 import { useTimelineContext } from "../model/context";
 
 export function TimelineSection() {

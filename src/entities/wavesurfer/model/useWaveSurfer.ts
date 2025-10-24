@@ -1,4 +1,4 @@
-import { convertBeatsToTime, convertTimeToBeats, getFirstBeatTime, getNextBeatTime, getPreviousBeatTime } from "@/shared/lib";
+import { convertBeatsToTime, convertTimeToBeats, getFirstBeatTime, getNextBeatTime, getPreviousBeatTime } from "@/src/shared/lib";
 import { useCallback } from "react";
 import WaveSurfer from "wavesurfer.js"
 

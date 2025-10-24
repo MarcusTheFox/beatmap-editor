@@ -1,6 +1,6 @@
-import { useAudio } from "@/entities/audio";
-import { Level, useLevelMetadata, useLevelProperties, useTimelineSettings } from "@/entities/level";
-import { useNote } from "@/entities/note";
+import { useAudio } from "@/src/entities/audio";
+import { Level, useLevelMetadata, useLevelProperties, useTimelineSettings } from "@/src/entities/level";
+import { useNote } from "@/src/entities/note";
 import { Button, ButtonProps } from "@heroui/button"
 import { useZip } from "../model";
 
