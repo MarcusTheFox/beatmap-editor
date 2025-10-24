@@ -10,7 +10,8 @@ export const usePlaybackControls = (controls: WaveSurferControls | null) => {
 
     useEffect(() => {
         const wheelContainer = document.getElementById("main-container");
-        if (!wheelContainer || !controls) return;
+        const timelineContainer = document.getElementById("timeline-container");
+        if (!wheelContainer || !timelineContainer || !controls) return;
 
         const handleWheel = (event: WheelEvent) => {
             event.preventDefault();
@@ -21,8 +22,12 @@ export const usePlaybackControls = (controls: WaveSurferControls | null) => {
 
         const handleCardWheel = (event: WheelEvent) => handleWheel(event);
         wheelContainer.addEventListener('wheel', handleCardWheel, { passive: false });
+        timelineContainer.addEventListener('wheel', handleCardWheel, { passive: false });
 
-        return () => wheelContainer.removeEventListener('wheel', handleCardWheel);
+        return () => {
+            wheelContainer.removeEventListener('wheel', handleCardWheel);
+            timelineContainer.removeEventListener('wheel', handleCardWheel);
+        }
     }, [controls]);
 
     return {

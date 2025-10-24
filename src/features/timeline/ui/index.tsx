@@ -72,7 +72,11 @@ export function TimelineSection() {
 
     return (
         <div>
-            <Card className="rounded-none bg-transparent border-t-1 border-t-default-200 shadow-none" ref={cardRef}>
+            <Card
+                id="timeline-container"
+                className="rounded-none bg-transparent border-t-1 border-t-default-200 shadow-none"
+                ref={cardRef}
+            >
                 { !loading && controls && timelineHeader }
                 <CardBody className="px-0 overflow-hidden">
                     <WaveSurferComponent
