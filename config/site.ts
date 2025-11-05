@@ -13,16 +13,16 @@ export const siteConfig = {
       href: "/docs",
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
       label: "Blog",
       href: "/blog",
     },
     {
       label: "About",
       href: "/about",
+    },
+    {
+      label: "Download",
+      href: "/download",
     },
   ],
   navMenuItems: [
@@ -65,5 +65,8 @@ export const siteConfig = {
     docs: "https://heroui.com",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/jrgarciadev",
+    game: {
+      "0.1.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.1.0-alpha/BeamNBeat-0.1.0-alpha.zip"
+    }
   },
 };
