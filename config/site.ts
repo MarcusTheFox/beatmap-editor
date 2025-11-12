@@ -61,7 +61,7 @@ export const siteConfig = {
   ],
   links: {
     github: "https://github.com/heroui-inc/heroui",
-    twitter: "https://twitter.com/hero_ui",
+    telegram: "https://t.me/+1SJ5S08Sq8JhMTVi",
     docs: "https://heroui.com",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/jrgarciadev",
