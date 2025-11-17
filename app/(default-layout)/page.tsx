@@ -67,7 +67,7 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, titl
 
 export default function IndexPage() {
     return (
-        <DefaultLayout>
+        <>
             <section className="relative bg-gradient-to-b from-warning/10 to-25%">
                 <div className="relative w-[96rem] mx-auto">
                     <div className="absolute bg-gradient-to-l from-warning h-5 w-full left-60 top-60 rotate-[45deg] animate-pulse"/>
@@ -198,6 +198,6 @@ export default function IndexPage() {
                     </div>
                 </div>
             </section>
-        </DefaultLayout>
+        </>
     );
 }

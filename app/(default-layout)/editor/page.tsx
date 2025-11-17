@@ -46,7 +46,7 @@ export default function EditorStartPage() {
     };
 
     return (
-        <DefaultLayout>
+        <>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-16 bg-gradient-to-b from-warning/10 to-25%">
                 <div className="text-center">
                     <h1 className={title()}>Редактор уровней</h1>
@@ -109,6 +109,6 @@ export default function EditorStartPage() {
                     </div>
                 </div>
             </section>
-        </DefaultLayout>
+        </>
     );
 }
