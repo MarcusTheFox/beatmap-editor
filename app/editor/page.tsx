@@ -8,9 +8,10 @@ import { useZip } from "@/src/features/level-export";
 import { useRef } from "react";
 import { addToast } from "@heroui/toast";
 import { useRouter } from "next/navigation";
-import { DefaultLayout } from "@/src/widgets/layouts/default";
+import { DefaultLayout } from "@/src/app/layouts/default";
 import { Card, CardBody } from "@heroui/card";
 import { Icon24MusicOutline, Icon20ZipOutline } from "@vkontakte/icons";
+import { paths } from "@/config/paths";
 
 export default function EditorStartPage() {
     const router = useRouter();
@@ -20,7 +21,7 @@ export default function EditorStartPage() {
 
     const handleWavImport = (file: File) => {
         create(file);
-        router.push(`/edit/${getURIFromFileName(file)}`);
+        router.push(paths.editor.song(getURIFromFileName(file)).root);
     };
 
     const handleZipImport = async (file: File) => {
@@ -41,7 +42,7 @@ export default function EditorStartPage() {
             return;
         }
         load(levelData);
-        router.push(`/edit/${getURIFromString(levelData.id)}`);
+        router.push(paths.editor.song(getURIFromString(levelData.id)).root);
     };
 
     return (

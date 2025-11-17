@@ -2,7 +2,7 @@ import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
 import { Icon24TargetOutline, Icon24BrushOutline, Icon24Users3Outline, Icon24Download, Icon24Write } from "@vkontakte/icons";
 import { Metadata } from "next";
-import { DefaultLayout } from "@/src/widgets/layouts/default";
+import { DefaultLayout } from "@/src/app/layouts/default";
 import { Step } from "@/src/shared/ui";
 
 export const metadata: Metadata = {

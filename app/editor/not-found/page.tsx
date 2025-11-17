@@ -1,12 +1,13 @@
+import { paths } from "@/config/paths";
+import { DefaultLayout } from "@/src/app/layouts/default";
 import { title } from "@/src/shared/lib";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
-import { DefaultLayout } from "../../layouts/default";
 
-export const EditorNotFound = () => {
+export default function EditorNotFound() {
     return (
         <DefaultLayout>
-            <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 text-center">
+            <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-16 text-center">
                 <h1 className={title()}>Сессия не найдена</h1>
                 <p className="text-lg text-default-500 mt-4">
                     Похоже, вы обновили страницу или зашли по прямой ссылке.
@@ -15,13 +16,13 @@ export const EditorNotFound = () => {
                 </p>
                 <Button
                     as={Link}
-                    href="/"
+                    href={paths.editor.root}
                     color="primary"
                     variant="shadow"
                     className="mt-8"
                     size="lg"
                 >
-                    Вернуться на главную
+                    Вернуться на страницу редактора
                 </Button>
             </section>
         </DefaultLayout>

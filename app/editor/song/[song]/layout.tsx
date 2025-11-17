@@ -10,7 +10,8 @@ import { ExportButton } from "@/src/features/level-export";
 import { TimelineSection } from "@/src/features/timeline";
 import { useAudio } from "@/src/entities/audio";
 import { GameLogo } from "@/src/shared/ui";
-import { EditorNotFound } from "@/src/widgets/editor-not-found/ui";
+import { redirect } from "next/navigation";
+import { paths } from "@/config/paths";
 
 interface EditorLayoutProps {
     params: Promise<{ song: string; }>;
@@ -22,7 +23,7 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
     const { audioUrl } = useAudio();
     
     if (!audioUrl) {
-        return <EditorNotFound />;
+        redirect(paths.editor.notFound);
     }
 
     useEffect(() => {
@@ -42,7 +43,7 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
                         <Link
                             className="flex justify-start items-center"
                             color="foreground"
-                            href="/"
+                            href={paths.root}
                         >
                             <GameLogo />
                         </Link>
@@ -52,7 +53,7 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
                 <NavbarContent justify="center">
                     <Button
                         as={Link}
-                        href={`/edit/${song}`}
+                        href={paths.editor.song(song).root}
                         variant="light"
                         startContent={<Icon20SquareOutline />}
                     >
@@ -60,7 +61,7 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
                     </Button>
                     <Button
                         as={Link}
-                        href={`/edit/${song}/details`}
+                        href={paths.editor.song(song).details}
                         variant="light"
                         startContent={<Icon20ListBulletOutline />}
                     >

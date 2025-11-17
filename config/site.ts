@@ -1,3 +1,5 @@
+import { paths } from "./paths";
+
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
@@ -6,15 +8,15 @@ export const siteConfig = {
   navItems: [
     {
       label: "Home",
-      href: "/",
+      href: paths.root,
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Editor",
+      href: paths.editor.root,
     },
     {
-      label: "Blog",
-      href: "/blog",
+      label: "Wiki",
+      href: paths.wiki,
     },
     {
       label: "About",
@@ -22,7 +24,7 @@ export const siteConfig = {
     },
     {
       label: "Download",
-      href: "/download",
+      href: paths.download,
     },
   ],
   navMenuItems: [
