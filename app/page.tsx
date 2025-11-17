@@ -1,8 +1,9 @@
 import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
-import { Navbar } from "@/src/widgets/page-navbar";
 import { Icon24TargetOutline, Icon24BrushOutline, Icon24Users3Outline, Icon24Download, Icon24Write } from "@vkontakte/icons";
 import { Metadata } from "next";
+import { DefaultLayout } from "@/src/widgets/layouts/default";
+import { Step } from "@/src/shared/ui";
 
 export const metadata: Metadata = {
   title: "Beam & Beat - Ритм-игра с битмап редактором | Скачать Alpha",
@@ -64,158 +65,139 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, titl
     </div>
 );
 
-const Step = ({ num, title, description }: { num: string, title: string, description: string }) => (
-    <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-warning text-night font-bold rounded-lg">
-            {num}
-        </div>
-        <div>
-            <h3 className="font-bold text-lg">{title}</h3>
-            <p className="text-night-800">{description}</p>
-        </div>
-    </div>
-);
-
 export default function IndexPage() {
     return (
-        <div className="relative flex flex-col min-h-screen overflow-x-hidden">
-            <Navbar />
-            <main>
-                <section className="relative bg-gradient-to-b from-warning/10 to-25%">
-                    <div className="relative w-[96rem] mx-auto">
-                        <div className="absolute bg-gradient-to-l from-warning h-5 w-full left-60 top-60 rotate-[45deg] animate-pulse"/>
-                        <div className="absolute bg-gradient-to-r from-primary h-5 w-full left-80 top-70 -rotate-[30deg] animate-pulse" style={{animationDelay: ".5s"}}/>
-                    </div>
-                    <AudioWave color="yellow" className="bottom-0 -skew-3" />
-                    <div className="container mx-auto px-6 gap-12 items-center py-20 md:py-28">
-                        <div className="text-center lg:text-left content-center h-80 lg:h-96">
-                            <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tighter bg-gradient-to-t from-default-400 to-default-900 bg-clip-text text-transparent">
-                                BEAM <span className="bg-gradient-to-t from-warning-300 to-warning bg-clip-text text-transparent">& </span>BEAT
-                            </h1>
-                            <p className="mt-6 text-lg text-night-800 max-w-lg mx-auto lg:mx-0">
-                                Ритм-игра, где точность выстрелов зависит от чувства ритма. Поражайте цели в такт музыки. Создавайте собственные игровые уровни из любых WAV-файлов в нашем встроенном редакторе.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
-                                <Button 
-                                    as={Link}
-                                    href="/download"
-                                    color="primary"
-                                    variant="shadow"
-                                    radius="full"
-                                    size="lg"
-                                    className="text-lg px-8 py-3 font-bold"
-                                >
-                                    Скачать Alpha
-                                </Button>
-                                <Button
-                                    as={Link}
-                                    href="/editor"
-                                    variant="bordered"
-                                    radius="full"
-                                    size="lg"
-                                    color="warning"
-                                    className="text-lg px-8 py-3 hover:!bg-warning/10 font-semibold"
-                                >
-                                    Открыть редактор
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="relative py-20 md:py-24">
-                    <div className="absolute inset-0 bg-night-400 -skew-y-3" />
-                    <div className="relative container mx-auto px-6">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl lg:text-4xl font-bold">Играйте, создавайте, делитесь</h2>
-                            <p className="text-lg text-night-800 mt-2">Три ключевые особенности ритм-игры Beam & Beat</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <FeatureCard
-                                icon={<Icon24TargetOutline />}
-                                title="Играйте в ритм"
-                                description="Сбивайте летящие цели, точно попадая в бит музыки. Повышайте рекорды за счет комбо и идеальной точности попаданий."
-                            />
-                            <FeatureCard
-                                icon={<Icon24BrushOutline />}
-                                title="Создавайте уровни"
-                                description="Встроенный битмап редактор на нашем сайте позволит легко превратить любой ваш WAV-трек в уникальный игровой уровень."
-                            />
-                            <FeatureCard
-                                icon={<Icon24Users3Outline />}
-                                title="Делитесь картами"
-                                description="Экспортируйте созданные карты битов в ZIP-архивах и обменивайтесь ими с друзьями и сообществом."
-                            />
-                        </div>
-                    </div>
-                </section>
-                
-                <section className="relative py-20 md:py-24">
-                    <div className="pt-30"/>
-                    <AudioWave bottom className="top-0 -skew-3"/>
-                    <div className="container mx-auto px-6">
-                        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
-                             <div className="relative flex items-center justify-center p-8">
-                                <div className="absolute inset-0 border-2 border-dashed border-night-600 rounded-3xl transform rotate-6" />
-                                <div className="relative bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center p-4 border border-night-600 shadow-xl">
-                                    <p className="text-night-800 text-center">[GIF-анимация редактора]</p>
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-6">
-                                <h2 className="text-3xl lg:text-4xl font-bold">Создайте свой уровень за 3 шага</h2>
-                                <Step 
-                                    num="1" 
-                                    title="Загрузите аудиофайл" 
-                                    description="Начните создание уровня, загрузив ваш любимый трек в формате WAV." 
-                                />
-                                <Step 
-                                    num="2" 
-                                    title="Расставьте цели" 
-                                    description="На временной шкале отметьте моменты появления целей, соответствующие ритму музыки." 
-                                />
-                                <Step 
-                                    num="3" 
-                                    title="Экспортируйте и играйте" 
-                                    description="Сохраните готовую битмапу и добавьте её в игру, чтобы испытать свой собственный ритм-челлендж." 
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <section className="px-6 py-20 bg-gradient-to-t from-primary/20 to-75%">
-                    <div className="max-w-4xl mx-auto p-8 md:p-12 text-center">
-                        <h2 className="text-4xl font-bold">Присоединяйтесь к альфа-тестированию</h2>
-                        <p className="text-lg text-night-800 mt-2 mb-8">Beam & Beat находится в активной разработке. Скачайте альфа-версию, опробуйте редактор уровней и помогите нам сделать игру лучше!</p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button
+        <DefaultLayout>
+            <section className="relative bg-gradient-to-b from-warning/10 to-25%">
+                <div className="relative w-[96rem] mx-auto">
+                    <div className="absolute bg-gradient-to-l from-warning h-5 w-full left-60 top-60 rotate-[45deg] animate-pulse"/>
+                    <div className="absolute bg-gradient-to-r from-primary h-5 w-full left-80 top-70 -rotate-[30deg] animate-pulse" style={{animationDelay: ".5s"}}/>
+                </div>
+                <AudioWave color="yellow" className="bottom-0 -skew-3" />
+                <div className="container mx-auto px-6 gap-12 items-center py-20 md:py-28">
+                    <div className="text-center lg:text-left content-center h-80 lg:h-96">
+                        <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tighter bg-gradient-to-t from-default-400 to-default-900 bg-clip-text text-transparent">
+                            BEAM <span className="bg-gradient-to-t from-warning-300 to-warning bg-clip-text text-transparent">& </span>BEAT
+                        </h1>
+                        <p className="mt-6 text-lg text-night-800 max-w-lg mx-auto lg:mx-0">
+                            Ритм-игра, где точность выстрелов зависит от чувства ритма. Поражайте цели в такт музыки. Создавайте собственные игровые уровни из любых WAV-файлов в нашем встроенном редакторе.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
+                            <Button 
                                 as={Link}
                                 href="/download"
                                 color="primary"
                                 variant="shadow"
+                                radius="full"
                                 size="lg"
-                                startContent={<Icon24Download />}
+                                className="text-lg px-8 py-3 font-bold"
                             >
-                                Скачать Beam & Beat
+                                Скачать Alpha
                             </Button>
                             <Button
                                 as={Link}
                                 href="/editor"
-                                color="secondary"
                                 variant="bordered"
+                                radius="full"
                                 size="lg"
-                                startContent={<Icon24Write />}
+                                color="warning"
+                                className="text-lg px-8 py-3 hover:!bg-warning/10 font-semibold"
                             >
-                                Попробовать редактор
+                                Открыть редактор
                             </Button>
                         </div>
                     </div>
-                </section>
-            </main>
+                </div>
+            </section>
+
+            <section className="relative py-20 md:py-24">
+                <div className="absolute inset-0 bg-night-400 -skew-y-3" />
+                <div className="relative container mx-auto px-6">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl lg:text-4xl font-bold">Играйте, создавайте, делитесь</h2>
+                        <p className="text-lg text-night-800 mt-2">Три ключевые особенности ритм-игры Beam & Beat</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <FeatureCard
+                            icon={<Icon24TargetOutline />}
+                            title="Играйте в ритм"
+                            description="Сбивайте летящие цели, точно попадая в бит музыки. Повышайте рекорды за счет комбо и идеальной точности попаданий."
+                        />
+                        <FeatureCard
+                            icon={<Icon24BrushOutline />}
+                            title="Создавайте уровни"
+                            description="Встроенный битмап редактор на нашем сайте позволит легко превратить любой ваш WAV-трек в уникальный игровой уровень."
+                        />
+                        <FeatureCard
+                            icon={<Icon24Users3Outline />}
+                            title="Делитесь картами"
+                            description="Экспортируйте созданные карты битов в ZIP-архивах и обменивайтесь ими с друзьями и сообществом."
+                        />
+                    </div>
+                </div>
+            </section>
             
-            <footer className="w-full flex items-center justify-center py-4 bg-night-400">
-                <p className="text-night-700">Beam & Beat © {new Date().getFullYear()}</p>
-            </footer>
-        </div>
+            <section className="relative py-20 md:py-24">
+                <div className="pt-30"/>
+                <AudioWave bottom className="top-0 -skew-3"/>
+                <div className="container mx-auto px-6">
+                    <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
+                            <div className="relative flex items-center justify-center p-8">
+                            <div className="absolute inset-0 border-2 border-dashed border-night-600 rounded-3xl transform rotate-6" />
+                            <div className="relative bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center p-4 border border-night-600 shadow-xl">
+                                <p className="text-night-800 text-center">[GIF-анимация редактора]</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-6">
+                            <h2 className="text-3xl lg:text-4xl font-bold">Создайте свой уровень за 3 шага</h2>
+                            <Step 
+                                num="1" 
+                                title="Загрузите аудиофайл" 
+                                description="Начните создание уровня, загрузив ваш любимый трек в формате WAV." 
+                            />
+                            <Step 
+                                num="2" 
+                                title="Расставьте цели" 
+                                description="На временной шкале отметьте моменты появления целей, соответствующие ритму музыки." 
+                            />
+                            <Step 
+                                num="3" 
+                                title="Экспортируйте и играйте" 
+                                description="Сохраните готовую битмапу и добавьте её в игру, чтобы испытать свой собственный ритм-челлендж." 
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section className="px-6 py-20 bg-gradient-to-t from-primary/20 to-75%">
+                <div className="max-w-4xl mx-auto p-8 md:p-12 text-center">
+                    <h2 className="text-4xl font-bold">Присоединяйтесь к альфа-тестированию</h2>
+                    <p className="text-lg text-night-800 mt-2 mb-8">Beam & Beat находится в активной разработке. Скачайте альфа-версию, опробуйте редактор уровней и помогите нам сделать игру лучше!</p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button
+                            as={Link}
+                            href="/download"
+                            color="primary"
+                            variant="shadow"
+                            size="lg"
+                            startContent={<Icon24Download />}
+                        >
+                            Скачать Beam & Beat
+                        </Button>
+                        <Button
+                            as={Link}
+                            href="/editor"
+                            color="secondary"
+                            variant="bordered"
+                            size="lg"
+                            startContent={<Icon24Write />}
+                        >
+                            Попробовать редактор
+                        </Button>
+                    </div>
+                </div>
+            </section>
+        </DefaultLayout>
     );
 }
