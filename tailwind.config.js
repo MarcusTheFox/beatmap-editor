@@ -40,7 +40,7 @@ const config = {
     themes: {
       dark: {
         colors: {
-          background: "#121616", // night
+          background: "#040404", // night
           foreground: "#cbd5d5", // night-900 (светлый оттенок для текста)
           primary: {
             DEFAULT: "#2176ff", // blue_crayola
