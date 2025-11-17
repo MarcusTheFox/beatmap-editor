@@ -7,9 +7,9 @@ export const DefaultLayout = ({
     children : React.ReactNode
 }) => {
     return (
-        <div className="relative flex flex-col h-screen overflow-x-hidden">
+        <div className="flex flex-col min-h-screen overflow-x-hidden">
             <Navbar />
-            <main className="grow">
+            <main className="flex-1">
                 {children}
             </main>
             <Footer />
