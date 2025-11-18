@@ -1,4 +1,5 @@
-import {heroui} from "@heroui/theme"
+import { heroui } from "@heroui/theme";
+import typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -36,35 +37,38 @@ const config = {
     },
   },
   darkMode: "class",
-  plugins: [heroui({
-    themes: {
-      dark: {
-        colors: {
-          background: "#040404", // night
-          foreground: "#cbd5d5", // night-900 (светлый оттенок для текста)
-          primary: {
-            DEFAULT: "#2176ff", // blue_crayola
-            foreground: "#ffffff", // Белый текст на синих кнопках
+  plugins: [
+    typography(),
+    heroui({
+      themes: {
+        dark: {
+          colors: {
+            background: "#040404", // night
+            foreground: "#cbd5d5", // night-900 (светлый оттенок для текста)
+            primary: {
+              DEFAULT: "#2176ff", // blue_crayola
+              foreground: "#ffffff", // Белый текст на синих кнопках
+            },
+            secondary: {
+              DEFAULT: "#33a1fd", // celestial_blue
+              foreground: "#121616", // Тёмный текст
+            },
+            warning: {
+              DEFAULT: "#fdca40", // sunglow
+              foreground: "#121616", // Тёмный текст
+            },
+            default: { // Для карточек и других поверхностей
+              DEFAULT: "#121616", // Основной фон карточки
+              100: "#0f1212",    // Более тёмный оттенок
+              200: "#3d4a4a",    // Для границ и разделителей
+            },
+            content1: "#121616", // Фон карточек
+            content2: "#0f1212"
           },
-          secondary: {
-            DEFAULT: "#33a1fd", // celestial_blue
-            foreground: "#121616", // Тёмный текст
-          },
-          warning: {
-            DEFAULT: "#fdca40", // sunglow
-            foreground: "#121616", // Тёмный текст
-          },
-          default: { // Для карточек и других поверхностей
-            DEFAULT: "#121616", // Основной фон карточки
-            100: "#0f1212",    // Более тёмный оттенок
-            200: "#3d4a4a",    // Для границ и разделителей
-          },
-          content1: "#121616", // Фон карточек
-          content2: "#0f1212"
-        },
+        }
       }
     }
-  })],
+  )],
 }
 
 module.exports = config;

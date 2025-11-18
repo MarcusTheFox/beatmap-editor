@@ -2,6 +2,13 @@ import { paths } from "./paths";
 
 export type SiteConfig = typeof siteConfig;
 
+const gameVersions = {
+  "0.1.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.1.0-alpha/BeamNBeat-0.1.0-alpha.zip",
+  "0.2.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.2.0-alpha/BeamNBeat-0.2.0-alpha.zip"
+}
+
+export type GameVersion = keyof typeof gameVersions;
+
 export const siteConfig = {
   name: "Next.js + HeroUI",
   description: "Make beautiful websites regardless of your design experience.",
@@ -67,8 +74,6 @@ export const siteConfig = {
     docs: "https://heroui.com",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/jrgarciadev",
-    game: {
-      "0.1.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.1.0-alpha/BeamNBeat-0.1.0-alpha.zip"
-    }
+    game: gameVersions
   },
 };
