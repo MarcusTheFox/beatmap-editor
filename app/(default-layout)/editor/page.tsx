@@ -12,6 +12,7 @@ import { DefaultLayout } from "@/src/app/layouts/default";
 import { Card, CardBody } from "@heroui/card";
 import { Icon24MusicOutline, Icon20ZipOutline } from "@vkontakte/icons";
 import { paths } from "@/config/paths";
+import { LayoutWithLights } from "@/src/app/layouts";
 
 export default function EditorStartPage() {
     const router = useRouter();
@@ -46,8 +47,8 @@ export default function EditorStartPage() {
     };
 
     return (
-        <>
-            <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-16 bg-gradient-to-b from-warning/10 to-25%">
+        <LayoutWithLights>
+            <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-16">
                 <div className="text-center">
                     <h1 className={title()}>Редактор уровней</h1>
                     <h2 className={subtitle()}>
@@ -94,7 +95,7 @@ export default function EditorStartPage() {
                 </Card>
             </section>
 
-            <section className="px-6 py-8 md:py-16 space-y-12 bg-gradient-to-t from-primary/10 to-25% grow">
+            <section className="px-6 py-8 md:py-16 space-y-12 grow">
                 <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <h2 className="text-3xl font-bold mb-6">Быстрый старт</h2>
@@ -109,6 +110,6 @@ export default function EditorStartPage() {
                     </div>
                 </div>
             </section>
-        </>
+        </LayoutWithLights>
     );
 }

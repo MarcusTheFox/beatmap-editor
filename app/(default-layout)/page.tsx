@@ -2,8 +2,8 @@ import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
 import { Icon24TargetOutline, Icon24BrushOutline, Icon24Users3Outline, Icon24Download, Icon24Write } from "@vkontakte/icons";
 import { Metadata } from "next";
-import { DefaultLayout } from "@/src/app/layouts/default";
 import { Step } from "@/src/shared/ui";
+import { LayoutWithLights } from "@/src/app/layouts";
 
 export const metadata: Metadata = {
   title: "Beam & Beat - Ритм-игра с битмап редактором | Скачать Alpha",
@@ -67,8 +67,8 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, titl
 
 export default function IndexPage() {
     return (
-        <>
-            <section className="relative bg-gradient-to-b from-warning/10 to-25%">
+        <LayoutWithLights lights={{ bottom: { color: "primary20", height: "lg"} }}>
+            <section className="relative">
                 <div className="relative w-[96rem] mx-auto">
                     <div className="absolute bg-gradient-to-l from-warning h-5 w-full left-60 top-60 rotate-[45deg] animate-pulse"/>
                     <div className="absolute bg-gradient-to-r from-primary h-5 w-full left-80 top-70 -rotate-[30deg] animate-pulse" style={{animationDelay: ".5s"}}/>
@@ -170,7 +170,7 @@ export default function IndexPage() {
                 </div>
             </section>
             
-            <section className="px-6 py-20 bg-gradient-to-t from-primary/20 to-75%">
+            <section className="px-6 py-20">
                 <div className="max-w-4xl mx-auto p-8 md:p-12 text-center">
                     <h2 className="text-4xl font-bold">Присоединяйтесь к альфа-тестированию</h2>
                     <p className="text-lg text-night-800 mt-2 mb-8">Beam & Beat находится в активной разработке. Скачайте альфа-версию, опробуйте редактор уровней и помогите нам сделать игру лучше!</p>
@@ -198,6 +198,6 @@ export default function IndexPage() {
                     </div>
                 </div>
             </section>
-        </>
+        </LayoutWithLights>
     );
 }
