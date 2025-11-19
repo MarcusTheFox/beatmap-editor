@@ -14,65 +14,37 @@ export const siteConfig = {
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
     {
-      label: "Home",
+      label: "Главная",
       href: paths.root,
     },
     {
-      label: "Editor",
+      label: "Редактор",
       href: paths.editor.root,
     },
     {
-      label: "Wiki",
-      href: paths.wiki,
-    },
-    {
-      label: "About",
-      href: "/about",
-    },
-    {
-      label: "Download",
+      label: "Скачать",
       href: paths.download,
     },
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Главная",
+      href: paths.root,
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Редактор",
+      href: paths.editor.root,
     },
     {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "Скачать",
+      href: paths.download,
     },
   ],
   links: {
     github: "https://github.com/heroui-inc/heroui",
     telegram: "https://t.me/+1SJ5S08Sq8JhMTVi",
     docs: "https://heroui.com",
-    discord: "https://discord.gg/9b6yyZKmH4",
+    discord: "https://discord.gg/nmzBqYBz9g",
     sponsor: "https://patreon.com/jrgarciadev",
     game: gameVersions
   },
