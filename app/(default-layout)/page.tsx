@@ -80,7 +80,7 @@ export default function IndexPage() {
                             BEAM <span className="bg-gradient-to-t from-warning-300 to-warning bg-clip-text text-transparent">& </span>BEAT
                         </h1>
                         <p className="mt-6 text-lg text-night-800 max-w-lg mx-auto lg:mx-0">
-                            Ритм-игра, где точность выстрелов зависит от чувства ритма. Поражайте цели в такт музыки. Создавайте собственные игровые уровни из любых WAV-файлов в нашем встроенном редакторе.
+                            Ритм-игра, где точность выстрелов зависит от чувства ритма. Поражайте цели в такт музыки. Создавайте собственные игровые уровни из любых WAV-файлов в нашем редакторе.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
                             <Button 
@@ -92,7 +92,7 @@ export default function IndexPage() {
                                 size="lg"
                                 className="text-lg px-8 py-3 font-bold"
                             >
-                                Скачать Alpha
+                                Скачать игру
                             </Button>
                             <Button
                                 as={Link}
@@ -126,7 +126,7 @@ export default function IndexPage() {
                         <FeatureCard
                             icon={<Icon24BrushOutline />}
                             title="Создавайте уровни"
-                            description="Встроенный битмап редактор на нашем сайте позволит легко превратить любой ваш WAV-трек в уникальный игровой уровень."
+                            description="Встроенный битмап редактор на сайте позволит легко превратить любой ваш WAV-трек в уникальный игровой уровень."
                         />
                         <FeatureCard
                             icon={<Icon24Users3Outline />}
@@ -158,12 +158,12 @@ export default function IndexPage() {
                             <Step 
                                 num="2" 
                                 title="Расставьте цели" 
-                                description="На временной шкале отметьте моменты появления целей, соответствующие ритму музыки." 
+                                description="Перемещайтесь по таймлайну и отмечайте на поле, когда и где должны появляться цели." 
                             />
                             <Step 
                                 num="3" 
                                 title="Экспортируйте и играйте" 
-                                description="Сохраните готовую битмапу и добавьте её в игру, чтобы испытать свой собственный ритм-челлендж." 
+                                description="Сохраните готовую битмапу и добавьте её в игру, чтобы посмотреть результат." 
                             />
                         </div>
                     </div>
@@ -173,7 +173,7 @@ export default function IndexPage() {
             <section className="px-6 py-20">
                 <div className="max-w-4xl mx-auto p-8 md:p-12 text-center">
                     <h2 className="text-4xl font-bold">Присоединяйтесь к альфа-тестированию</h2>
-                    <p className="text-lg text-night-800 mt-2 mb-8">Beam & Beat находится в активной разработке. Скачайте альфа-версию, опробуйте редактор уровней и помогите нам сделать игру лучше!</p>
+                    <p className="text-lg text-night-800 mt-2 mb-8">Beam & Beat находится на стадии активной разработки. Скачайте альфа-версию, опробуйте редактор уровней и помогите нам сделать игру лучше!</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             as={Link}

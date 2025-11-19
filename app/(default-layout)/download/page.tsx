@@ -13,7 +13,7 @@ export default function DownloadPage() {
     return (
         <>
             <section className="text-center pb-8">
-                <h1 className={title()}>Центр загрузки</h1>
+                <h1 className={title()}>Скачать игру</h1>
                 <h2 className={subtitle({ className: "max-w-2xl mx-auto" })}>
                     Скачайте последнюю альфа-версию Beam & Beat и следите за историей обновлений.
                 </h2>
