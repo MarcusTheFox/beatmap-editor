@@ -1,4 +1,6 @@
-import { NoteProperties } from "@/entities/note";
+"use client"
+
+import { NoteProperties } from "@/src/entities/note";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface LevelPropertiesContextType {

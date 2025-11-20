@@ -1,6 +1,6 @@
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { Beatmap, Level, SongPackage } from "@/entities/level";
+import { Beatmap, Level, SongPackage } from "@/src/entities/level";
 
 export const useZip = () => {
   const importZip = async (file: File): Promise<Level> => {

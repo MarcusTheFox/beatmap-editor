@@ -1,5 +1,7 @@
-import { minimapOptions, regionOptions, wavesurferOptions } from "@/shared/config";
-import { getTotalBeats } from "@/shared/lib";
+"use client"
+
+import { minimapOptions, regionOptions, wavesurferOptions } from "@/src/shared/config";
+import { getTotalBeats } from "@/src/shared/lib";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import WaveSurfer from "wavesurfer.js";
 import MinimapPlugin from "wavesurfer.js/dist/plugins/minimap.js";
@@ -80,12 +82,11 @@ export const WaveSurferComponent = forwardRef<WaveSurferComponentRef, WaveSurfer
         return () => {
             regionsPluginRef.current.clearRegions();
             if (waveSurferRef.current) {
-                waveSurferRef.current.unregisterPlugin(regionsPluginRef.current);
-                waveSurferRef.current.unregisterPlugin(minimapPlugin);
-                waveSurferRef.current.unAll();
-                waveSurferRef.current.empty();
                 waveSurferRef.current.destroy();
             }
+
+            waveSurferRef.current = undefined;
+            waveSurferControlsRef.current = undefined;
         };
     }, []);
 

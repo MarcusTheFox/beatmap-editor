@@ -1,7 +1,7 @@
-import { useTimelineContext } from "@/features/timeline/model/context";
-import { useTimelineSettings } from "@/entities/level/model/timeline-settings";
-import { useNote } from "@/entities/note/model/useNote";
-import { convertTimeToBeats } from "@/shared/lib";
+import { useTimelineContext } from "@/src/features/timeline/model/context";
+import { useTimelineSettings } from "@/src/entities/level/model/timeline-settings";
+import { useNote } from "@/src/entities/note/model/useNote";
+import { convertTimeToBeats } from "@/src/shared/lib";
 
 export const useSpawnerGrid = () => {
     const { currentTime, isPlaying } = useTimelineContext();

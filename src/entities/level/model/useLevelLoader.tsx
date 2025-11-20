@@ -1,7 +1,9 @@
-import { useAudio } from "@/entities/audio";
+"use client"
+
+import { useAudio } from "@/src/entities/audio";
 import { useLevelMetadata, useLevelProperties, useTimelineSettings } from ".";
 import { AudioInfo, Beatmap, Level, LevelInfo, TimelineSettings } from "../types";
-import { Note, NoteProperties, useNote } from "@/entities/note";
+import { Note, NoteProperties, useNote } from "@/src/entities/note";
 
 interface LevelDefaults {
   audioInfo: AudioInfo;
