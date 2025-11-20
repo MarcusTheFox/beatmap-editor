@@ -4,6 +4,8 @@ import { Icon24TargetOutline, Icon24BrushOutline, Icon24Users3Outline, Icon24Dow
 import { Metadata } from "next";
 import { Step } from "@/src/shared/ui";
 import { LayoutWithLights } from "@/src/app/layouts";
+import Image from "next/image";
+import editorNotesGif from "@/src/shared/images/editor-notes.gif";
 
 export const metadata: Metadata = {
   title: "Ритм-игра с битмап онлайн-редактором | Скачать игру бесплатно",
@@ -144,8 +146,8 @@ export default function IndexPage() {
                     <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
                             <div className="relative flex items-center justify-center p-8">
                             <div className="absolute inset-0 border-2 border-dashed border-night-600 rounded-3xl transform rotate-6" />
-                            <div className="relative bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center p-4 border border-night-600 shadow-xl">
-                                <p className="text-night-800 text-center">[GIF-анимация редактора]</p>
+                            <div className="relative bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center border border-night-600 shadow-xl overflow-clip">
+                                <Image unoptimized src={ editorNotesGif } alt="Демонстрация нот в редакторе" />
                             </div>
                         </div>
                         <div className="flex flex-col gap-6">
