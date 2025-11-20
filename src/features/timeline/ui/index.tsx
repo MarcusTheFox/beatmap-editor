@@ -32,7 +32,7 @@ export function TimelineSection() {
 
     const beatLabel = (
         <Label className="w-48" onClick={beatInput.handleDisplayClick}>
-            Beat: {convertTimeToBeats(currentTime, bpm, offset).toFixed(3)}
+            Бит: {convertTimeToBeats(currentTime, bpm, offset).toFixed(3)}
         </Label>
     )
 
@@ -44,7 +44,7 @@ export function TimelineSection() {
                 min={0}
                 step={0.001}
                 variant="faded"
-                startContent={"Beat:"}
+                startContent={"Бит:"}
                 className="max-w-48"
                 value={beatInput.inputValue}
                 onValueChange={(v) => beatInput.setInputValue(v)}
@@ -56,7 +56,7 @@ export function TimelineSection() {
     const timelineHeader = (
         <CardHeader className="flex pb-0 px-8">
             <div className="flex gap-2 w-full">
-                <Label className="w-48">Time: {formatTime(currentTime)}</Label>
+                <Label className="w-48">Время: {formatTime(currentTime)}</Label>
                 { beatInput.isEditing ? beatForm : beatLabel }
             </div>
             <div className="flex gap-2 justify-center w-full">

@@ -23,28 +23,28 @@ export function TrackInfoSection() {
 
     return (
         <Card className="grow">
-            <CardHeader><CardTitle>Track Info</CardTitle></CardHeader>
+            <CardHeader><CardTitle>Информация</CardTitle></CardHeader>
             <CardBody className="pt-0 grid grid-cols-2 grow-0 gap-4">
                 <Input
-                    label="Track name"
+                    label="Название трека"
                     labelPlacement="outside-top"
                     value={metadata.title}
                     onValueChange={(v) => setMetadata({ ...metadata, title: v })}
                 />
                 <Input
-                    label="Artist name"
+                    label="Автор трека"
                     labelPlacement="outside-top"
                     value={metadata.artist}
                     onValueChange={(v) => setMetadata({ ...metadata, artist: v })}
                 />
                 <Input
-                    label="Mapper name"
+                    label="Маппер"
                     labelPlacement="outside-top"
                     value={metadata.authors[0]}
                     onValueChange={(v) => setMetadata({ ...metadata, authors: [v] })}
                 />
                 <Input
-                    label="Version"
+                    label="Версия"
                     defaultValue="1.0.0"
                     labelPlacement="outside-top"
                     placeholder="1.0.0"
@@ -53,7 +53,7 @@ export function TrackInfoSection() {
                 />
                 <Input
                     type="number"
-                    label="Initial BPM"
+                    label="BPM трека"
                     labelPlacement="outside-top"
                     min={1}
                     step={0.001}
@@ -62,7 +62,7 @@ export function TrackInfoSection() {
                 />
                 <Input
                     type="number"
-                    label="Initial Power"
+                    label="Сила по умолчанию"
                     labelPlacement="outside-top"
                     min={0}
                     value={levelProperties.power.toString()}
@@ -70,7 +70,7 @@ export function TrackInfoSection() {
                 />
                 <Input
                     type="number"
-                    label="Audio Offset (s)"
+                    label="Отступ первого бита (сек)"
                     labelPlacement="outside-top"
                     min={0}
                     step={0.001}
