@@ -13,6 +13,8 @@ import { Card, CardBody } from "@heroui/card";
 import { Icon24MusicOutline, Icon20ZipOutline } from "@vkontakte/icons";
 import { paths } from "@/config/paths";
 import { LayoutWithLights } from "@/src/app/layouts";
+import editorUsingGif from "@/src/shared/images/editor-using.gif";
+import Image from "next/image";
 
 export default function EditorStartPage() {
     const router = useRouter();
@@ -105,8 +107,8 @@ export default function EditorStartPage() {
                             <Step num="3" title="Экспортируйте и играйте" description="Сохраните уровень в .zip и протестируйте его в игре." />
                         </div>
                     </div>
-                    <div className="bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center p-4 border border-night-600">
-                        <p className="text-night-800 text-center">[GIF-анимация процесса создания]</p>
+                    <div className="bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center border border-night-600 overflow-clip">
+                        <Image unoptimized src={editorUsingGif} alt="Гиф как начать работу с редактором"/>
                     </div>
                 </div>
             </section>
