@@ -39,7 +39,7 @@ export function SpawnerGridSection() {
                 </div>
             </CardBody>
             <CardFooter className="p-0 justify-center">
-                <p><b>Left-click</b> to add/remove a note. <b>Right-click</b> to select a note.</p>
+                <p><b>ЛКМ</b> - добавить/удалить ноту. <b>ПКМ</b> - выбрать ноту.</p>
             </CardFooter>
         </Card>
     )

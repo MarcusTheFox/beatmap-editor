@@ -48,16 +48,15 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
                             <GameLogo />
                         </Link>
                     </NavbarBrand>
-                    <ThemeSwitch />
                 </NavbarContent>
                 <NavbarContent justify="center">
-                    <Button
+                    {/* <Button
                         as={Link}
                         href={paths.editor.song(song).root}
                         variant="light"
                         startContent={<Icon20SquareOutline />}
                     >
-                        Notes
+                        Ноты
                     </Button>
                     <Button
                         as={Link}
@@ -65,8 +64,8 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
                         variant="light"
                         startContent={<Icon20ListBulletOutline />}
                     >
-                        Details
-                    </Button>
+                        Детали
+                    </Button> */}
                 </NavbarContent>
                 <NavbarContent justify="end">
                     <ExportButton
@@ -74,7 +73,7 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
                         color="primary"
                         startContent={<Icon20DownloadOutline />}
                     >
-                        Export
+                        Экспорт
                     </ExportButton>
                 </NavbarContent>
             </Navbar>

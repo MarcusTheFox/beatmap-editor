@@ -37,7 +37,7 @@ export function NotePropertiesSection() {
     return (
         <Card className="grow">
             <CardHeader>
-                <CardTitle>Note Properties</CardTitle>
+                <CardTitle>Свойства ноты</CardTitle>
             </CardHeader>
             <CardBody className="pt-0 grid grid-cols-2 grow-0 gap-4">
                 {selectedNote ? (
@@ -46,14 +46,14 @@ export function NotePropertiesSection() {
                             type="number"
                             readOnly
                             value={id?.toString()}
-                            label="Spawner ID"
+                            label="Позиция"
                             labelPlacement="outside-top"
                         />
                         <Input
                             type="number"
                             readOnly
                             value={beat?.toString()}
-                            label="Beat"
+                            label="Бит"
                             labelPlacement="outside-top"
                         />
                         <Input
@@ -62,13 +62,13 @@ export function NotePropertiesSection() {
                             value={powerInput}
                             min={0}
                             onValueChange={handlePowerChange}
-                            label="Power"
+                            label="Сила"
                             labelPlacement="outside-top"
                             variant={powerInput ? "flat" : "bordered"}
                         />
                     </>
                 ) : (
-                    <p className="text-default-500">No note selected</p>
+                    <p className="text-default-500">Нота не выбрана</p>
                 )}
             </CardBody>
         </Card>
