@@ -10,8 +10,8 @@ const gameVersions = {
 export type GameVersion = keyof typeof gameVersions;
 
 export const siteConfig = {
-  name: "Next.js + HeroUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Beam & Beat",
+  description: "Beam & Beat - ритм-игра, где вы поражаете цели в такт музыки. Создавайте собственные карты из WAV-файлов в нашем онлайн-редакторе. Скачайте альфа-версию игры Beam & Beat для Windows бесплатно",
   navItems: [
     {
       label: "Главная",

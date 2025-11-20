@@ -5,6 +5,20 @@ import { DevLog } from "@/content/devlog";
 import { title, subtitle } from "@/src/shared/lib";
 import { Icon24Download, Icon24ArchiveOutline, Icon24CheckCircleOutline, Icon24ComputerOutline } from "@vkontakte/icons";
 import { Card } from "@heroui/card";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Скачать ритм-игру бесплатно | Следите за историей обновлений",
+  description: "Загрузите последнюю альфа-версию ритм-игры Beam & Beat для Windows бесплатно. Присоединяйтесь к тестированию и следите за историей обновлений.",
+  openGraph: {
+    title: "Скачать ритм-игру бесплатно",
+    description: "Загрузите последнюю альфа-версию ритм-игры Beam & Beat бесплатно. Присоединяйтесь к тестированию и следите за историей обновлений.",
+    type: 'website',
+    locale: 'ru_RU',
+    siteName: 'Beam & Beat',
+  }
+};
+
 
 export default function DownloadPage() {
     const allVersions = Object.entries(DevLog);
