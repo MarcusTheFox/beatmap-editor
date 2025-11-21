@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    container_name: bnb-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    
+  nginx:
+    image: nginx:alpine
+    container_name: bnb-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
