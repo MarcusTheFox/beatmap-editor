@@ -1,69 +1,51 @@
+import { paths } from "./paths";
+
 export type SiteConfig = typeof siteConfig;
 
+const gameVersions = {
+  "0.1.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.1.0-alpha/BeamNBeat-0.1.0-alpha.zip",
+  "0.2.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.2.0-alpha/BeamNBeat-0.2.0-alpha.zip"
+}
+
+export type GameVersion = keyof typeof gameVersions;
+
 export const siteConfig = {
-  name: "Next.js + HeroUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Beam & Beat",
+  description: "Beam & Beat - ритм-игра, где вы поражаете цели в такт музыки. Создавайте собственные карты из WAV-файлов в нашем онлайн-редакторе. Скачайте альфа-версию игры Beam & Beat для Windows бесплатно",
   navItems: [
     {
-      label: "Home",
-      href: "/",
+      label: "Главная",
+      href: paths.root,
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Редактор",
+      href: paths.editor.root,
     },
     {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
+      label: "Скачать",
+      href: paths.download,
     },
   ],
   navMenuItems: [
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Главная",
+      href: paths.root,
     },
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Редактор",
+      href: paths.editor.root,
     },
     {
-      label: "Projects",
-      href: "/projects",
-    },
-    {
-      label: "Team",
-      href: "/team",
-    },
-    {
-      label: "Calendar",
-      href: "/calendar",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-    },
-    {
-      label: "Help & Feedback",
-      href: "/help-feedback",
-    },
-    {
-      label: "Logout",
-      href: "/logout",
+      label: "Скачать",
+      href: paths.download,
     },
   ],
   links: {
     github: "https://github.com/heroui-inc/heroui",
-    twitter: "https://twitter.com/hero_ui",
+    telegram: "https://t.me/+1SJ5S08Sq8JhMTVi",
     docs: "https://heroui.com",
-    discord: "https://discord.gg/9b6yyZKmH4",
+    discord: "https://discord.gg/nmzBqYBz9g",
     sponsor: "https://patreon.com/jrgarciadev",
+    game: gameVersions
   },
 };

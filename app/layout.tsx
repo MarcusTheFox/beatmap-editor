@@ -13,12 +13,22 @@ import { AppProvider } from "./app";
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    template: `${siteConfig.name} | %s`,
   },
   description: siteConfig.description,
   icons: {
     icon: "/favicon.ico",
   },
+  openGraph: {
+    title: {
+      default: siteConfig.name,
+      template: `${siteConfig.name} | %s`,
+    },
+    description: siteConfig.description,
+    type: 'website',
+    locale: 'ru_RU',
+    siteName: 'Beam & Beat',
+  }
 };
 
 export const viewport: Viewport = {
