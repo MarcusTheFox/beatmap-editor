@@ -1,4 +1,4 @@
-import { Note } from "@/entities/note";
+import { Note } from "@/src/entities/note";
 import { BeatmapSettings } from "./settings";
 
 export interface Beatmap {
