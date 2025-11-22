@@ -1,8 +1,8 @@
 services:
   app:
     build: .
-    container_name: bnb-app
-    restart: unless-stopped
+    container_name: app
+    restart: always
     ports:
       - "3000:3000"
     environment:
