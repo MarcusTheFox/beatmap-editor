@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/src/widgets/page-navbar";
 import { AppProvider } from "./app";
+import { YandexMetrika } from "@/src/shared/ui/YandexMetrika";
 
 export const metadata: Metadata = {
   title: {
@@ -50,6 +51,8 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+          <YandexMetrika />
+
           <AppProvider>
             {children}
           </AppProvider>
