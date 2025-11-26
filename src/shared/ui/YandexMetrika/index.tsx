@@ -1,3 +1,5 @@
+"use client"
+
 const ymScript = `
 (function(m,e,t,r,i,k,a){
     m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -13,7 +15,7 @@ export const YandexMetrika = () => {
     return (
         <>
             <script type="text/javascript" dangerouslySetInnerHTML={{ __html: ymScript }} />
-            
+
             <noscript>
                 <div>
                     <img src="https://mc.yandex.ru/watch/105514527" style={{ position: "absolute", left: -9999 }} alt="" />
