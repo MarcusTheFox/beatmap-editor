@@ -25,6 +25,9 @@ beam and beat, beam & beat, beam beat, beambeat, beam n beat, beamnbeat, bnb, \
     type: 'website',
     locale: 'ru_RU',
     siteName: 'Beam & Beat',
+  },
+  verification: {
+    yandex: "baeea4418c6bcf20"
   }
 };
 

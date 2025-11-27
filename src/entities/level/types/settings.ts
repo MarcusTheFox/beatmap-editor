@@ -1,4 +1,4 @@
-import { NoteProperties } from "@/entities/note"
+import { NoteProperties } from "@/src/entities/note"
 
 export interface TimelineSettings {
     bpm: number,

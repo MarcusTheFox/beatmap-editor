@@ -1,14 +1,13 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@heroui/link";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import { Navbar } from "@/src/widgets/page-navbar";
 import { AppProvider } from "./app";
+import { YandexMetrika } from "@/src/shared/ui/YandexMetrika";
 
 export const metadata: Metadata = {
   title: {
@@ -16,9 +15,6 @@ export const metadata: Metadata = {
     template: `${siteConfig.name} | %s`,
   },
   description: siteConfig.description,
-  icons: {
-    icon: "/favicon.ico",
-  },
   openGraph: {
     title: {
       default: siteConfig.name,
@@ -44,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html lang="ru" className="dark">
       <head />
       <body
         className={clsx(
@@ -52,7 +48,9 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+        <Providers>
+          <YandexMetrika />
+
           <AppProvider>
             {children}
           </AppProvider>
