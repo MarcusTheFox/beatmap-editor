@@ -33,7 +33,25 @@ const config = {
             transform: 'scaleY(1)',
           },
         }
-      }
+      },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            code: {
+              background: theme("colors.foreground/10%"),
+              padding: '0.25rem',
+              borderRadius: '0.375rem',
+              fontFamily: theme('fontFamily.mono'),
+            },
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+          }
+        }
+      })
     },
   },
   darkMode: "class",
