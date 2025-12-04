@@ -11,5 +11,11 @@ export const paths = {
         notFound: "/editor/not-found",
     },
     download: "/download",
-    wiki: "/wiki",
+    wiki: {
+        root: "/wiki",
+        installation: "/wiki/installation",
+        editorGuide: "/wiki/editor-guide",
+        beatmappingTips: "/wiki/beatmapping-tips",
+        levelFormat: "/wiki/level-format",
+    },
 }

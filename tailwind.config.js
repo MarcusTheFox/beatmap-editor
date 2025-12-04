@@ -37,11 +37,31 @@ const config = {
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
+            p: {
+              lineHeight: 1.5,
+            },
+            a: {
+              fontWeight: 600,
+              textDecorationLine: "none",
+            },
+            li: {
+              lineHeight: 1.5,
+            },
+            strong: {
+              fontWeight: 700,
+              color: "hsl(var(--heroui-warning) / 1) !important",
+            },
+            blockquote: {
+              fontWeight: 300,
+              borderColor: "hsl(var(--heroui-warning) / 0.7)",
+            },
             code: {
-              background: theme("colors.foreground/10%"),
-              padding: '0.25rem',
+              background: theme("colors.warning/10%"),
+              color: theme("colors.warning"),
+              padding: '0.125rem 0.25rem',
               borderRadius: '0.375rem',
-              fontFamily: theme('fontFamily.mono'),
+              fontSize: "1rem",
+              fontWeight: 500,
             },
             'code::before': {
               content: '""',
