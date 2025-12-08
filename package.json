@@ -22,6 +22,7 @@
     "@heroui/navbar": "2.2.25",
     "@heroui/skeleton": "2.2.17",
     "@heroui/switch": "2.2.24",
+    "@heroui/table": "^2.2.27",
     "@heroui/theme": "2.4.23",
     "@heroui/toast": "2.0.17",
     "@react-aria/ssr": "3.9.10",

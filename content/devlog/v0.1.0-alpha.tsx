@@ -30,10 +30,7 @@ export const VersionLog: VersionLogType = {
                     Добавлено сохранение рекордов прохождения уровней.
                 </li>
                 <li>
-                    Добавлена поддержка пользовательских уровней из zip-архивов.
-                    <p className="text-sm text-night-700">
-                        Для этого в директории <b>BeamNBeat/UserTracks</b> создайте папку с названием ID уровня (из <b>info.json</b>) и распакуйте в нее архив.
-                    </p>
+                    Добавлена поддержка пользовательских уровней.
                 </li>
             </ul>
             
@@ -52,7 +49,7 @@ export const VersionLog: VersionLogType = {
                 </li>
             </ul>
 
-            <h4 className="pt-4 border-t border-night-600">Онлайн-редактор</h4>
+            <h4 className="pt-4 border-t border-night-600">Онлайн редактор</h4>
             <ul>
                 <li>
                     Импорт аудио (<code>.wav</code>) для создания новой карты битов.

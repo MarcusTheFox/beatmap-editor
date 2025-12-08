@@ -17,7 +17,7 @@ export const LayoutWithLights = ({
     return (
         <>
             <BackgroundLight {...top} position="top"/>
-            <div className="relative z-10">
+            <div className="flex-1 relative z-10">
                 {children}
             </div>
             <BackgroundLight {...bottom} position="bottom"/>

@@ -18,6 +18,10 @@ export const siteConfig = {
       href: paths.root,
     },
     {
+      label: "Вики",
+      href: paths.wiki.root,
+    },
+    {
       label: "Редактор",
       href: paths.editor.root,
     },
