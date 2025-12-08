@@ -3,14 +3,14 @@ import { Link } from "@heroui/link";
 import { paths } from "@/config/paths";
 
 export const metadata: Metadata = {
-    title: "Как скачать, установить и запустить ритм шутер Beam & Beat на ПК",
-    description: "Пошаговая инструкция по распаковке и первому запуску ритм шутера на Windows."
+    title: "Как установить ритм шутер Beam & Beat на ПК | Инструкция",
+    description: "Пошаговая установка игры на Windows. Скачивание архива, распаковка Portable версии, решение проблем с первым запуском."
 };
 
 export default function InstallationPage() {
     return (
         <>
-            <h1>Установка и запуск</h1>
+            <h1>Установка и запуск ритм шутера на ПК</h1>
             <p>
                 Beam & Beat распространяется в формате "Portable". Это значит, что игра не требует сложного инсталлятора, но её нужно правильно распаковать.
             </p>

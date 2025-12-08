@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Формат битмап файла для ритм шутера Beam & Beat",
-    description: "Техническая спецификация: структура JSON файлов уровня, описание полей beatmap и info."
+    title: "Формат битмап файла для ритм шутера",
+    description: "Техническая спецификация для разработчиков и мапперов. Структура JSON файлов уровня, описание полей beatmap и info."
 };
 
 export default function LevelFormatPage() {

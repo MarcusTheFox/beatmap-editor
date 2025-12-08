@@ -100,6 +100,12 @@ export default function WikiHomePage() {
                                 <span className="block text-sm text-default-500">Структура .zip и JSON схем</span>
                             </Link>
                         </li>
+                        <li>
+                            <Link href={paths.wiki.faq} className="block group">
+                                <span className="text-foreground font-medium group-hover:text-primary transition-colors">Решение проблем</span>
+                                <span className="block text-sm text-default-500">FAQ по ошибкам и багам</span>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
 
@@ -107,7 +113,7 @@ export default function WikiHomePage() {
 
             <h2>Сообщество</h2>
             <p>
-                Wiki поддерживается сообществом. Если вы нашли ошибку или хотите дополнить статью, обязательно напишите нам в <Link isExternal href={siteConfig.links.telegram} underline="hover">Telegram</Link>.
+                Вики поддерживается сообществом. Если вы нашли ошибку или хотите дополнить статью, обязательно напишите нам в <Link isExternal href={siteConfig.links.telegram} underline="hover">Telegram</Link>.
             </p>
         </>
     );
