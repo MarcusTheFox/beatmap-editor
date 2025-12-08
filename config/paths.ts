@@ -14,8 +14,11 @@ export const paths = {
     wiki: {
         root: "/wiki",
         installation: "/wiki/installation",
+        customLevels: "/wiki/custom-levels",
+        requirements: "/wiki/requirements", 
         editorGuide: "/wiki/editor-guide",
-        beatmappingTips: "/wiki/beatmapping-tips",
+        gameplay: "/wiki/gameplay",
         levelFormat: "/wiki/level-format",
+        faq: "/wiki/faq",
     },
 }

@@ -11,17 +11,32 @@ import { paths } from "@/config/paths";
 
 const wikiNavSections = [
   {
-    title: "Начало работы",
+    title: "Начало",
     items: [
       { label: "Установка и запуск", href: paths.wiki.installation },
+      { label: "Системные требования", href: paths.wiki.requirements },
+      { label: "Свои уровни и сохранения", href: paths.wiki.customLevels },
     ]
   },
   {
-    title: "Редактор уровней",
+    title: "Геймплей",
     items: [
-      { label: "Гайд по редактору", href: paths.wiki.editorGuide },
+      { label: "Очки и Ранги", href: paths.wiki.gameplay },
     ]
   },
+  {
+    title: "Создание уровней",
+    items: [
+      { label: "Гайд по редактору", href: paths.wiki.editorGuide },
+      { label: "Формат файлов", href: paths.wiki.levelFormat },
+    ]
+  },
+  {
+    title: "Поддержка",
+    items: [
+      { label: "Решение проблем", href: paths.wiki.faq },
+    ]
+  }
 ];
 
 export default function WikiZenLayout({

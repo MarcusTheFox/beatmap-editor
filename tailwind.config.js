@@ -37,6 +37,11 @@ const config = {
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
+            h2: {
+              borderTop: "1px solid #67677e",
+              paddingTop: "1em",
+              marginTop: "2em",
+            },
             p: {
               lineHeight: 1.5,
             },
@@ -49,15 +54,21 @@ const config = {
             },
             strong: {
               fontWeight: 700,
-              color: "hsl(var(--heroui-warning) / 1) !important",
+              color: "hsl(var(--heroui-warning) / 1)",
             },
             blockquote: {
               fontWeight: 300,
               borderColor: "hsl(var(--heroui-warning) / 0.7)",
+              strong: {
+                color: "hsl(var(--heroui-warning) / 1)",
+              },
+              code: {
+                color: "hsl(var(--heroui-warning) / 1)",
+              },
             },
             code: {
-              background: theme("colors.warning/10%"),
-              color: theme("colors.warning"),
+              background: "hsl(var(--heroui-warning) / 0.1)",
+              color: "hsl(var(--heroui-warning) / 1)",
               padding: '0.125rem 0.25rem',
               borderRadius: '0.375rem',
               fontSize: "1rem",
