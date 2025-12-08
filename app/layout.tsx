@@ -12,13 +12,13 @@ import { YandexMetrika } from "@/src/shared/ui/YandexMetrika";
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `${siteConfig.name} | %s`,
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   openGraph: {
     title: {
       default: siteConfig.name,
-      template: `${siteConfig.name} | %s`,
+      template: `%s | ${siteConfig.name}`,
     },
     description: siteConfig.description,
     type: 'website',

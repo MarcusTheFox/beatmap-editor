@@ -8,7 +8,6 @@ import { useZip } from "@/src/features/level-export";
 import { useRef } from "react";
 import { addToast } from "@heroui/toast";
 import { useRouter } from "next/navigation";
-import { DefaultLayout } from "@/src/app/layouts/default";
 import { Card, CardBody } from "@heroui/card";
 import { Icon24MusicOutline, Icon20ZipOutline } from "@vkontakte/icons";
 import { paths } from "@/config/paths";
@@ -52,9 +51,9 @@ export default function EditorStartPage() {
         <LayoutWithLights>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-16">
                 <div className="text-center">
-                    <h1 className={title()}>Редактор уровней</h1>
+                    <h1 className={title()}>Онлайн редактор уровней</h1>
                     <h2 className={subtitle()}>
-                        Создавайте собственные ритм-карты из ваших любимых треков.
+                        Конструктор уровней для ритм шутера. Создайте карту из своей музыки прямо в браузере.
                     </h2>
                 </div>
 
