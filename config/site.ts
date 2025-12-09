@@ -25,10 +25,6 @@ export const siteConfig = {
       label: "Редактор",
       href: paths.editor.root,
     },
-    {
-      label: "Скачать",
-      href: paths.download,
-    },
   ],
   navMenuItems: [
     {
@@ -36,12 +32,12 @@ export const siteConfig = {
       href: paths.root,
     },
     {
-      label: "Редактор",
-      href: paths.editor.root,
+      label: "Вики",
+      href: paths.wiki.root,
     },
     {
-      label: "Скачать",
-      href: paths.download,
+      label: "Редактор",
+      href: paths.editor.root,
     },
   ],
   links: {
