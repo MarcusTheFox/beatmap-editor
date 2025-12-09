@@ -3,20 +3,20 @@ import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { DevLog } from "@/content/devlog";
 import { title, subtitle } from "@/src/shared/lib";
-import { Icon24Download, Icon24ArchiveOutline, Icon24CheckCircleOutline, Icon24ComputerOutline } from "@vkontakte/icons";
+import { Icon24Download, Icon24ArchiveOutline, Icon24CheckCircleOutline } from "@vkontakte/icons";
 import { Card } from "@heroui/card";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Скачать ритм-игру бесплатно | Следите за историей обновлений",
-  description: "Загрузите последнюю альфа-версию ритм-игры Beam & Beat для Windows бесплатно. Присоединяйтесь к тестированию и следите за историей обновлений.",
-  openGraph: {
-    title: "Скачать ритм-игру бесплатно",
-    description: "Загрузите последнюю альфа-версию ритм-игры Beam & Beat бесплатно. Присоединяйтесь к тестированию и следите за историей обновлений.",
-    type: 'website',
-    locale: 'ru_RU',
-    siteName: 'Beam & Beat',
-  }
+    title: "Скачать ритм шутер Beam & Beat на ПК бесплатно | Альфа версия",
+    description: "Скачать последнюю версию ритм шутера Beam & Beat для Windows бесплатно. Присоединяйтесь к тестированию и следите за историей обновлений.",
+    openGraph: {
+        title: "Скачать ритм шутер на ПК бесплатно",
+        description: "Скачать последнюю версию ритм шутера Beam & Beat бесплатно. Присоединяйтесь к тестированию и следите за историей обновлений.",
+        type: 'website',
+        locale: 'ru_RU',
+        siteName: 'Beam & Beat',
+    }
 };
 
 
@@ -27,9 +27,9 @@ export default function DownloadPage() {
     return (
         <>
             <section className="text-center pb-8">
-                <h1 className={title()}>Скачать игру</h1>
+                <h1 className={title()}>Скачать ритм шутер на ПК</h1>
                 <h2 className={subtitle({ className: "max-w-2xl mx-auto" })}>
-                    Скачайте последнюю альфа-версию Beam & Beat и следите за историей обновлений.
+                    Скачайте последнюю версию ритм шутера Beam & Beat и следите за историей обновлений.
                 </h2>
             </section>
             
@@ -90,17 +90,6 @@ export default function DownloadPage() {
                             </div>
                         </Card>
                     ))}
-                </div>
-            </section>
-            
-            <section className="w-full border-t border-night-600 pt-8">
-                <div className="container mx-auto px-6 text-center text-sm text-night-700">
-                     <h4 className="font-bold text-night-800 mb-2 flex items-center justify-center gap-2">
-                        <Icon24ComputerOutline />
-                        Системные требования (Alpha)
-                    </h4>
-                    <p>
-                        <strong>ОС:</strong> Windows 10+ | <strong>Память:</strong> 4 GB ОЗУ | <strong>Видеокарта:</strong> DirectX 11 | <strong>Место:</strong> 400 MB</p>
                 </div>
             </section>
         </>

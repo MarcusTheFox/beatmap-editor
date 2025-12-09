@@ -5,6 +5,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: [
+        '/editor/song/',
+        '/editor/not-found',
+      ],
     },
     sitemap: 'https://beamandbeat.com/sitemap.xml',
   };
