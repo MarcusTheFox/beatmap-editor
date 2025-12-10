@@ -6,9 +6,9 @@ const ymScript = `
     m[i].l=1*new Date();
     for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
     k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105519908', 'ym');
+})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105772336', 'ym');
 
-ym(105519908, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+ym(105772336, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
 `;
 
 export const YandexMetrika = () => {
@@ -18,7 +18,7 @@ export const YandexMetrika = () => {
             
             <noscript>
                 <div>
-                    <img src="https://mc.yandex.ru/watch/105519908" style={{ position: "absolute", left: -9999 }} alt="" />
+                    <img src="https://mc.yandex.ru/watch/105772336" style={{ position: "absolute", left: -9999 }} alt="" />
                 </div>
             </noscript>
         </>
