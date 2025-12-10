@@ -50,9 +50,8 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
+        <YandexMetrika />
         <Providers>
-          <YandexMetrika />
-
           <AppProvider>
             {children}
           </AppProvider>
