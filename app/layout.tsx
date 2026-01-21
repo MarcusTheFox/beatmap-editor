@@ -9,6 +9,8 @@ import { fontSans } from "@/config/fonts";
 import { AppProvider } from "./app";
 import { YandexMetrika } from "@/src/shared/ui/YandexMetrika";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -48,9 +50,8 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
+        <YandexMetrika />
         <Providers>
-          <YandexMetrika />
-
           <AppProvider>
             {children}
           </AppProvider>

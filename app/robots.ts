@@ -6,6 +6,8 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
       disallow: [
+        '/*?_ym_*',
+        '/*&_ym_*',
         '/editor/song/',
         '/editor/not-found',
       ],
