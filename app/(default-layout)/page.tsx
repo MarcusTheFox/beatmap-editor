@@ -6,6 +6,7 @@ import { Step } from "@/src/shared/ui";
 import { LayoutWithLights } from "@/src/app/layouts";
 import Image from "next/image";
 import editorNotesGif from "@/src/shared/images/editor-notes.gif";
+import { AudioWave } from "@/src/shared/ui/AudioWave";
 
 export const metadata: Metadata = {
   title: "Новый ритм шутер Beam & Beat, где надо стрелять в такт музыки | Попробуйте онлайн битмап редактор бесплатно",
@@ -20,33 +21,6 @@ export const metadata: Metadata = {
   verification: {
     yandex: "baeea4418c6bcf20"
   }
-};
-
-const AudioWave = (props : {
-    color?: "yellow" | "blue",
-    bottom?: boolean,
-    className?: string,
-} ) => {
-  const gradientDirection = props.bottom ? "bg-gradient-to-b" : "bg-gradient-to-t";
-  const color = props.color == "yellow" ? "from-warning" : "from-primary-500";
-  const rounded = props.bottom ? "rounded-b" : "rounded-t";
-  const itemsDirection = props.bottom ? "items-start" : "items-end";
-
-  return (
-    <div className={`absolute flex ${itemsDirection} h-20 w-full gap-1 ${props.className}`}>
-      {Array.from({ length: 150 }, (_, i) => (
-        <div
-            key={i}
-            className={`flex-1 ${gradientDirection} ${color} ${rounded} animate-height-wave`}
-            style={{ 
-                height: "60px",
-                transformOrigin: props.bottom ? 'top' : 'bottom',
-                animationDuration: `${Math.random() * 2 + 1}s`,
-            }}
-        />
-      ))}
-    </div>
-  );
 };
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
