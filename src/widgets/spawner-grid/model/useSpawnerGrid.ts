@@ -12,7 +12,7 @@ export const useSpawnerGrid = () => {
 
     const getSpawnerState = (id: number) => {
         const isChecked = contains(currentBeat, id);
-        const isHighlighted = isPlaying && contains(Math.floor(currentBeat), currentBeat, id);
+        const isHighlighted = isPlaying && contains(currentBeat - 1, currentBeat, id);
         const isSelected = IsNoteSelected(currentBeat, id);
 
         return { isChecked, isHighlighted, isSelected };
