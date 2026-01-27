@@ -9,17 +9,19 @@ import { convertTimeToBeats, formatTime } from "@/src/shared/lib";
 import { Input } from "@heroui/input";
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Button } from "@heroui/button";
-import { Icon24Pause, Icon24Play, Icon24SkipBack, Icon24SkipForward, Icon24SkipNext, Icon24SkipPrevious } from "@vkontakte/icons";
+import { Icon20ChevronLeft, Icon20ChevronLeft2, Icon20ChevronRight, Icon20ChevronRight2, Icon24ChevronLeftSquareOutline, Icon24ChevronRightSquareOutline, Icon24Pause, Icon24Play } from "@vkontakte/icons";
 import { WaveSurferComponent, WaveSurferComponentRef } from "@/src/entities/wavesurfer";
 import { useTimelineContext } from "../model/context";
+import { useNote } from "@/src/entities/note";
 
 export function TimelineSection() {
     const { controls, setControls, currentTime, setCurrentTime, isPlaying, setIsPlaying } = useTimelineContext();
     const { timelineSettings: { bpm, offset } } = useTimelineSettings();
     const { audioUrl } = useAudio();
     const beatInput = useBeatInput(controls);
-    const { nextBeat, playPause, prevBeat, toEnd, toStart } = usePlaybackControls(controls);
+    const { nextBeat, playPause, prevBeat, toEnd, toStart, toBeat, getDuration } = usePlaybackControls(controls);
     const { loading, onPlayPause, onReady, onTimeUpdate } = useTimelineState({ setControls, setCurrentTime, setIsPlaying });
+    const { find, findLast } = useNote();
 
     const waveSurferRef = useRef<WaveSurferComponentRef>(null);
     const cardRef = useRef<HTMLDivElement>(null);
@@ -28,6 +30,22 @@ export function TimelineSection() {
         const newControls = waveSurferRef.current?.getControls();
         if (!newControls) return;
         onReady(newControls);
+    }
+
+    const handlePreviousNote = () => {
+        const currentBeat = convertTimeToBeats(currentTime, bpm, offset);
+        const previousNote = findLast(0, currentBeat - 0.001);
+        if (previousNote) {
+            toBeat(previousNote.beat);
+        }
+    }
+
+    const handleNextNote = () => {
+        const currentBeat = convertTimeToBeats(currentTime, bpm, offset);
+        const nextNote = find(currentBeat + 0.001, getDuration());
+        if (nextNote) {
+            toBeat(nextNote.beat);
+        }
     }
 
     const beatLabel = (
@@ -60,13 +78,15 @@ export function TimelineSection() {
                 { beatInput.isEditing ? beatForm : beatLabel }
             </div>
             <div className="flex gap-2 justify-center w-full">
-                <Button isIconOnly disabled={ loading } onPress={ toStart }><Icon24SkipPrevious /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ prevBeat }><Icon24SkipBack /></Button>
+                <Button isIconOnly disabled={ loading } onPress={ toStart }><Icon20ChevronLeft2 /></Button>
+                <Button isIconOnly disabled={ loading } onPress={ prevBeat }><Icon20ChevronLeft /></Button>
+                <Button isIconOnly disabled={ loading } onPress={ handlePreviousNote }><Icon24ChevronRightSquareOutline scale={20} /></Button>
                 <Button isIconOnly disabled={ loading } onPress={ playPause } color={ isPlaying ? "primary" : "default" }>
                     { isPlaying ? <Icon24Pause /> : <Icon24Play /> }
                 </Button>
-                <Button isIconOnly disabled={ loading } onPress={ nextBeat }><Icon24SkipForward /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ toEnd }><Icon24SkipNext /></Button>
+                <Button isIconOnly disabled={ loading } onPress={ handleNextNote }><Icon24ChevronLeftSquareOutline scale={20} /></Button>
+                <Button isIconOnly disabled={ loading } onPress={ nextBeat }><Icon20ChevronRight /></Button>
+                <Button isIconOnly disabled={ loading } onPress={ toEnd }><Icon20ChevronRight2 /></Button>
             </div>
             <div className="w-full"></div>
         </CardHeader>
