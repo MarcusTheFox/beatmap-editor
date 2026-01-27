@@ -13,6 +13,7 @@ import { Icon20ChevronLeft, Icon20ChevronLeft2, Icon20ChevronRight, Icon20Chevro
 import { WaveSurferComponent, WaveSurferComponentRef } from "@/src/entities/wavesurfer";
 import { useTimelineContext } from "../model/context";
 import { useNote } from "@/src/entities/note";
+import { createHotkey, useHotkeys } from "@/src/shared/lib/utils/hotkeys";
 
 export function TimelineSection() {
     const { controls, setControls, currentTime, setCurrentTime, isPlaying, setIsPlaying } = useTimelineContext();
@@ -22,6 +23,12 @@ export function TimelineSection() {
     const { nextBeat, playPause, prevBeat, toEnd, toStart, toBeat, getDuration } = usePlaybackControls(controls);
     const { loading, onPlayPause, onReady, onTimeUpdate } = useTimelineState({ setControls, setCurrentTime, setIsPlaying });
     const { find, findLast } = useNote();
+
+    useHotkeys([
+        createHotkey(["P"], playPause),
+        createHotkey(["Home"], toStart),
+        createHotkey(["End"], toEnd)
+    ]);
 
     const waveSurferRef = useRef<WaveSurferComponentRef>(null);
     const cardRef = useRef<HTMLDivElement>(null);
