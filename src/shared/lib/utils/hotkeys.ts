@@ -4,7 +4,25 @@ import { KeyboardKey } from '../../types/keyboardKey';
 export type Hotkey = {
     keys: KeyboardKey[],
     callback: (event: KeyboardEvent) => void;
+    allowInInputs?: boolean;
 }
+
+const isTypingElement = (element: Element): boolean => {
+    const tagName = element.tagName.toLowerCase();
+    const inputTypes = ['input', 'textarea', 'select', 'button'];
+    
+    if (inputTypes.includes(tagName)) {
+        const inputElement = element as HTMLInputElement;
+        const type = inputElement.type?.toLowerCase();
+        
+        if (type === 'button' || type === 'checkbox' || type === 'radio' || type === 'submit') {
+            return false;
+        }
+        return true;
+    }
+    
+    return element.hasAttribute('contenteditable');
+};
 
 const normalizeKey = (key: string): string => {
     const mapping: Record<string, string> = {
@@ -17,8 +35,13 @@ const normalizeKey = (key: string): string => {
 
 export const useHotkeys = ( hotkeys: Hotkey[] ) => {
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
+        const activeElement = document.activeElement;
+        const isTyping = activeElement && isTypingElement(activeElement);
+
         for (const hotkey of hotkeys) {
-            const { keys, callback } = hotkey;
+            const { keys, callback, allowInInputs = false } = hotkey;
+            
+            if (isTyping && !allowInInputs) continue;
 
             let allKeysMatch: boolean = keys.every(key => {
                 const eventKey = normalizeKey(event.key);

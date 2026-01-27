@@ -1,68 +1,88 @@
 export const formatTime = (seconds: number): string => {
-  const mins = Math.max(Math.floor(seconds / 60), 0);
-  const secs = Math.max(Math.floor(seconds % 60), 0);
+    const mins = Math.max(Math.floor(seconds / 60), 0);
+    const secs = Math.max(Math.floor(seconds % 60), 0);
 
-  return `${mins}:${secs.toString().padStart(2, "0")}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
 };
 
 export const convertTimeToBeats = (
-  time: number,
-  bpm: number,
-  offset: number,
+    time: number,
+    bpm: number,
+    offset: number,
 ) => {
-  if (time < offset) return 0;
+    if (time < offset) return 0;
 
-  const timeInSong = time - offset;
-  const beatsPerSecond = bpm / 60;
+    const timeInSong = time - offset;
+    const beatsPerSecond = bpm / 60;
 
-  return Math.round(timeInSong * beatsPerSecond * 1000) / 1000;
+    return Math.round(timeInSong * beatsPerSecond * 1000) / 1000;
 };
 
 export const convertBeatsToTime = (
-  beat: number,
-  bpm: number,
-  offset: number,
+    beat: number,
+    bpm: number,
+    offset: number,
 ) => {
-  const beatsPerSecond = bpm / 60;
-  const timeInSong = beat / beatsPerSecond;
+    const beatsPerSecond = bpm / 60;
+    const timeInSong = beat / beatsPerSecond;
 
-  return timeInSong + offset;
+    return timeInSong + offset;
 };
 
 export const getNextBeatTime = (
-  time: number,
-  duration: number,
-  bpm: number,
-  offset: number,
+    time: number,
+    duration: number,
+    bpm: number,
+    offset: number,
 ) => {
-  const beat = convertTimeToBeats(time, bpm, offset);
+    const beat = convertTimeToBeats(time, bpm, offset);
 
-  return Math.min(
-    convertBeatsToTime(Math.floor(beat) + 1, bpm, offset),
-    duration,
-  );
+    return Math.min(
+        convertBeatsToTime(Math.floor(beat) + 1, bpm, offset),
+        duration,
+    );
 };
 
-export const getPreviousBeatTime = (
-  time: number,
-  bpm: number,
-  offset: number,
+export const getStepBeatTime = (
+    time: number,
+    duration: number,
+    step: number,
+    bpm: number,
+    offset: number,
 ) => {
-  const beat = convertTimeToBeats(time, bpm, offset);
+    if (Math.sign(step) === 0) return time;
 
-  return Math.max(convertBeatsToTime(Math.ceil(beat) - 1, bpm, offset), 0);
+    const beat = convertTimeToBeats(time, bpm, offset);
+    if (Math.sign(step) < 0) {
+        const absStep = Math.abs(step);
+        const newBeat = Math.ceil((beat - absStep) / absStep) * absStep;
+        return Math.max(convertBeatsToTime(newBeat, bpm, offset), 0);
+    }
+
+    const newBeat = Math.floor((beat + step) / step) * step;
+    return Math.min(convertBeatsToTime(newBeat, bpm, offset), duration);
+}
+
+export const getPreviousBeatTime = (
+    time: number,
+    bpm: number,
+    offset: number,
+) => {
+    const beat = convertTimeToBeats(time, bpm, offset);
+
+    return Math.max(convertBeatsToTime(Math.ceil(beat) - 1, bpm, offset), 0);
 };
 
 export const getFirstBeatTime = (bpm: number, offset: number) => {
-  return convertBeatsToTime(0, bpm, offset);
+    return convertBeatsToTime(0, bpm, offset);
 };
 
 export const getTotalBeats = (
-  duration: number,
-  bpm: number,
-  offset: number,
+    duration: number,
+    bpm: number,
+    offset: number,
 ) => {
-  const beatsDuration = duration - offset;
+    const beatsDuration = duration - offset;
 
-  return Math.round(beatsDuration / (60 / bpm));
+    return Math.round(beatsDuration / (60 / bpm));
 };

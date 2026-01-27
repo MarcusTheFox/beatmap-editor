@@ -20,15 +20,9 @@ export function TimelineSection() {
     const { timelineSettings: { bpm, offset } } = useTimelineSettings();
     const { audioUrl } = useAudio();
     const beatInput = useBeatInput(controls);
-    const { nextBeat, playPause, prevBeat, toEnd, toStart, toBeat, getDuration } = usePlaybackControls(controls);
+    const { nextBeat, playPause, prevBeat, toEnd, toStart, toStep, toBeat, getDuration } = usePlaybackControls(controls);
     const { loading, onPlayPause, onReady, onTimeUpdate } = useTimelineState({ setControls, setCurrentTime, setIsPlaying });
     const { find, findLast } = useNote();
-
-    useHotkeys([
-        createHotkey(["P"], playPause),
-        createHotkey(["Home"], toStart),
-        createHotkey(["End"], toEnd)
-    ]);
 
     const waveSurferRef = useRef<WaveSurferComponentRef>(null);
     const cardRef = useRef<HTMLDivElement>(null);
@@ -54,6 +48,30 @@ export function TimelineSection() {
             toBeat(nextNote.beat);
         }
     }
+
+    useHotkeys([
+        createHotkey(["X"], playPause),
+        createHotkey(["Home"], toStart),
+        createHotkey(["End"], toEnd),
+        createHotkey(["A"], prevBeat),
+        createHotkey(["D"], nextBeat),
+        createHotkey(["ArrowLeft"], prevBeat),
+        createHotkey(["ArrowRight"], nextBeat),
+        createHotkey(["Shift", "A"], () => toStep(-0.5)),
+        createHotkey(["Shift", "D"], () => toStep(0.5)),
+        createHotkey(["Ctrl", "A"], () => toStep(-0.25)),
+        createHotkey(["Ctrl", "D"], () => toStep(0.25)),
+        createHotkey(["Alt", "A"], () => toStep(-0.125)),
+        createHotkey(["Alt", "D"], () => toStep(0.125)),
+        createHotkey(["Shift", "ArrowLeft"], () => toStep(-0.5)),
+        createHotkey(["Shift", "ArrowRight"], () => toStep(0.5)),
+        createHotkey(["Ctrl", "ArrowLeft"], () => toStep(-0.25)),
+        createHotkey(["Ctrl", "ArrowRight"], () => toStep(0.25)),
+        createHotkey(["Alt", "ArrowLeft"], () => toStep(-0.125)),
+        createHotkey(["Alt", "ArrowRight"], () => toStep(0.125)),
+        createHotkey(["Ctrl", "Shift", "A"], handlePreviousNote),
+        createHotkey(["Ctrl", "Shift", "D"], handleNextNote),
+    ]);
 
     const beatLabel = (
         <Label className="w-48" onClick={beatInput.handleDisplayClick}>
