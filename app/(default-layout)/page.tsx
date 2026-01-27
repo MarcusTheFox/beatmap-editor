@@ -4,53 +4,23 @@ import { Icon24TargetOutline, Icon24BrushOutline, Icon24Users3Outline, Icon24Dow
 import { Metadata } from "next";
 import { Step } from "@/src/shared/ui";
 import { LayoutWithLights } from "@/src/app/layouts";
+import Image from "next/image";
+import editorNotesGif from "@/src/shared/images/editor-notes.gif";
+import { AudioWave } from "@/src/shared/ui/AudioWave";
 
 export const metadata: Metadata = {
-  title: "Ритм-игра с битмап онлайн-редактором | Скачать игру бесплатно",
-  description: "Beam & Beat - ритм-игра, где вы поражаете цели в такт музыки. Создавайте собственные карты из WAV-файлов в нашем онлайн-редакторе. Скачайте альфа-версию игры Beam & Beat для Windows бесплатно",
-  keywords: "\
-ритм игра, ритм шутер, музыкальная игра, игра под музыку, \
-битмап редактор, редактор уровней, редактор карт, редактор карты битов, редактор для ритм игр, \
-создать уровень из музыки, создать битмап, создать карту битов, сделать битмап из wav, \
-create beatmap, level editor, beatmap editor, \
-beam and beat, beam & beat, beam beat, beambeat, beam n beat, beamnbeat, bnb, \
-скачать игру, скачать ритм игру, скачать beam and beat, \
-игра, ритм, аудио, редактор, editor, beam, beat, битмап, beatmap\
-  ".trim(),
+  title: "Новый ритм шутер Beam & Beat, где надо стрелять в такт музыки | Попробуйте онлайн битмап редактор бесплатно",
+  description: "Бесплатный ритм шутер на ПК, где нужно стрелять по летящим целям под музыку. Создавайте свои уровни в онлайн битмап редакторе из WAV файлов. Скачать ритм шутер Beam & Beat бесплатно на Windows.",
   openGraph: {
-    title: "Ритм-игра с битмап редактором",
-    description: "Поражайте цели в такт музыки. Создавайте собственные карты из любых WAV-файлов. Скачайте альфа-версию бесплатно.",
+    title: "Новый ритм шутер с онлайн битмап редактором",
+    description: "Стреляйте по целям в такт музыки. Создавайте собственные карты из любых WAV-файлов. Скачайте игру Beam & Beat бесплатно.",
     type: 'website',
     locale: 'ru_RU',
     siteName: 'Beam & Beat',
+  },
+  verification: {
+    yandex: "baeea4418c6bcf20"
   }
-};
-
-const AudioWave = (props : {
-    color?: "yellow" | "blue",
-    bottom?: boolean,
-    className?: string,
-} ) => {
-  const gradientDirection = props.bottom ? "bg-gradient-to-b" : "bg-gradient-to-t";
-  const color = props.color == "yellow" ? "from-warning" : "from-primary-500";
-  const rounded = props.bottom ? "rounded-b" : "rounded-t";
-  const itemsDirection = props.bottom ? "items-start" : "items-end";
-
-  return (
-    <div className={`absolute flex ${itemsDirection} h-20 w-full gap-1 ${props.className}`}>
-      {Array.from({ length: 150 }, (_, i) => (
-        <div
-            key={i}
-            className={`flex-1 ${gradientDirection} ${color} ${rounded} animate-height-wave`}
-            style={{ 
-                height: "60px",
-                transformOrigin: props.bottom ? 'top' : 'bottom',
-                animationDuration: `${Math.random() * 2 + 1}s`,
-            }}
-        />
-      ))}
-    </div>
-  );
 };
 
 const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) => (
@@ -80,7 +50,8 @@ export default function IndexPage() {
                             BEAM <span className="bg-gradient-to-t from-warning-300 to-warning bg-clip-text text-transparent">& </span>BEAT
                         </h1>
                         <p className="mt-6 text-lg text-night-800 max-w-lg mx-auto lg:mx-0">
-                            Ритм-игра, где точность выстрелов зависит от чувства ритма. Поражайте цели в такт музыки. Создавайте собственные игровые уровни из любых WAV-файлов в нашем редакторе.
+                            Новый динамичный ритм шутер, где точность выстрелов зависит от чувства ритма. 
+                            Стреляйте по летящим целям в такт музыки. Используйте онлайн битмап редактор, чтобы создать уровень из любой песни.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
                             <Button 
@@ -115,23 +86,23 @@ export default function IndexPage() {
                 <div className="relative container mx-auto px-6">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl lg:text-4xl font-bold">Играйте, создавайте, делитесь</h2>
-                        <p className="text-lg text-night-800 mt-2">Три ключевые особенности ритм-игры Beam & Beat</p>
+                        <p className="text-lg text-night-800 mt-2">Три ключевые особенности ритм шутера Beam & Beat</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <FeatureCard
                             icon={<Icon24TargetOutline />}
                             title="Играйте в ритм"
-                            description="Сбивайте летящие цели, точно попадая в бит музыки. Повышайте рекорды за счет комбо и идеальной точности попаданий."
+                            description="В игре цели летят вверх. Стреляйте по целям точно попадая в бит музыки. Повышайте рекорды за счет комбо и идеальной точности попаданий."
                         />
                         <FeatureCard
                             icon={<Icon24BrushOutline />}
                             title="Создавайте уровни"
-                            description="Встроенный битмап редактор на сайте позволит легко превратить любой ваш WAV-трек в уникальный игровой уровень."
+                            description="Наш онлайн битмап редактор позволит легко превратить любой ваш WAV трек в уникальный игровой уровень."
                         />
                         <FeatureCard
                             icon={<Icon24Users3Outline />}
                             title="Делитесь картами"
-                            description="Экспортируйте созданные карты битов в ZIP-архивах и обменивайтесь ими с друзьями и сообществом."
+                            description="Экспортируйте созданные карты битов в ZIP-архивах и обменивайтесь ими с друзьями и сообществом в нашем Telegram."
                         />
                     </div>
                 </div>
@@ -144,12 +115,14 @@ export default function IndexPage() {
                     <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
                             <div className="relative flex items-center justify-center p-8">
                             <div className="absolute inset-0 border-2 border-dashed border-night-600 rounded-3xl transform rotate-6" />
-                            <div className="relative bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center p-4 border border-night-600 shadow-xl">
-                                <p className="text-night-800 text-center">[GIF-анимация редактора]</p>
+                            <div className="relative bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center border border-night-600 shadow-xl overflow-clip">
+                                <Image unoptimized src={ editorNotesGif } alt="Демонстрация нот в редакторе" />
                             </div>
                         </div>
                         <div className="flex flex-col gap-6">
-                            <h2 className="text-3xl lg:text-4xl font-bold">Создайте свой уровень за 3 шага</h2>
+                            <h2 className="text-3xl lg:text-4xl font-bold">
+                                Как создать свой уровень с нуля
+                            </h2>
                             <Step 
                                 num="1" 
                                 title="Загрузите аудиофайл" 
@@ -158,12 +131,12 @@ export default function IndexPage() {
                             <Step 
                                 num="2" 
                                 title="Расставьте цели" 
-                                description="Перемещайтесь по таймлайну и отмечайте на поле, когда и где должны появляться цели." 
+                                description="Перемещайтесь по таймлайну и отмечайте на поле, где и когда должны появляться цели." 
                             />
                             <Step 
                                 num="3" 
                                 title="Экспортируйте и играйте" 
-                                description="Сохраните готовую битмапу и добавьте её в игру, чтобы посмотреть результат." 
+                                description="Сохраните готовый уровень и добавьте его в игру, чтобы посмотреть результат." 
                             />
                         </div>
                     </div>
@@ -173,7 +146,7 @@ export default function IndexPage() {
             <section className="px-6 py-20">
                 <div className="max-w-4xl mx-auto p-8 md:p-12 text-center">
                     <h2 className="text-4xl font-bold">Присоединяйтесь к альфа-тестированию</h2>
-                    <p className="text-lg text-night-800 mt-2 mb-8">Beam & Beat находится на стадии активной разработки. Скачайте альфа-версию, опробуйте редактор уровней и помогите нам сделать игру лучше!</p>
+                    <p className="text-lg text-night-800 mt-2 mb-8">Ритм игра Beam & Beat находится на стадии активной разработки. Скачайте альфа-версию, опробуйте онлайн редактор уровней и помогите нам сделать игру лучше!</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             as={Link}

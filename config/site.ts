@@ -4,7 +4,8 @@ export type SiteConfig = typeof siteConfig;
 
 const gameVersions = {
   "0.1.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.1.0-alpha/BeamNBeat-0.1.0-alpha.zip",
-  "0.2.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.2.0-alpha/BeamNBeat-0.2.0-alpha.zip"
+  "0.2.0-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.2.0-alpha/BeamNBeat-0.2.0-alpha.zip",
+  "0.2.1-alpha": "https://github.com/MarcusTheFox/BeamNBeat/releases/download/v0.2.1-alpha/BeamNBeat-0.2.1-alpha.zip"
 }
 
 export type GameVersion = keyof typeof gameVersions;
@@ -18,12 +19,12 @@ export const siteConfig = {
       href: paths.root,
     },
     {
-      label: "Редактор",
-      href: paths.editor.root,
+      label: "Вики",
+      href: paths.wiki.root,
     },
     {
-      label: "Скачать",
-      href: paths.download,
+      label: "Редактор",
+      href: paths.editor.root,
     },
   ],
   navMenuItems: [
@@ -32,12 +33,12 @@ export const siteConfig = {
       href: paths.root,
     },
     {
-      label: "Редактор",
-      href: paths.editor.root,
+      label: "Вики",
+      href: paths.wiki.root,
     },
     {
-      label: "Скачать",
-      href: paths.download,
+      label: "Редактор",
+      href: paths.editor.root,
     },
   ],
   links: {

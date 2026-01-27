@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -7,94 +9,104 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@heroui/navbar";
-import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
-import { link as linkStyles } from "@heroui/theme";
-import NextLink from "next/link";
-import clsx from "clsx";
-
-import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/src/features/theme-switch/";
-import {
-  GithubIcon,
-  DiscordIcon,
-  SearchIcon,
-  TelegramIcon,
-} from "@/src/shared/ui/icons";
-import { GameLogo } from "@/src/shared/ui";
 import { Button } from "@heroui/button";
+import clsx from "clsx";
+import { siteConfig } from "@/config/site";
+import { GameLogo } from "@/src/shared/ui";
+import { Icon24Download } from "@vkontakte/icons";
+import { usePathname } from "next/navigation";
+import { Tab, Tabs } from "@heroui/tabs";
 
 export const Navbar = () => {
-  return (
-    <HeroUINavbar maxWidth="xl" position="sticky" disableAnimation>
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <GameLogo />
-          </NextLink>
-        </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
-      </NavbarContent>
+  const pathname = usePathname();
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal aria-label="Telegram" href={siteConfig.links.telegram}>
-            <TelegramIcon className="text-default-500" />
+  const getTabKey = () => {
+    const foundItem = siteConfig.navItems.find(item => {
+        if (item.href === "/") {
+            return pathname === "/";
+        }
+        return pathname.startsWith(item.href);
+    });
+    
+    return foundItem ? foundItem.href : null;
+  };
+
+  return (
+    <HeroUINavbar 
+        maxWidth="xl" 
+        position="sticky" 
+        isBlurred={false}
+        isBordered
+    >
+      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+        <NavbarBrand as="li" className="gap-3 max-w-fit mr-4">
+          <Link color="foreground" className="flex justify-start items-center gap-2" href="/">
+            <GameLogo />
           </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
-          </Link>
-          {/* <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-500" />
-          </Link> */}
+        </NavbarBrand>
+      </NavbarContent>
+      
+      <NavbarContent className="hidden lg:flex basis-1/5 sm:basis-full" justify="center">
+        <Tabs selectedKey={getTabKey()} aria-label="Navigation" variant="underlined" radius="full">
+          {siteConfig.navItems.map((item) => {
+            return (
+              <Tab key={item.href} href={item.href} title={item.label}/>
+            )
+          })}
+        </Tabs>
+      </NavbarContent>
+      
+      <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
+        <NavbarItem>
+            <Button
+                as={Link}
+                href="/download"
+                color="primary"
+                variant="shadow"
+                radius="full"
+                size="sm"
+                className="font-bold px-6"
+                startContent={<Icon24Download width={16} height={16}/>}
+            >
+                Скачать
+            </Button>
         </NavbarItem>
       </NavbarContent>
-
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal aria-label="Telegram" href={siteConfig.links.telegram}>
-          <TelegramIcon className="text-default-500" />
-        </Link>
+      
+      <NavbarContent className="lg:hidden basis-1 pl-4" justify="end">
         <NavbarMenuToggle />
       </NavbarContent>
 
-      <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
+      <NavbarMenu className="bg-night-100/95 backdrop-blur-2xl pt-8 border-t border-white/5">
+        <div className="mx-4 flex flex-col gap-6">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Button
-                as={Link}
-                color={
-                  index === siteConfig.navMenuItems.length - 1
-                    ? "primary"
-                    : "default"
-                }
+              <Link
+                color={pathname === item.href ? "primary" : "foreground"}
+                className={clsx(
+                    "w-full text-xl font-bold py-2 tracking-tight",
+                    pathname === item.href && "pl-4 border-l-4 border-primary"
+                )}
                 href={item.href}
-                size="md"
-                className="w-full"
               >
                 {item.label}
-              </Button>
+              </Link>
             </NavbarMenuItem>
           ))}
+          <div className="mt-8 pt-8 border-t border-white/10">
+             <Button 
+                fullWidth 
+                as={Link} 
+                href="/download" 
+                color="primary" 
+                size="lg"
+                variant="shadow"
+                startContent={<Icon24Download />}
+            >
+                Скачать игру
+             </Button>
+          </div>
         </div>
       </NavbarMenu>
     </HeroUINavbar>

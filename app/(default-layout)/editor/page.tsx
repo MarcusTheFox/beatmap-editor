@@ -8,11 +8,12 @@ import { useZip } from "@/src/features/level-export";
 import { useRef } from "react";
 import { addToast } from "@heroui/toast";
 import { useRouter } from "next/navigation";
-import { DefaultLayout } from "@/src/app/layouts/default";
 import { Card, CardBody } from "@heroui/card";
 import { Icon24MusicOutline, Icon20ZipOutline } from "@vkontakte/icons";
 import { paths } from "@/config/paths";
 import { LayoutWithLights } from "@/src/app/layouts";
+import editorUsingGif from "@/src/shared/images/editor-using.gif";
+import Image from "next/image";
 
 export default function EditorStartPage() {
     const router = useRouter();
@@ -50,9 +51,9 @@ export default function EditorStartPage() {
         <LayoutWithLights>
             <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-16">
                 <div className="text-center">
-                    <h1 className={title()}>Редактор уровней</h1>
+                    <h1 className={title()}>Онлайн редактор уровней</h1>
                     <h2 className={subtitle()}>
-                        Создавайте собственные ритм-карты из ваших любимых треков.
+                        Конструктор уровней для ритм шутера. Создайте карту из своей музыки прямо в браузере.
                     </h2>
                 </div>
 
@@ -105,8 +106,8 @@ export default function EditorStartPage() {
                             <Step num="3" title="Экспортируйте и играйте" description="Сохраните уровень в .zip и протестируйте его в игре." />
                         </div>
                     </div>
-                    <div className="bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center p-4 border border-night-600">
-                        <p className="text-night-800 text-center">[GIF-анимация процесса создания]</p>
+                    <div className="bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center border border-night-600 overflow-clip">
+                        <Image unoptimized src={editorUsingGif} alt="Гиф как начать работу с редактором"/>
                     </div>
                 </div>
             </section>
