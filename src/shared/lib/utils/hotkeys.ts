@@ -93,8 +93,10 @@ export const useHotkeys = ( hotkeys: Hotkey[] ) => {
 
 export const createHotkey = (
     keys: KeyboardKey[],
-    callback: (event: KeyboardEvent) => void
+    callback: (event: KeyboardEvent) => void,
+    options?: Omit<Hotkey, 'keys' | 'callback'>
 ): Hotkey => ({
     keys,
-    callback
+    callback,
+    ...options
 })

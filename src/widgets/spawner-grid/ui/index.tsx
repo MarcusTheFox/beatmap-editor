@@ -25,7 +25,7 @@ export function SpawnerGridSection() {
                 isChecked={isChecked}
                 isHighlighted={isHighlighted}
                 isSelected={isSelected}
-                onLeftClick={() => handleLeftClick(id)}
+                onLeftClick={(e) => handleLeftClick(id, e)}
                 onRightClick={(e) => handleRightClick(id, e)}
             />
         );

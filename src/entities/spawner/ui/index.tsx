@@ -5,7 +5,7 @@ interface SpawnerProps {
   isChecked: boolean;
   isHighlighted: boolean;
   isSelected: boolean;
-  onLeftClick: () => void;
+  onLeftClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onRightClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -14,8 +14,9 @@ export function Spawner(props: SpawnerProps) {
 
     return (
         <Button isIconOnly 
-                onPress={onLeftClick} 
+                onClickCapture={onLeftClick}
                 onContextMenu={onRightClick}
+                preventFocusOnPress
                 radius="sm"
                 className="w-18 h-18"
                 variant={isSelected || isHighlighted ? "solid" : "ghost"}

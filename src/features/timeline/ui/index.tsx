@@ -50,7 +50,7 @@ export function TimelineSection() {
     }
 
     useHotkeys([
-        createHotkey(["X"], playPause),
+        createHotkey(["Space"], playPause),
         createHotkey(["Home"], toStart),
         createHotkey(["End"], toEnd),
         createHotkey(["A"], prevBeat),
@@ -103,15 +103,15 @@ export function TimelineSection() {
                 { beatInput.isEditing ? beatForm : beatLabel }
             </div>
             <div className="flex gap-2 justify-center w-full">
-                <Button isIconOnly disabled={ loading } onPress={ toStart }><Icon20ChevronLeft2 /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ prevBeat }><Icon20ChevronLeft /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ handlePreviousNote }><Icon24ChevronRightSquareOutline scale={20} /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ playPause } color={ isPlaying ? "primary" : "default" }>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ toStart }><Icon20ChevronLeft2 /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ prevBeat }><Icon20ChevronLeft /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ handlePreviousNote }><Icon24ChevronRightSquareOutline scale={20} /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ playPause } color={ isPlaying ? "primary" : "default" }>
                     { isPlaying ? <Icon24Pause /> : <Icon24Play /> }
                 </Button>
-                <Button isIconOnly disabled={ loading } onPress={ handleNextNote }><Icon24ChevronLeftSquareOutline scale={20} /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ nextBeat }><Icon20ChevronRight /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ toEnd }><Icon20ChevronRight2 /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ handleNextNote }><Icon24ChevronLeftSquareOutline scale={20} /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ nextBeat }><Icon20ChevronRight /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ toEnd }><Icon20ChevronRight2 /></Button>
             </div>
             <div className="w-full"></div>
         </CardHeader>
