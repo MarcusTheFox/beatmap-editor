@@ -67,6 +67,15 @@ export const useNote = () => {
         return !!selectedNote && selectedNote.beat == beat && selectedNote.id == id;
     }
 
+    const find = useCallback((beatStart: number, beatEnd: number): Note | null => {
+        return context.state.notes.find(note => note.beat >= beatStart && note.beat <= beatEnd) || null;
+    }, [context.state.notes]);
+
+    const findLast = useCallback((beatStart: number, beatEnd: number): Note | null => {
+        const notes = context.state.notes.filter(note => note.beat >= beatStart && note.beat <= beatEnd);
+        return notes.length > 0 ? notes[notes.length - 1] : null;
+    }, [context.state.notes]);
+
     return {
         selectedNote,
         contains,
@@ -74,6 +83,8 @@ export const useNote = () => {
         select,
         update,
         remove,
+        find,
+        findLast,
         clear,
         set,
         get,
