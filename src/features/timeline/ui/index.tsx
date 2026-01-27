@@ -13,13 +13,14 @@ import { Icon20ChevronLeft, Icon20ChevronLeft2, Icon20ChevronRight, Icon20Chevro
 import { WaveSurferComponent, WaveSurferComponentRef } from "@/src/entities/wavesurfer";
 import { useTimelineContext } from "../model/context";
 import { useNote } from "@/src/entities/note";
+import { createKeyboardShortcut, useShortcuts } from "@/src/shared/lib/utils/hotkeys";
 
 export function TimelineSection() {
     const { controls, setControls, currentTime, setCurrentTime, isPlaying, setIsPlaying } = useTimelineContext();
     const { timelineSettings: { bpm, offset } } = useTimelineSettings();
     const { audioUrl } = useAudio();
     const beatInput = useBeatInput(controls);
-    const { nextBeat, playPause, prevBeat, toEnd, toStart, toBeat, getDuration } = usePlaybackControls(controls);
+    const { nextBeat, playPause, prevBeat, toEnd, toStart, toStep, toBeat, getDuration } = usePlaybackControls(controls);
     const { loading, onPlayPause, onReady, onTimeUpdate } = useTimelineState({ setControls, setCurrentTime, setIsPlaying });
     const { find, findLast } = useNote();
 
@@ -47,6 +48,30 @@ export function TimelineSection() {
             toBeat(nextNote.beat);
         }
     }
+
+    useShortcuts([
+        createKeyboardShortcut(["Space"], playPause),
+        createKeyboardShortcut(["Home"], toStart),
+        createKeyboardShortcut(["End"], toEnd),
+        createKeyboardShortcut(["A"], prevBeat),
+        createKeyboardShortcut(["D"], nextBeat),
+        createKeyboardShortcut(["ArrowLeft"], prevBeat),
+        createKeyboardShortcut(["ArrowRight"], nextBeat),
+        createKeyboardShortcut(["Shift", "A"], () => toStep(-0.5)),
+        createKeyboardShortcut(["Shift", "D"], () => toStep(0.5)),
+        createKeyboardShortcut(["Ctrl", "A"], () => toStep(-0.25)),
+        createKeyboardShortcut(["Ctrl", "D"], () => toStep(0.25)),
+        createKeyboardShortcut(["Alt", "A"], () => toStep(-0.125)),
+        createKeyboardShortcut(["Alt", "D"], () => toStep(0.125)),
+        createKeyboardShortcut(["Shift", "ArrowLeft"], () => toStep(-0.5)),
+        createKeyboardShortcut(["Shift", "ArrowRight"], () => toStep(0.5)),
+        createKeyboardShortcut(["Ctrl", "ArrowLeft"], () => toStep(-0.25)),
+        createKeyboardShortcut(["Ctrl", "ArrowRight"], () => toStep(0.25)),
+        createKeyboardShortcut(["Alt", "ArrowLeft"], () => toStep(-0.125)),
+        createKeyboardShortcut(["Alt", "ArrowRight"], () => toStep(0.125)),
+        createKeyboardShortcut(["Ctrl", "Shift", "A"], handlePreviousNote),
+        createKeyboardShortcut(["Ctrl", "Shift", "D"], handleNextNote),
+    ]);
 
     const beatLabel = (
         <Label className="w-48" onClick={beatInput.handleDisplayClick}>
@@ -78,15 +103,15 @@ export function TimelineSection() {
                 { beatInput.isEditing ? beatForm : beatLabel }
             </div>
             <div className="flex gap-2 justify-center w-full">
-                <Button isIconOnly disabled={ loading } onPress={ toStart }><Icon20ChevronLeft2 /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ prevBeat }><Icon20ChevronLeft /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ handlePreviousNote }><Icon24ChevronRightSquareOutline scale={20} /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ playPause } color={ isPlaying ? "primary" : "default" }>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ toStart }><Icon20ChevronLeft2 /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ prevBeat }><Icon20ChevronLeft /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ handlePreviousNote }><Icon24ChevronRightSquareOutline scale={20} /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ playPause } color={ isPlaying ? "primary" : "default" }>
                     { isPlaying ? <Icon24Pause /> : <Icon24Play /> }
                 </Button>
-                <Button isIconOnly disabled={ loading } onPress={ handleNextNote }><Icon24ChevronLeftSquareOutline scale={20} /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ nextBeat }><Icon20ChevronRight /></Button>
-                <Button isIconOnly disabled={ loading } onPress={ toEnd }><Icon20ChevronRight2 /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ handleNextNote }><Icon24ChevronLeftSquareOutline scale={20} /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ nextBeat }><Icon20ChevronRight /></Button>
+                <Button isIconOnly disabled={ loading } preventFocusOnPress onClickCapture={ toEnd }><Icon20ChevronRight2 /></Button>
             </div>
             <div className="w-full"></div>
         </CardHeader>

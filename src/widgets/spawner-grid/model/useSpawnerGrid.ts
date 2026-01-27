@@ -18,7 +18,8 @@ export const useSpawnerGrid = () => {
         return { isChecked, isHighlighted, isSelected };
     };
 
-    const handleLeftClick = (id: number) => {
+    const handleLeftClick = (id: number, event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         if (contains(currentBeat, id)) {
             remove(currentBeat, id);
         } else {

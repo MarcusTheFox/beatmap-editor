@@ -47,7 +47,8 @@ export const ExportButton = (props: ButtonProps) => {
     return (
         <Button
             {...props}
-            onPress={handleExportButtonPress}
+            onClickCapture={handleExportButtonPress}
+            preventFocusOnPress
         >
             {props.children}
         </Button>

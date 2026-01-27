@@ -1,4 +1,4 @@
-import { convertBeatsToTime, convertTimeToBeats, getFirstBeatTime, getNextBeatTime, getPreviousBeatTime } from "@/src/shared/lib";
+import { convertBeatsToTime, convertTimeToBeats, getFirstBeatTime, getNextBeatTime, getPreviousBeatTime, getStepBeatTime } from "@/src/shared/lib";
 import { useCallback } from "react";
 import WaveSurfer from "wavesurfer.js"
 
@@ -50,6 +50,33 @@ export const useWaveSurfer = (bpm: number, offset: number) => {
             setTime(time);
         }
 
+        const step = (step: number) => {
+            if (Math.sign(step) === 0) return;
+
+            const current = getTime();
+            if (Math.sign(step) < 0) {
+                if (current === 0) return;
+
+                const currentBeat = convertTimeToBeats(current, bpm, offset);
+                if (currentBeat === 0) {
+                    setTime(0);
+                    return;
+                }
+            }
+
+            const duration = getDuration();
+            if (Math.sign(step) > 0) {
+                if (current === duration) return;
+                if (current < offset) {
+                    setTime(offset);
+                    return;
+                }
+            }
+
+            const time = getStepBeatTime(current, duration, step, bpm, offset);
+            setTime(time);
+        }
+
         const start = () => {
             const current = getTime();
             if (current === 0) return;
@@ -87,6 +114,7 @@ export const useWaveSurfer = (bpm: number, offset: number) => {
 
             next,
             previous,
+            step,
             start,
             end
         }
