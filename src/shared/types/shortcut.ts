@@ -24,3 +24,5 @@ export type SymbolKey =
     | "'" | '"' | ',' | '<' | '.' | '>' | '/' | '?' | ' ';
 
 export type KeyboardKey = ModifierKey | SpecialKey | NumberKey | LetterKey | SymbolKey;
+
+export type MouseWheelDirection = "up" | "down";

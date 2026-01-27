@@ -13,7 +13,7 @@ import { Icon20ChevronLeft, Icon20ChevronLeft2, Icon20ChevronRight, Icon20Chevro
 import { WaveSurferComponent, WaveSurferComponentRef } from "@/src/entities/wavesurfer";
 import { useTimelineContext } from "../model/context";
 import { useNote } from "@/src/entities/note";
-import { createHotkey, useHotkeys } from "@/src/shared/lib/utils/hotkeys";
+import { createKeyboardShortcut, useShortcuts } from "@/src/shared/lib/utils/hotkeys";
 
 export function TimelineSection() {
     const { controls, setControls, currentTime, setCurrentTime, isPlaying, setIsPlaying } = useTimelineContext();
@@ -49,28 +49,28 @@ export function TimelineSection() {
         }
     }
 
-    useHotkeys([
-        createHotkey(["Space"], playPause),
-        createHotkey(["Home"], toStart),
-        createHotkey(["End"], toEnd),
-        createHotkey(["A"], prevBeat),
-        createHotkey(["D"], nextBeat),
-        createHotkey(["ArrowLeft"], prevBeat),
-        createHotkey(["ArrowRight"], nextBeat),
-        createHotkey(["Shift", "A"], () => toStep(-0.5)),
-        createHotkey(["Shift", "D"], () => toStep(0.5)),
-        createHotkey(["Ctrl", "A"], () => toStep(-0.25)),
-        createHotkey(["Ctrl", "D"], () => toStep(0.25)),
-        createHotkey(["Alt", "A"], () => toStep(-0.125)),
-        createHotkey(["Alt", "D"], () => toStep(0.125)),
-        createHotkey(["Shift", "ArrowLeft"], () => toStep(-0.5)),
-        createHotkey(["Shift", "ArrowRight"], () => toStep(0.5)),
-        createHotkey(["Ctrl", "ArrowLeft"], () => toStep(-0.25)),
-        createHotkey(["Ctrl", "ArrowRight"], () => toStep(0.25)),
-        createHotkey(["Alt", "ArrowLeft"], () => toStep(-0.125)),
-        createHotkey(["Alt", "ArrowRight"], () => toStep(0.125)),
-        createHotkey(["Ctrl", "Shift", "A"], handlePreviousNote),
-        createHotkey(["Ctrl", "Shift", "D"], handleNextNote),
+    useShortcuts([
+        createKeyboardShortcut(["Space"], playPause),
+        createKeyboardShortcut(["Home"], toStart),
+        createKeyboardShortcut(["End"], toEnd),
+        createKeyboardShortcut(["A"], prevBeat),
+        createKeyboardShortcut(["D"], nextBeat),
+        createKeyboardShortcut(["ArrowLeft"], prevBeat),
+        createKeyboardShortcut(["ArrowRight"], nextBeat),
+        createKeyboardShortcut(["Shift", "A"], () => toStep(-0.5)),
+        createKeyboardShortcut(["Shift", "D"], () => toStep(0.5)),
+        createKeyboardShortcut(["Ctrl", "A"], () => toStep(-0.25)),
+        createKeyboardShortcut(["Ctrl", "D"], () => toStep(0.25)),
+        createKeyboardShortcut(["Alt", "A"], () => toStep(-0.125)),
+        createKeyboardShortcut(["Alt", "D"], () => toStep(0.125)),
+        createKeyboardShortcut(["Shift", "ArrowLeft"], () => toStep(-0.5)),
+        createKeyboardShortcut(["Shift", "ArrowRight"], () => toStep(0.5)),
+        createKeyboardShortcut(["Ctrl", "ArrowLeft"], () => toStep(-0.25)),
+        createKeyboardShortcut(["Ctrl", "ArrowRight"], () => toStep(0.25)),
+        createKeyboardShortcut(["Alt", "ArrowLeft"], () => toStep(-0.125)),
+        createKeyboardShortcut(["Alt", "ArrowRight"], () => toStep(0.125)),
+        createKeyboardShortcut(["Ctrl", "Shift", "A"], handlePreviousNote),
+        createKeyboardShortcut(["Ctrl", "Shift", "D"], handleNextNote),
     ]);
 
     const beatLabel = (
