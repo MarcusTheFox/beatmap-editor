@@ -2,6 +2,7 @@ import { useLevelMetadata, useLevelProperties, useTimelineSettings } from "@/src
 import { CardTitle } from "@/src/shared/ui";
 import { Card, CardHeader, CardBody } from "@heroui/card";
 import { Input } from "@heroui/input";
+import { NumberInput } from "@heroui/number-input";
 import { useCallback } from "react";
 
 export function TrackInfoSection() {
@@ -9,16 +10,16 @@ export function TrackInfoSection() {
     const { timelineSettings, setTimelineSettings } = useTimelineSettings();
     const { levelProperties, setLevelProperties } = useLevelProperties();
 
-    const handleBpmChange = useCallback((value: string) => {
-        setTimelineSettings({ ...timelineSettings, bpm: Number(value) });
+    const handleBpmChange = useCallback((value: number) => {
+        setTimelineSettings({ ...timelineSettings, bpm: value });
     }, [ setTimelineSettings, timelineSettings ]);
 
-    const handleOffsetChange = useCallback((value: string) => {
-        setTimelineSettings({ ...timelineSettings, offset: Number(value) });
+    const handleOffsetChange = useCallback((value: number) => {
+        setTimelineSettings({ ...timelineSettings, offset: value });
     }, [ setTimelineSettings, timelineSettings ]);
 
-    const handlePowerChange = useCallback((value: string) => {
-        setLevelProperties({ ...levelProperties, power: Number(value) });
+    const handlePowerChange = useCallback((value: number) => {
+        setLevelProperties({ ...levelProperties, power: value });
     }, [ setLevelProperties, levelProperties ]);
 
     return (
@@ -51,30 +52,30 @@ export function TrackInfoSection() {
                     value={metadata.version}
                     onValueChange={(v) => setMetadata({ ...metadata, version: v })}
                 />
-                <Input
+                <NumberInput
                     type="number"
                     label="BPM трека"
                     labelPlacement="outside-top"
-                    min={1}
+                    minValue={1}
                     step={0.001}
-                    value={timelineSettings.bpm.toString()}
+                    value={timelineSettings.bpm}
                     onValueChange={handleBpmChange}
                 />
-                <Input
+                <NumberInput
                     type="number"
                     label="Сила по умолчанию"
                     labelPlacement="outside-top"
-                    min={0}
-                    value={levelProperties.power.toString()}
+                    minValue={0}
+                    value={levelProperties.power}
                     onValueChange={handlePowerChange}
                 />
-                <Input
+                <NumberInput
                     type="number"
                     label="Отступ первого бита (сек)"
                     labelPlacement="outside-top"
-                    min={0}
+                    minValue={0}
                     step={0.001}
-                    value={timelineSettings.offset.toString()}
+                    value={timelineSettings.offset}
                     onValueChange={handleOffsetChange}
                 />
             </CardBody>
