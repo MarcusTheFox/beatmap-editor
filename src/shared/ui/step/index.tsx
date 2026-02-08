@@ -4,8 +4,8 @@ export const Step = ({ num, title, description }: { num: string, title: string, 
             {num}
         </div>
         <div>
-            <h3 className="font-bold text-lg">{title}</h3>
-            <p className="text-night-800">{description}</p>
+            <h3 className="font-bold text-md sm:text-lg">{title}</h3>
+            <p className="text-night-800 max-sm:text-sm text-md">{description}</p>
         </div>
     </div>
 );

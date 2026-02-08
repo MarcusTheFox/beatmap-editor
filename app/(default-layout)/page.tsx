@@ -29,9 +29,9 @@ const FeatureCard = ({ icon, title, description }: { icon: React.ReactNode, titl
             <div className="bg-warning/10 text-warning p-3 rounded-lg">
                 {icon}
             </div>
-            <h3 className="text-xl font-bold">{title}</h3>
+            <h3 className="text-lg lg:text-xl font-bold">{title}</h3>
         </div>
-        <p className="text-night-800">{description}</p>
+        <p className="text-night-800 text-sm md:text-md">{description}</p>
     </div>
 );
 
@@ -40,16 +40,16 @@ export default function IndexPage() {
         <LayoutWithLights lights={{ bottom: { color: "primary20", height: "lg"} }}>
             <section className="relative">
                 <div className="relative w-[96rem] mx-auto">
-                    <div className="absolute bg-gradient-to-l from-warning h-5 w-full left-60 top-60 rotate-[45deg] animate-pulse"/>
-                    <div className="absolute bg-gradient-to-r from-primary h-5 w-full left-80 top-70 -rotate-[30deg] animate-pulse" style={{animationDelay: ".5s"}}/>
+                    <div className="hidden lg:block absolute bg-gradient-to-l from-warning h-5 w-full xl:left-60 top-60 rotate-[45deg] animate-pulse"/>
+                    <div className="hidden lg:block absolute bg-gradient-to-r from-primary h-5 w-full xl:left-80 top-70 -rotate-[30deg] animate-pulse" style={{animationDelay: ".5s"}}/>
                 </div>
                 <AudioWave color="yellow" className="bottom-0 -skew-3" />
-                <div className="container mx-auto px-6 gap-12 items-center py-20 md:py-28">
-                    <div className="text-center lg:text-left content-center h-80 lg:h-96">
-                        <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tighter bg-gradient-to-t from-default-400 to-default-900 bg-clip-text text-transparent">
+                <div className="container mx-auto px-6 gap-12 items-center mt-20 pb-32">
+                    <div className="text-center lg:text-left content-center md:h-96">
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter bg-gradient-to-t from-default-400 to-default-900 bg-clip-text text-transparent">
                             BEAM <span className="bg-gradient-to-t from-warning-300 to-warning bg-clip-text text-transparent">& </span>BEAT
                         </h1>
-                        <p className="mt-6 text-lg text-night-800 max-w-lg mx-auto lg:mx-0">
+                        <p className="mt-6 text-sm md:text-lg text-night-800 max-w-lg mx-auto lg:mx-0">
                             Новый динамичный ритм шутер, где точность выстрелов зависит от чувства ритма. 
                             Стреляйте по летящим целям в такт музыки. Используйте онлайн битмап редактор, чтобы создать уровень из любой песни.
                         </p>
@@ -61,7 +61,7 @@ export default function IndexPage() {
                                 variant="shadow"
                                 radius="full"
                                 size="lg"
-                                className="text-lg px-8 py-3 font-bold"
+                                className="px-8 py-3 font-bold"
                             >
                                 Скачать игру
                             </Button>
@@ -72,7 +72,7 @@ export default function IndexPage() {
                                 radius="full"
                                 size="lg"
                                 color="warning"
-                                className="text-lg px-8 py-3 hover:!bg-warning/10 font-semibold"
+                                className="px-8 py-3 hover:!bg-warning/10 font-semibold"
                             >
                                 Открыть редактор
                             </Button>
@@ -85,7 +85,7 @@ export default function IndexPage() {
                 <div className="absolute inset-0 bg-night-400 -skew-y-3" />
                 <div className="relative container mx-auto px-6">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl lg:text-4xl font-bold">Играйте, создавайте, делитесь</h2>
+                        <h2 className="text-xl md:text-3xl lg:text-4xl font-bold">Играйте, создавайте, делитесь</h2>
                         <p className="text-lg text-night-800 mt-2">Три ключевые особенности ритм шутера Beam & Beat</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -109,18 +109,18 @@ export default function IndexPage() {
             </section>
             
             <section className="relative py-20 md:py-24">
-                <div className="pt-30"/>
+                <div className="pt-10 md:pt-30"/>
                 <AudioWave bottom className="top-0 -skew-3"/>
                 <div className="container mx-auto px-6">
                     <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
-                            <div className="relative flex items-center justify-center p-8">
+                        <div className="relative flex max-w-lg mx-auto items-center justify-center p-8">
                             <div className="absolute inset-0 border-2 border-dashed border-night-600 rounded-3xl transform rotate-6" />
-                            <div className="relative bg-night-500 w-full min-h-[350px] rounded-2xl flex items-center justify-center border border-night-600 shadow-xl overflow-clip">
+                            <div className="relative bg-night-500 w-full rounded-2xl flex items-center justify-center border border-night-600 shadow-xl overflow-clip">
                                 <Image unoptimized src={ editorNotesGif } alt="Демонстрация нот в редакторе" />
                             </div>
                         </div>
                         <div className="flex flex-col gap-6">
-                            <h2 className="text-3xl lg:text-4xl font-bold">
+                            <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold">
                                 Как создать свой уровень с нуля
                             </h2>
                             <Step 
@@ -143,10 +143,10 @@ export default function IndexPage() {
                 </div>
             </section>
             
-            <section className="px-6 py-20">
+            <section className="md:px-6 pb-20">
                 <div className="max-w-4xl mx-auto p-8 md:p-12 text-center">
-                    <h2 className="text-4xl font-bold">Присоединяйтесь к альфа-тестированию</h2>
-                    <p className="text-lg text-night-800 mt-2 mb-8">Ритм игра Beam & Beat находится на стадии активной разработки. Скачайте альфа-версию, опробуйте онлайн редактор уровней и помогите нам сделать игру лучше!</p>
+                    <h2 className="text-xl md:text-4xl font-bold">Присоединяйтесь к альфа-тестированию</h2>
+                    <p className="text-sm sm:text-lg text-night-800 mt-2 mb-8">Ритм игра Beam & Beat находится на стадии активной разработки. Скачайте альфа-версию, опробуйте онлайн редактор уровней и помогите нам сделать игру лучше!</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             as={Link}
@@ -155,6 +155,7 @@ export default function IndexPage() {
                             variant="shadow"
                             size="lg"
                             startContent={<Icon24Download />}
+                            className="text-sm sm:text-md"
                         >
                             Скачать Beam & Beat
                         </Button>
@@ -165,6 +166,7 @@ export default function IndexPage() {
                             variant="bordered"
                             size="lg"
                             startContent={<Icon24Write />}
+                            className="text-sm md:text-md"
                         >
                             Попробовать редактор
                         </Button>
