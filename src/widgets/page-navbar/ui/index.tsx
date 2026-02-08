@@ -17,11 +17,12 @@ import { GameLogo } from "@/src/shared/ui";
 import { Icon24Download } from "@vkontakte/icons";
 import { usePathname } from "next/navigation";
 import { Tab, Tabs } from "@heroui/tabs";
+import { useCallback } from "react";
 
 export const Navbar = () => {
   const pathname = usePathname();
 
-  const getTabKey = () => {
+  const getTabKey = useCallback(() => {
     const foundItem = siteConfig.navItems.find(item => {
         if (item.href === "/") {
             return pathname === "/";
@@ -29,8 +30,8 @@ export const Navbar = () => {
         return pathname.startsWith(item.href);
     });
     
-    return foundItem ? foundItem.href : null;
-  };
+    return foundItem ? foundItem.href : "";
+  }, [ pathname ]);
 
   return (
     <HeroUINavbar 

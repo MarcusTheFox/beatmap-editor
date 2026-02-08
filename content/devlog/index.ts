@@ -1,6 +1,7 @@
 import { VersionLog as Log1 } from "./v0.1.0-alpha";
 import { VersionLog as Log2 } from "./v0.2.0-alpha";
 import { VersionLog as Log3 } from "./v0.2.1-alpha";
+import { VersionLog as Log4 } from "./v0.3.0-alpha";
 
 export type VersionLogType = {
     title: string,
@@ -10,6 +11,7 @@ export type VersionLogType = {
 }
 
 export const DevLog: Record<string, VersionLogType> = {
+    "0.3.0-alpha": Log4,
     "0.2.1-alpha": Log3,
     "0.2.0-alpha": Log2,
     "0.1.0-alpha": Log1,
