@@ -12,12 +12,12 @@ export const AppProvider = ({ children } : { children: ReactNode }) => {
                     <LevelPropertiesProvider>
                         <TimelineSettingsProvider>
                             <TimelineProvider>
-                                {children}
+                                { children }
                             </TimelineProvider>
                         </TimelineSettingsProvider>
                     </LevelPropertiesProvider>
                 </LevelMetadataProvider>
             </NoteProvider>
         </AudioProvider>
-    )
-}
+    );
+};

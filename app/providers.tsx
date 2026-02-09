@@ -6,24 +6,24 @@ import { useRouter } from "next/navigation";
 import { ToastProvider } from "@heroui/toast";
 
 export interface ProvidersProps {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 declare module "@react-types/shared" {
-  interface RouterConfig {
-    routerOptions: NonNullable<
-      Parameters<ReturnType<typeof useRouter>["push"]>[1]
-    >;
-  }
+    interface RouterConfig {
+        routerOptions: NonNullable<
+            Parameters<ReturnType<typeof useRouter>["push"]>[1]
+        >;
+    }
 }
 
-export function Providers({ children }: ProvidersProps) {
-  const router = useRouter();
+export function Providers({ children }: ProvidersProps ) {
+    const router = useRouter();
 
-  return (
-    <HeroUIProvider navigate={router.push}>
-      <ToastProvider />
-      {children}
-    </HeroUIProvider>
-  );
+    return (
+        <HeroUIProvider navigate={ router.push }>
+            <ToastProvider />
+            { children }
+        </HeroUIProvider>
+    );
 }

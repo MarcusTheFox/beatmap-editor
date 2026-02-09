@@ -1,2 +1,2 @@
-export * from "./provider"
-export * from "./useAudio"
+export * from "./provider";
+export * from "./useAudio";

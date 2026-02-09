@@ -15,4 +15,4 @@ export interface SongPackage {
     levelInfo: PackageLevelInfo
 }
 
-export type SongID = `${string} - ${string}`;
+export type SongID = `${ string } - ${ string }`;

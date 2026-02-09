@@ -4,9 +4,9 @@ export const paths = {
     root: "/",
     editor: {
         root: "/editor",
-        song: (song: string) => ({
-            root: `/editor/song/${song}`,
-            details: `/editor/song/${song}/details`,
+        song: ( song: string ) => ({
+            root: `/editor/song/${ song }`,
+            details: `/editor/song/${ song }/details`,
         }),
         notFound: "/editor/not-found",
     },
@@ -15,10 +15,10 @@ export const paths = {
         root: "/wiki",
         installation: "/wiki/installation",
         customLevels: "/wiki/custom-levels",
-        requirements: "/wiki/requirements", 
+        requirements: "/wiki/requirements",
         editorGuide: "/wiki/editor-guide",
         gameplay: "/wiki/gameplay",
         levelFormat: "/wiki/level-format",
         faq: "/wiki/faq",
     },
-}
+};

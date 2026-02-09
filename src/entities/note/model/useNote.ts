@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext } from "react";
 import { Note } from "../types";
 import { NoteContext } from "./provider";
 
@@ -7,74 +7,73 @@ type RangeMatchArgs = [beatMin: number, beatMax: number, id: number];
 type ContainsArgs = ExactMatchArgs | RangeMatchArgs;
 
 interface ContainsFunction {
-    (...args: ExactMatchArgs): boolean;
-    (...args: RangeMatchArgs): boolean;
+    ( ...args: ExactMatchArgs ): boolean;
+    ( ...args: RangeMatchArgs ): boolean;
 }
 
 export const useNote = () => {
-    const context = useContext(NoteContext);
-    if (!context) {
-      throw new Error('useNote must be used within NoteProvider');
+    const context = useContext( NoteContext );
+    if ( !context ) {
+        throw new Error( "useNote must be used within NoteProvider" );
     }
 
     const selectedNote = context.state.selectedNote;
 
-    const contains = useCallback<ContainsFunction>((...args: ContainsArgs): boolean => {
-        if (args.length === 2) {
-            const [beat, id] = args as ExactMatchArgs;
-            return context.state.notes.some(note => 
-                note.beat === beat && note.id === id
-            );
-        } else {
-            const [beatMin, beatMax, id] = args as RangeMatchArgs;
-            return context.state.notes.some(note => 
-                note.beat >= beatMin && 
-                note.beat <= beatMax && 
-                note.id === id
-            );
+    const contains = useCallback<ContainsFunction>(( ...args: ContainsArgs ): boolean => {
+        if ( args.length === 2 ) {
+            const [ beat, id ] = args as ExactMatchArgs;
+            return context.state.notes.some(( note ) =>
+                note.beat === beat && note.id === id );
         }
-    }, [context.state.notes]) as ContainsFunction;
+        else {
+            const [ beatMin, beatMax, id ] = args as RangeMatchArgs;
+            return context.state.notes.some(( note ) =>
+                note.beat >= beatMin
+                && note.beat <= beatMax
+                && note.id === id );
+        }
+    }, [ context.state.notes ]) as ContainsFunction;
 
-    const add = useCallback((beat: number, id: number) => {
-        context.dispatch({type: "ADD_NOTE", payload: {beat, id}});
+    const add = useCallback(( beat: number, id: number ) => {
+        context.dispatch({ type: "ADD_NOTE", payload: { beat, id } });
     }, []);
 
-    const select = useCallback((beat: number, id: number) => {
-        context.dispatch({type: "SELECT_NOTE", payload: {beat, id}});
+    const select = useCallback(( beat: number, id: number ) => {
+        context.dispatch({ type: "SELECT_NOTE", payload: { beat, id } });
     }, []);
 
-    const update = useCallback((note: Required<Note>) => {
-        context.dispatch({type: "UPDATE_NOTE_PROPERTIES", payload: note});
+    const update = useCallback(( note: Required<Note> ) => {
+        context.dispatch({ type: "UPDATE_NOTE_PROPERTIES", payload: note });
     }, []);
 
-    const remove = useCallback((beat: number, id: number) => {
-        context.dispatch({type: "REMOVE_NOTE", payload: {beat, id}});
+    const remove = useCallback(( beat: number, id: number ) => {
+        context.dispatch({ type: "REMOVE_NOTE", payload: { beat, id } });
     }, []);
 
     const clear = useCallback(() => {
-        context.dispatch({type: "CLEAR_NOTES"})
+        context.dispatch({ type: "CLEAR_NOTES" });
     }, []);
 
-    const set = useCallback((notes: Note[]) => {
-        context.dispatch({type: "SET_NOTES", payload: notes})
+    const set = useCallback(( notes: Note[]) => {
+        context.dispatch({ type: "SET_NOTES", payload: notes });
     }, []);
 
     const get = useCallback(() => {
-        return context.state.notes
-    }, [context]);
+        return context.state.notes;
+    }, [ context ]);
 
-    const isSelected = (beat: number, id: number): boolean => {
+    const isSelected = ( beat: number, id: number ): boolean => {
         return !!selectedNote && selectedNote.beat == beat && selectedNote.id == id;
-    }
+    };
 
-    const find = useCallback((beatStart: number, beatEnd: number): Note | null => {
-        return context.state.notes.find(note => note.beat >= beatStart && note.beat <= beatEnd) || null;
-    }, [context.state.notes]);
+    const find = useCallback(( beatStart: number, beatEnd: number ): Note | null => {
+        return context.state.notes.find(( note ) => note.beat >= beatStart && note.beat <= beatEnd ) || null;
+    }, [ context.state.notes ]);
 
-    const findLast = useCallback((beatStart: number, beatEnd: number): Note | null => {
-        const notes = context.state.notes.filter(note => note.beat >= beatStart && note.beat <= beatEnd);
+    const findLast = useCallback(( beatStart: number, beatEnd: number ): Note | null => {
+        const notes = context.state.notes.filter(( note ) => note.beat >= beatStart && note.beat <= beatEnd );
         return notes.length > 0 ? notes[notes.length - 1] : null;
-    }, [context.state.notes]);
+    }, [ context.state.notes ]);
 
     return {
         selectedNote,
@@ -88,6 +87,6 @@ export const useNote = () => {
         clear,
         set,
         get,
-        isSelected
+        isSelected,
     };
-}
+};

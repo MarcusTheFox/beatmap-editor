@@ -5,28 +5,28 @@ import { useSpawnerGrid } from "../model/useSpawnerGrid";
 const TOTAL_SPAWNERS: number = 49;
 const GRID_DIMENSION: number = 7;
 
-const getId = (index: number) => {
+const getId = ( index: number ) => {
     const col = index % GRID_DIMENSION;
-    const row = Math.floor(index / GRID_DIMENSION);
-    return (GRID_DIMENSION - 1 - row) * GRID_DIMENSION + col;
-}
+    const row = Math.floor( index / GRID_DIMENSION );
+    return ( GRID_DIMENSION - 1 - row ) * GRID_DIMENSION + col;
+};
 
 export function SpawnerGridSection() {
     const { getSpawnerState, handleLeftClick, handleRightClick } = useSpawnerGrid();
 
-    const spawners = Array.from({length: TOTAL_SPAWNERS}).map((_, index) => {
-        const id = getId(index);
-        const { isChecked, isHighlighted, isSelected } = getSpawnerState(id);
+    const spawners = Array.from({ length: TOTAL_SPAWNERS }).map(( _, index ) => {
+        const id = getId( index );
+        const { isChecked, isHighlighted, isSelected } = getSpawnerState( id );
 
         return (
             <Spawner
-                key={index}
-                id={id}
-                isChecked={isChecked}
-                isHighlighted={isHighlighted}
-                isSelected={isSelected}
-                onLeftClick={(e) => handleLeftClick(id, e)}
-                onRightClick={(e) => handleRightClick(id, e)}
+                key={ index }
+                id={ id }
+                isChecked={ isChecked }
+                isHighlighted={ isHighlighted }
+                isSelected={ isSelected }
+                onLeftClick={ ( e ) => handleLeftClick( id, e ) }
+                onRightClick={ ( e ) => handleRightClick( id, e ) }
             />
         );
     });
@@ -35,12 +35,21 @@ export function SpawnerGridSection() {
         <Card className="p-3 text-sm max-w-fit max-h-fit mx-auto rounded-none bg-transparent border-none shadow-none self-center">
             <CardBody className="overflow-visible">
                 <div className="grid grid-cols-7 grid-rows-7 gap-1 max-w-fit">
-                    {spawners}
+                    { spawners }
                 </div>
             </CardBody>
+
             <CardFooter className="p-0 justify-center">
-                <p><b>ЛКМ</b> - добавить/удалить ноту. <b>ПКМ</b> - выбрать ноту.</p>
+                <p>
+                    <b>ЛКМ</b>
+                    { " " }
+                    - добавить/удалить ноту.
+                    { " " }
+                    <b>ПКМ</b>
+                    { " " }
+                    - выбрать ноту.
+                </p>
             </CardFooter>
         </Card>
-    )
+    );
 }

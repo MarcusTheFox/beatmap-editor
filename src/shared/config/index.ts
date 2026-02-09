@@ -1,2 +1,2 @@
-export * from "./site"
-export * from "./wavesurfer"
+export * from "./site";
+export * from "./wavesurfer";

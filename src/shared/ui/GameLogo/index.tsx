@@ -7,21 +7,21 @@ const GameLogoIcon: React.FC<SVGProps<SVGSVGElement>> = ({
     ...props
 }) => (
     <svg
-        height={height}
-        width={width}
+        height={ height }
         viewBox="0 0 20 20"
+        width={ width }
         xmlns="http://www.w3.org/2000/svg"
-        {...props}
+        { ...props }
     >
-    <path
-        d="M3 0h6v6L6 9H0V3zm14 0h-6v6l3 3h6V3zM3 20h6v-6l-3-3H0v6zm14 0h-6v-6l3-3h6v6z"
-        fill="currentColor"
-    />
+        <path
+            d="M3 0h6v6L6 9H0V3zm14 0h-6v6l3 3h6V3zM3 20h6v-6l-3-3H0v6zm14 0h-6v-6l3-3h6v6z"
+            fill="currentColor"
+        />
     </svg>
 );
 
 export const GameLogo = ({
-    size
+    size,
 } : {
     size?: "sm" | "md"
 }) => {
@@ -31,8 +31,8 @@ export const GameLogo = ({
 
     return (
         <div className="flex gap-2 items-center">
-            <GameLogoIcon height={iconSize} width={iconSize}/>
-            <p className={clsx(["font-bold", textSize])}>Beam & Beat</p>
+            <GameLogoIcon height={ iconSize } width={ iconSize }/>
+            <p className={ clsx([ "font-bold", textSize ]) }>Beam & Beat</p>
         </div>
-    )
-}
+    );
+};

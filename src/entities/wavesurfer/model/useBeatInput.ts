@@ -1,35 +1,35 @@
-"use client"
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { WaveSurferControls } from "./useWaveSurfer";
 
-export const useBeatInput = (controls: WaveSurferControls | null) => {
-    const [ isEditing, setIsEditing ] = useState<boolean>(false);
-    const [ inputValue, setInputValue ] = useState<string>('');
-    const inputRef = useRef<HTMLInputElement>(null);
+export const useBeatInput = ( controls: WaveSurferControls | null ) => {
+    const [ isEditing, setIsEditing ] = useState<boolean>( false );
+    const [ inputValue, setInputValue ] = useState<string>( "" );
+    const inputRef = useRef<HTMLInputElement>( null );
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = ( e: React.FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
-        controls?.setBeat(Number(inputValue));
-        setIsEditing(false);
-    }
+        controls?.setBeat( Number( inputValue ));
+        setIsEditing( false );
+    };
 
     const handleDisplayClick = () => {
-        if (!controls) return;
-        setIsEditing(true);
-        setInputValue(controls.getBeat().toFixed(3))
-    }
+        if ( !controls ) return;
+        setIsEditing( true );
+        setInputValue( controls.getBeat().toFixed( 3 ));
+    };
 
     const handleInputBlur = () => {
-        setIsEditing(false);
-    }
-    
+        setIsEditing( false );
+    };
+
     useEffect(() => {
-        if (isEditing) {
+        if ( isEditing ) {
             inputRef.current?.focus();
             inputRef.current?.select();
         }
-    }, [isEditing]);
+    }, [ isEditing ]);
 
     return {
         isEditing,
@@ -39,6 +39,6 @@ export const useBeatInput = (controls: WaveSurferControls | null) => {
         setInputValue,
         handleSubmit,
         handleDisplayClick,
-        handleInputBlur
-    }
-}
+        handleInputBlur,
+    };
+};
