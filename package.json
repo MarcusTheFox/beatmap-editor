@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix"
+    "lint": "eslint --quiet",
+    "lint:fix": "eslint --quiet --fix"
   },
   "dependencies": {
     "@heroui/alert": "^2.2.27",
@@ -43,7 +44,7 @@
     "wavesurfer.js": "^7.11.0"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "15.3.4",
+    "@next/eslint-plugin-next": "^16.1.6",
     "@react-types/shared": "3.32.1",
     "@stylistic/eslint-plugin": "^5.7.1",
     "@tailwindcss/postcss": "4.1.11",
@@ -54,7 +55,7 @@
     "@typescript-eslint/eslint-plugin": "8.34.1",
     "@typescript-eslint/parser": "8.34.1",
     "eslint": "9.25.1",
-    "eslint-config-next": "15.3.4",
+    "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
