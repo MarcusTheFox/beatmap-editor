@@ -39,6 +39,7 @@ export default function InstallationPage() {
 
                 <li>
                     Дождитесь окончания загрузки файла (это будет
+                    { " " }
                     <code>.zip</code>
                     { " " }
                     архив).
@@ -52,6 +53,7 @@ export default function InstallationPage() {
 
                 <li>
                     Выберите
+                    { " " }
                     <strong>"Извлечь всё..."</strong>
                     { " " }
                     (или воспользуйтесь WinRAR/7-Zip).
@@ -59,7 +61,9 @@ export default function InstallationPage() {
 
                 <li>
                     Выберите удобную папку (например,
+                    { " " }
                     <code>C:\Games\BeamNBeat</code>
+                    { }
                     ).
                 </li>
             </ul>
@@ -73,6 +77,7 @@ export default function InstallationPage() {
             <ul>
                 <li>
                     Найдите файл
+                    { " " }
                     <strong>BeamNBeat.exe</strong>
                     { " " }
                     (у него иконка игры).
@@ -108,9 +113,11 @@ export default function InstallationPage() {
                 Если при запуске вы видите ошибку об отсутствии файлов (например,
                 { " " }
                 <code>VCRUNTIME140.dll</code>
+                { }
                 ,
                 { " " }
                 <code>MSVCP140.dll</code>
+                { }
                 ), вам необходимо установить системные библиотеки Microsoft:
             </p>
 

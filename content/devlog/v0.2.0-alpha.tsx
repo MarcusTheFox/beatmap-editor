@@ -50,6 +50,7 @@ export const VersionLog: VersionLogType = {
                     ) теперь находятся внутри объекта
                     { " " }
                     <code>properties</code>
+                    { }
                     .
                 </li>
             </ul>
@@ -57,8 +58,11 @@ export const VersionLog: VersionLogType = {
             <Alert className="text-sm" color="danger" title={ <b>Внимание</b> } variant="faded">
                 <span>
                     Карты, созданные для версии
+                    { " " }
                     <code className="text-danger-700">0.1.0-alpha</code>
+                    { }
                     ,
+                    { " " }
                     <strong className="text-danger-700">несовместимы</strong>
                     { " " }
                     с новой версией. Пожалуйста, пересоздайте ваши уровни в обновленном редакторе.

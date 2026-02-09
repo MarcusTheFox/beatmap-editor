@@ -59,6 +59,7 @@ export const VersionLog: VersionLogType = {
                     (например,
                     { " " }
                     <code>Title - Author.sav</code>
+                    { }
                     ).
                 </li>
 
@@ -66,6 +67,7 @@ export const VersionLog: VersionLogType = {
                     Файл настроек игры называется
                     { " " }
                     <code>Settings.sav</code>
+                    { }
                     .
                 </li>
             </ul>
@@ -75,13 +77,17 @@ export const VersionLog: VersionLogType = {
             <ul>
                 <li>
                     Импорт аудио (
+                    { }
                     <code>.wav</code>
+                    { }
                     ) для создания новой карты битов.
                 </li>
 
                 <li>
                     Импорт проекта (
+                    { }
                     <code>.zip</code>
+                    { }
                     ) для продолжения работы над картой.
                 </li>
 

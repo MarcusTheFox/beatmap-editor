@@ -8,7 +8,7 @@ const GRID_DIMENSION: number = 7;
 const getId = ( index: number ) => {
     const col = index % GRID_DIMENSION;
     const row = Math.floor( index / GRID_DIMENSION );
-    return ( GRID_DIMENSION - 1 - row ) * GRID_DIMENSION + col;
+    return (( GRID_DIMENSION - 1 - row ) * GRID_DIMENSION ) + col;
 };
 
 export function SpawnerGridSection() {

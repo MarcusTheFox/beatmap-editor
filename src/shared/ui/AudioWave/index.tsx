@@ -20,12 +20,12 @@ export const AudioWave = ( props : {
     useEffect(() => {
         const count = calculateBarCount();
         setBarCount( count );
-        setAnimationDurations( Array.from({ length: count }, () => Math.random() * 2 + 1 ));
+        setAnimationDurations( Array.from({ length: count }, () => ( Math.random() * 2 ) + 1 ));
 
         const handleResize = () => {
             const newCount = calculateBarCount();
             setBarCount( newCount );
-            setAnimationDurations( Array.from({ length: newCount }, () => Math.random() * 2 + 1 ));
+            setAnimationDurations( Array.from({ length: newCount }, () => ( Math.random() * 2 ) + 1 ));
         };
         window.addEventListener( "resize", handleResize );
 

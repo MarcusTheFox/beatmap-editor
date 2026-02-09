@@ -53,7 +53,8 @@ export default function IndexPage() {
                         <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tighter bg-gradient-to-t from-default-400 to-default-900 bg-clip-text text-transparent">
                             BEAM
                             { " " }
-                            <span className="bg-gradient-to-t from-warning-300 to-warning bg-clip-text text-transparent">& </span>
+                            <span className="bg-gradient-to-t from-warning-300 to-warning bg-clip-text text-transparent">&</span>
+                            { " " }
                             BEAT
                         </h1>
 

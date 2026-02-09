@@ -56,22 +56,28 @@ export default function TroubleshootingPage() {
             <ol>
                 <li>
                     Папка уровня находится в папке
+                    { " " }
                     <code>UserTracks</code>
+                    { }
                     .
                 </li>
 
                 <li>
                     Внутри папки уровня есть файл
+                    { " " }
                     <code>info.json</code>
+                    { }
                     .
                 </li>
 
                 <li>
                     Название папки уровня совпадает с
+                    { " " }
                     <code>id</code>
                     { " " }
                     уровня из
                     <code>info.json</code>
+                    { }
                     .
                 </li>
 

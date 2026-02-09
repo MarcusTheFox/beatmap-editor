@@ -31,11 +31,11 @@ export default function EditorStartPage() {
         try {
             levelData = await zip.importZip( file );
         }
-        catch ( e: any ) {
+        catch ( e ) {
             console.error( e );
             addToast({
                 title: "Ошибка импорта",
-                description: e.message,
+                description: e instanceof Error ? e.message : String( e ),
                 color: "danger",
                 timeout: 10000,
                 shouldShowTimeoutProgress: true,

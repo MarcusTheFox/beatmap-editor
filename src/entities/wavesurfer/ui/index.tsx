@@ -45,7 +45,7 @@ export const WaveSurferComponent = forwardRef<WaveSurferComponentRef, WaveSurfer
         const totalBeats = getTotalBeats( controls.getDuration(), props.bpm, props.offset );
         for ( let index = 0; index <= totalBeats; index++ ) {
             regionsPlugin.addRegion({
-                start: 60 / props.bpm * index + props.offset,
+                start: ( 60 / props.bpm * index ) + props.offset,
                 id: index.toString(),
                 ...regionOptions,
             });

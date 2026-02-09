@@ -77,6 +77,7 @@ export default function EditorGuidePage() {
                     Выделить цель для настройки её свойств (например, высоту полета
                     { " " }
                     <em>Power</em>
+                    { }
                     ).
                 </li>
             </ul>

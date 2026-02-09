@@ -45,9 +45,13 @@ export default function CustomLevelsPage() {
                     <strong>Найдите папку UserTracks:</strong>
                     { " " }
                     В корневой директории игры найдите папку с названием игры
+                    { " " }
                     <code>BeamNBeat</code>
+                    { }
                     . Внутри нее должна быть папка
+                    { " " }
                     <code>UserTracks</code>
+                    { }
                     .
                     Если её нет — создайте её вручную.
                 </li>
@@ -56,16 +60,21 @@ export default function CustomLevelsPage() {
                     <strong>Распакуйте архив:</strong>
                     { " " }
                     Распакуйте ваш
+                    { " " }
                     <code>.zip</code>
                     { " " }
                     файл в папку
+                    { " " }
                     <code>UserTracks</code>
+                    { }
                     .
                     Название папки вашего уровня должно совпадать с
+                    { " " }
                     <code>id</code>
                     { " " }
                     из файла
                     <code>info.json</code>
+                    { }
                     .
                 </li>
             </ol>
@@ -91,6 +100,7 @@ export default function CustomLevelsPage() {
                 В этой папке вы найдете файлы с расширением
                 { " " }
                 <code>.sav</code>
+                { }
                 :
             </p>
 
@@ -103,7 +113,9 @@ export default function CustomLevelsPage() {
 
                 <li>
                     Файлы с названием песен (например,
+                    { " " }
                     <code>MySong - Artist.sav</code>
+                    { }
                     ) — здесь хранятся ваши лучшие результаты прохождения конкретных карт.
                 </li>
             </ul>
