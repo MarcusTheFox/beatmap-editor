@@ -66,24 +66,24 @@ export default function IndexPage() {
                         <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center lg:justify-start">
                             <Button
                                 as={ Link }
+                                className="px-8 py-3 font-bold"
                                 color="primary"
                                 href="/download"
                                 radius="full"
                                 size="lg"
                                 variant="shadow"
-                                className="px-8 py-3 font-bold"
                             >
                                 Скачать игру
                             </Button>
 
                             <Button
                                 as={ Link }
+                                className="px-8 py-3 hover:!bg-warning/10 font-semibold"
+                                color="warning"
                                 href="/editor"
                                 radius="full"
                                 size="lg"
                                 variant="bordered"
-                                color="warning"
-                                className="px-8 py-3 hover:!bg-warning/10 font-semibold"
                             >
                                 Открыть редактор
                             </Button>
@@ -172,24 +172,24 @@ export default function IndexPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             as={ Link }
+                            className="text-sm sm:text-md"
                             color="primary"
                             href="/download"
                             size="lg"
                             startContent={ <Icon24Download /> }
                             variant="shadow"
-                            className="text-sm sm:text-md"
                         >
                             Скачать Beam & Beat
                         </Button>
 
                         <Button
                             as={ Link }
+                            className="text-sm md:text-md"
                             color="secondary"
                             href="/editor"
                             size="lg"
                             startContent={ <Icon24Write /> }
                             variant="bordered"
-                            className="text-sm md:text-md"
                         >
                             Попробовать редактор
                         </Button>
