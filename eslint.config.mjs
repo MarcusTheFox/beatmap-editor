@@ -45,7 +45,6 @@ export default defineConfig([ nextTypescript, {
         "@stylistic/jsx-wrap-multilines": "error",
         "@stylistic/key-spacing": [ "error", { "beforeColon": false, "afterColon": true, "mode": "strict", } ],
         "@stylistic/keyword-spacing": "error",
-        "@stylistic/linebreak-style": ["error", "windows"],
         "@stylistic/multiline-ternary": ["error", "always-multiline"],
         "@stylistic/newline-per-chained-call": [ "error", { "ignoreChainWithDepth": 2 } ],
         "@stylistic/no-confusing-arrow": "error",
