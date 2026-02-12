@@ -1,53 +1,67 @@
-# Next.js & HeroUI Template
+# Beatmap Editor
 
-This is a template for creating applications using Next.js 14 (app directory) and HeroUI (v2).
+Веб-приложение для создания и редактирования уровней для ритм-шутера Beam & Beat.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
+## Технологический стек
 
-## Technologies Used
+- **Framework**: [Next.js 16](https://nextjs.org/) с App Router и Turbopack
+- **UI Library**: [HeroUI v2](https://heroui.com/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Audio**: [WaveSurfer.js](https://wavesurfer.xyz/)
+- **Icons**: [@vkontakte/icons](https://vkcom.github.io/icons/)
+- **File Processing**: [JSZip](https://stuk.github.io/jszip/), [FileSaver.js](https://github.com/eligrey/FileSaver.js/)
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI v2](https://heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+## Установка и запуск
 
-## How to Use
-
-### Use the template with create-next-app
-
-To create a new project based on this template using `create-next-app`, run the following command:
-
-```bash
-npx create-next-app -e https://github.com/heroui-inc/next-app-template
-```
-
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+### Установка зависимостей
 
 ```bash
 npm install
 ```
 
-### Run the development server
+### Запуск в режиме разработки
 
 ```bash
 npm run dev
 ```
 
-### Setup pnpm (optional)
+Приложение будет доступно по адресу [http://localhost:3000](http://localhost:3000)
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+### Сборка для продакшена
 
 ```bash
-public-hoist-pattern[]=*@heroui/*
+npm run build
+npm run start
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+## Скрипты
 
-## License
+- `npm run dev` — запуск dev-сервера с Turbopack
+- `npm run build` — сборка проекта для продакшена
+- `npm run start` — запуск production-сервера
+- `npm run lint` — проверка кода линтером
+- `npm run lint:fix` — автоматическое исправление ошибок линтера
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
+## Структура проекта
+
+Проект использует архитектуру **[Feature-Sliced Design (FSD)](https://feature-sliced.design/)**:
+
+```
+beatmap-editor/
+├── src/
+│   ├── app/         # Инициализация приложения, провайдеры, роутинг
+│   ├── entities/    # Бизнес-сущности (beatmap, track, note и т.д.)
+│   ├── features/    # Функциональные возможности приложения
+│   ├── shared/      # Переиспользуемый код (UI-kit, utils, hooks)
+│   └── widgets/     # Композитные блоки страниц
+├── app/             # Next.js App Router (страницы и layouts)
+├── config/          # Конфигурационные файлы
+├── content/         # Контент и локализация
+└── styles/          # Глобальные стили
+```
+
+## Лицензия
+
+Проприетарное программное обеспечение. См. [LICENSE](./LICENSE) для деталей.
