@@ -9,7 +9,7 @@ export default function DownloadLayout({
         <LayoutWithLights>
             <div className="container mx-auto max-w-7xl py-16 px-6 grow">
                 <section className="flex flex-col items-center justify-center gap-4">
-                    {children}
+                    { children }
                 </section>
             </div>
         </LayoutWithLights>

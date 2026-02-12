@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { TrackInfoSection } from "@/src/widgets/track-info";
 import { NotePropertiesSection } from "@/src/widgets/note-properties";

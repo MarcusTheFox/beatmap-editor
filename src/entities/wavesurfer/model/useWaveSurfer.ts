@@ -1,20 +1,20 @@
 import { convertBeatsToTime, convertTimeToBeats, getFirstBeatTime, getNextBeatTime, getPreviousBeatTime, getStepBeatTime } from "@/src/shared/lib";
 import { useCallback } from "react";
-import WaveSurfer from "wavesurfer.js"
+import WaveSurfer from "wavesurfer.js";
 
-export const useWaveSurfer = (bpm: number, offset: number) => {
-    const set = useCallback((waveSurfer: WaveSurfer) => {
+export const useWaveSurfer = ( bpm: number, offset: number ) => {
+    const set = useCallback(( waveSurfer: WaveSurfer ) => {
         const getDuration = () => waveSurfer.getDuration();
         const getTime = () => waveSurfer.getCurrentTime();
-        const getBeat = () => convertTimeToBeats(getTime(), bpm, offset);
+        const getBeat = () => convertTimeToBeats( getTime(), bpm, offset );
 
-        const setTime = (time: number) => waveSurfer.setTime(time);
-        const setBeat = (beat: number) => {
-            const beatTime = convertBeatsToTime(beat, bpm, offset);
+        const setTime = ( time: number ) => waveSurfer.setTime( time );
+        const setBeat = ( beat: number ) => {
+            const beatTime = convertBeatsToTime( beat, bpm, offset );
             const duration = getDuration();
-            const time = Math.max(Math.min(beatTime, duration), 0);
-            setTime(time);
-        }
+            const time = Math.max( Math.min( beatTime, duration ), 0 );
+            setTime( time );
+        };
 
         const isPlaying = () => waveSurfer.isPlaying();
 
@@ -26,77 +26,77 @@ export const useWaveSurfer = (bpm: number, offset: number) => {
             const current = getTime();
             const duration = getDuration();
 
-            if (current === duration) return;
-            if (current < offset) {
-                setTime(offset);
+            if ( current === duration ) return;
+            if ( current < offset ) {
+                setTime( offset );
                 return;
             }
 
-            const time = getNextBeatTime(current, duration, bpm, offset);
-            setTime(time);
-        }
+            const time = getNextBeatTime( current, duration, bpm, offset );
+            setTime( time );
+        };
 
         const previous = () => {
             const current = getTime();
-            if (current === 0) return;
+            if ( current === 0 ) return;
 
-            const currentBeat = convertTimeToBeats(current, bpm, offset);
-            if (currentBeat === 0) {
-                setTime(0);
+            const currentBeat = convertTimeToBeats( current, bpm, offset );
+            if ( currentBeat === 0 ) {
+                setTime( 0 );
                 return;
             }
 
-            const time = getPreviousBeatTime(current, bpm, offset);
-            setTime(time);
-        }
+            const time = getPreviousBeatTime( current, bpm, offset );
+            setTime( time );
+        };
 
-        const step = (step: number) => {
-            if (Math.sign(step) === 0) return;
+        const step = ( step: number ) => {
+            if ( Math.sign( step ) === 0 ) return;
 
             const current = getTime();
-            if (Math.sign(step) < 0) {
-                if (current === 0) return;
+            if ( Math.sign( step ) < 0 ) {
+                if ( current === 0 ) return;
 
-                const currentBeat = convertTimeToBeats(current, bpm, offset);
-                if (currentBeat === 0) {
-                    setTime(0);
+                const currentBeat = convertTimeToBeats( current, bpm, offset );
+                if ( currentBeat === 0 ) {
+                    setTime( 0 );
                     return;
                 }
             }
 
             const duration = getDuration();
-            if (Math.sign(step) > 0) {
-                if (current === duration) return;
-                if (current < offset) {
-                    setTime(offset);
+            if ( Math.sign( step ) > 0 ) {
+                if ( current === duration ) return;
+                if ( current < offset ) {
+                    setTime( offset );
                     return;
                 }
             }
 
-            const time = getStepBeatTime(current, duration, step, bpm, offset);
-            setTime(time);
-        }
+            const time = getStepBeatTime( current, duration, step, bpm, offset );
+            setTime( time );
+        };
 
         const start = () => {
             const current = getTime();
-            if (current === 0) return;
+            if ( current === 0 ) return;
 
-            const currentBeat = convertTimeToBeats(current, bpm, offset);
-            if (currentBeat === 0) {
-                setTime(0);
+            const currentBeat = convertTimeToBeats( current, bpm, offset );
+            if ( currentBeat === 0 ) {
+                setTime( 0 );
                 return;
             }
 
-            const time = getFirstBeatTime(bpm, offset);
-            setTime(time);
-        }
+            const time = getFirstBeatTime( bpm, offset );
+            setTime( time );
+        };
 
         const end = () => {
             const current = getTime();
             const duration = getDuration();
-            if (current === duration) return;
-            setTime(duration);
-        }
+            if ( current === duration ) return;
+            setTime( duration );
+        };
 
         return {
             getDuration,
@@ -116,11 +116,11 @@ export const useWaveSurfer = (bpm: number, offset: number) => {
             previous,
             step,
             start,
-            end
-        }
-    }, [bpm, offset]);
+            end,
+        };
+    }, [ bpm, offset ]);
 
     return { set };
-}
+};
 
 export type WaveSurferControls = ReturnType<ReturnType<typeof useWaveSurfer>["set"]>;
