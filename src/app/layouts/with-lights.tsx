@@ -1,4 +1,4 @@
-import { BackgroundLight, BackgroundLightType } from "@/src/shared/ui/BackgroundLight"
+import { BackgroundLight, BackgroundLightType } from "@/src/shared/ui/BackgroundLight";
 
 export interface LayoutWithLightsProps {
     children: React.ReactNode,
@@ -10,17 +10,19 @@ export interface LayoutWithLightsProps {
 
 export const LayoutWithLights = ({
     children,
-    lights = {}
-}: LayoutWithLightsProps) => {
+    lights = {},
+}: LayoutWithLightsProps ) => {
     const { top = { color: "warning" }, bottom = { color: "primary" } } = lights;
 
     return (
         <>
-            <BackgroundLight {...top} position="top"/>
+            <BackgroundLight { ...top } position="top"/>
+
             <div className="flex-1 relative z-10">
-                {children}
+                { children }
             </div>
-            <BackgroundLight {...bottom} position="bottom"/>
+
+            <BackgroundLight { ...bottom } position="bottom"/>
         </>
-    )
-}
+    );
+};

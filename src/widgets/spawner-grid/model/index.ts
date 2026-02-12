@@ -1,1 +1,1 @@
-export * from "./useSpawnerGrid"
+export * from "./useSpawnerGrid";

@@ -9,54 +9,56 @@ import { fontSans } from "@/config/fonts";
 import { AppProvider } from "./app";
 import { YandexMetrika } from "@/src/shared/ui/YandexMetrika";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  openGraph: {
     title: {
-      default: siteConfig.name,
-      template: `%s | ${siteConfig.name}`,
+        default: siteConfig.name,
+        template: `%s | ${ siteConfig.name }`,
     },
     description: siteConfig.description,
-    type: 'website',
-    locale: 'ru_RU',
-    siteName: 'Beam & Beat',
-  }
+    openGraph: {
+        title: {
+            default: siteConfig.name,
+            template: `%s | ${ siteConfig.name }`,
+        },
+        description: siteConfig.description,
+        type: "website",
+        locale: "ru_RU",
+        siteName: "Beam & Beat",
+    },
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+    themeColor: [
+        { media: "(prefers-color-scheme: light)", color: "white" },
+        { media: "(prefers-color-scheme: dark)", color: "black" },
+    ],
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <html lang="ru" className="dark">
-      <head />
-      <body
-        className={clsx(
-          "min-h-screen text-foreground bg-background font-sans antialiased",
-          fontSans.variable,
-        )}
-      >
-        <YandexMetrika />
-        <Providers>
-          <AppProvider>
-            {children}
-          </AppProvider>
-        </Providers>
-      </body>
-    </html>
-  );
+    return (
+        <html className="dark" lang="ru">
+            <head />
+
+            <body
+                className={ clsx(
+                    "min-h-screen text-foreground bg-background font-sans antialiased",
+                    fontSans.variable,
+                ) }
+            >
+                <YandexMetrika />
+
+                <Providers>
+                    <AppProvider>
+                        { children }
+                    </AppProvider>
+                </Providers>
+            </body>
+        </html>
+    );
 }

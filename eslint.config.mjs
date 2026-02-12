@@ -1,151 +1,69 @@
 import { defineConfig, globalIgnores } from "eslint/config";
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import react from "eslint-plugin-react";
-import unusedImports from "eslint-plugin-unused-imports";
-import _import from "eslint-plugin-import";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import jsxA11Y from "eslint-plugin-jsx-a11y";
-import prettier from "eslint-plugin-prettier";
-import globals from "globals";
-import tsParser from "@typescript-eslint/parser";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+import nextTypescript from "eslint-config-next/typescript";
+import stylistic from '@stylistic/eslint-plugin';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-export default defineConfig([globalIgnores([
-    ".now/*",
-    "**/*.css",
-    "**/.changeset",
-    "**/dist",
-    "esm/*",
-    "public/*",
-    "tests/*",
-    "scripts/*",
-    "**/*.config.js",
-    "**/.DS_Store",
-    "**/node_modules",
-    "**/coverage",
-    "**/.next",
-    "**/build",
-    "!**/.commitlintrc.cjs",
-    "!**/.lintstagedrc.cjs",
-    "!**/jest.config.js",
-    "!**/plopfile.js",
-    "!**/react-shim.js",
-    "!**/tsup.config.ts",
-]), {
-    extends: fixupConfigRules(compat.extends(
-        "plugin:react/recommended",
-        "plugin:prettier/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended",
-        "plugin:@next/next/recommended",
-    )),
-
+export default defineConfig([ nextTypescript, {
     plugins: {
-        react: fixupPluginRules(react),
-        "unused-imports": unusedImports,
-        import: fixupPluginRules(_import),
-        "@typescript-eslint": typescriptEslint,
-        "jsx-a11y": fixupPluginRules(jsxA11Y),
-        prettier: fixupPluginRules(prettier),
-    },
-
-    languageOptions: {
-        globals: {
-            ...Object.fromEntries(Object.entries(globals.browser).map(([key]) => [key, "off"])),
-            ...globals.node,
-        },
-
-        parser: tsParser,
-        ecmaVersion: 12,
-        sourceType: "module",
-
-        parserOptions: {
-            ecmaFeatures: {
-                jsx: true,
-            },
-        },
-    },
-
-    settings: {
-        react: {
-            version: "detect",
-        },
+        "@stylistic": stylistic,
     },
 
     files: ["**/*.ts", "**/*.tsx"],
 
     rules: {
-        "no-console": "warn",
-        "react/prop-types": "off",
-        "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off",
-        "react-hooks/exhaustive-deps": "off",
-        "jsx-a11y/click-events-have-key-events": "warn",
-        "jsx-a11y/interactive-supports-focus": "warn",
-        "prettier/prettier": "warn",
-        "no-unused-vars": "off",
-        "unused-imports/no-unused-vars": "off",
-        "unused-imports/no-unused-imports": "warn",
-
-        "@typescript-eslint/no-unused-vars": ["warn", {
-            args: "after-used",
-            ignoreRestSiblings: false,
-            argsIgnorePattern: "^_.*?$",
-        }],
-
-        "import/order": ["warn", {
-            groups: [
-                "type",
-                "builtin",
-                "object",
-                "external",
-                "internal",
-                "parent",
-                "sibling",
-                "index",
-            ],
-
-            pathGroups: [{
-                pattern: "~/**",
-                group: "external",
-                position: "after",
-            }],
-
-            "newlines-between": "always",
-        }],
-
-        "react/self-closing-comp": "warn",
-
-        "react/jsx-sort-props": ["warn", {
-            callbacksLast: true,
-            shorthandFirst: true,
-            noSortAlphabetically: false,
-            reservedFirst: true,
-        }],
-
-        "padding-line-between-statements": ["warn", {
-            blankLine: "always",
-            prev: "*",
-            next: "return",
-        }, {
-            blankLine: "always",
-            prev: ["const", "let", "var"],
-            next: "*",
-        }, {
-            blankLine: "any",
-            prev: ["const", "let", "var"],
-            next: ["const", "let", "var"],
-        }],
-    },
+        "@stylistic/array-bracket-newline": ["error", "consistent"],
+        "@stylistic/array-bracket-spacing": ["error", "always"],
+        "@stylistic/array-element-newline": ["error", { "consistent": true, "multiline": true }],
+        "@stylistic/arrow-parens": ["error", "always"],
+        "@stylistic/arrow-spacing": "error",
+        "@stylistic/block-spacing": "error",
+        "@stylistic/brace-style": "error",
+        "@stylistic/brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+        "@stylistic/comma-dangle": ["error", "always-multiline"],
+        "@stylistic/comma-spacing": "error",
+        "@stylistic/comma-style": ["error", "last"],
+        "@stylistic/computed-property-spacing": "error",
+        "@stylistic/curly-newline": ["error", { "consistent": true }],
+        "@stylistic/dot-location": [ "error", "property" ],
+        "@stylistic/eol-last": [ "error", "always" ],
+        "@stylistic/function-call-spacing": "error",
+        "@stylistic/function-paren-newline": [ "error", "multiline-arguments" ],
+        "@stylistic/indent": ["error", 4],
+        "@stylistic/jsx-child-element-spacing": "error",
+        "@stylistic/jsx-closing-bracket-location": [ "error", "line-aligned" ],
+        "@stylistic/jsx-closing-tag-location": [ "error", "line-aligned" ],
+        "@stylistic/jsx-curly-brace-presence": [ "error", { "props": "never", "children": "never", "propElementValues": "always" } ],
+        "@stylistic/jsx-curly-newline": [ "error", "consistent" ],
+        "@stylistic/jsx-curly-spacing": [ "error", { "when": "always", "children": true, "spacing": { "objectLiterals": "never" } } ],
+        "@stylistic/jsx-equals-spacing": [ "error", "never" ],
+        "@stylistic/jsx-max-props-per-line": [ "error", { "maximum": { "single": 4, "multi": 1 } } ],
+        "@stylistic/jsx-newline": [ "error", { "prevent": true, "allowMultilines": true} ],
+        "@stylistic/jsx-one-expression-per-line": [ "error", { "allow": "non-jsx" } ],
+        "@stylistic/jsx-props-no-multi-spaces": "error",
+        "@stylistic/jsx-quotes": [ "error", "prefer-double" ],
+        "@stylistic/jsx-self-closing-comp": ["error", { "component": true, "html": true }],
+        "@stylistic/jsx-sort-props": ["error", { "reservedFirst": true, "shorthandFirst": true, "callbacksLast": true }],
+        "@stylistic/jsx-wrap-multilines": "error",
+        "@stylistic/key-spacing": [ "error", { "beforeColon": false, "afterColon": true, "mode": "strict", } ],
+        "@stylistic/keyword-spacing": "error",
+        "@stylistic/linebreak-style": ["error", "windows"],
+        "@stylistic/multiline-ternary": ["error", "always-multiline"],
+        "@stylistic/newline-per-chained-call": [ "error", { "ignoreChainWithDepth": 2 } ],
+        "@stylistic/no-confusing-arrow": "error",
+        "@stylistic/no-extra-semi": "error",
+        "@stylistic/no-floating-decimal": "error",
+        "@stylistic/no-mixed-operators": "error",
+        "@stylistic/no-multi-spaces": "error",
+        "@stylistic/no-multiple-empty-lines": [ "error", { "max": 2, "maxBOF": 0, "maxEOF": 0 } ],
+        "@stylistic/no-tabs": "error",
+        "@stylistic/no-trailing-spaces": "error",
+        "@stylistic/no-whitespace-before-property": "error",
+        "@stylistic/object-curly-newline": "error",
+        "@stylistic/object-curly-spacing": ["error", "always"],
+        "@stylistic/operator-linebreak": ["error", "before", { "overrides": { "=": "after" } } ],
+        "@stylistic/quotes": ["error", "double"],
+        "@stylistic/rest-spread-spacing": "error",
+        "@stylistic/semi": "error",
+        "@stylistic/space-in-parens": ["error", "always", { "exceptions": ["()", "{}", "[]", "empty"] }],
+        "@stylistic/template-curly-spacing": ["error", "always"],
+    }
 }]);

@@ -8,11 +8,11 @@ export type VersionLogType = {
     date: Date,
     body: React.ReactNode
     highlights: string[]
-}
+};
 
 export const DevLog: Record<string, VersionLogType> = {
     "0.3.0-alpha": Log4,
     "0.2.1-alpha": Log3,
     "0.2.0-alpha": Log2,
     "0.1.0-alpha": Log1,
-}
+};

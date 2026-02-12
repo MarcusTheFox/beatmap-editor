@@ -10,14 +10,15 @@ export default function Error({
     reset: () => void;
 }) {
     useEffect(() => {
-      // Log the error to an error reporting service
-      /* eslint-disable no-console */
-      console.error(error);
-    }, [error]);
+        // Log the error to an error reporting service
+        /* eslint-disable no-console */
+        console.error( error );
+    }, [ error ]);
 
     return (
         <div>
             <h2>Something went wrong!</h2>
+
             <button
                 onClick={
                     // Attempt to recover by trying to re-render the segment
@@ -26,7 +27,8 @@ export default function Error({
             >
                 Try again
             </button>
-            <p className="mt-[2em]">{error.message}</p>
+
+            <p className="mt-[2em]">{ error.message }</p>
         </div>
     );
 }

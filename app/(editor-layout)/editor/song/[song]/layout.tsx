@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Navbar, NavbarBrand, NavbarContent } from "@heroui/navbar";
 import React, { ReactNode, useEffect } from "react";
@@ -18,39 +18,40 @@ interface EditorLayoutProps {
     children?: ReactNode;
 }
 
-export default function EditorLayout({ params, children }: EditorLayoutProps) {
-    const { song } = React.use(params);
+export default function EditorLayout({ params, children }: EditorLayoutProps ) {
+    const { song } = React.use( params );
     const { audioUrl } = useAudio();
-    
-    if (!audioUrl) {
-        redirect(paths.editor.notFound);
+
+    if ( !audioUrl ) {
+        redirect( paths.editor.notFound );
     }
 
     useEffect(() => {
-        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+        const handleBeforeUnload = ( e: BeforeUnloadEvent ) => {
             e.preventDefault();
         };
 
-        window.addEventListener("beforeunload", handleBeforeUnload);
-        return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+        window.addEventListener( "beforeunload", handleBeforeUnload );
+        return () => window.removeEventListener( "beforeunload", handleBeforeUnload );
     }, []);
 
     return (
         <div className="relative flex flex-col h-screen">
-            <Navbar maxWidth="xl" className="border-b-1 border-b-default-200">
+            <Navbar className="border-b-1 border-b-default-200" maxWidth="xl">
                 <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
                     <NavbarBrand className="max-w-fit gap-3">
                         <Link
                             className="flex justify-start items-center"
                             color="foreground"
-                            href={paths.root}
+                            href={ paths.root }
                         >
                             <GameLogo />
                         </Link>
                     </NavbarBrand>
                 </NavbarContent>
+
                 <NavbarContent justify="center">
-                    {/* <Button
+                    { /* <Button
                         as={Link}
                         href={paths.editor.song(song).root}
                         variant="light"
@@ -65,21 +66,24 @@ export default function EditorLayout({ params, children }: EditorLayoutProps) {
                         startContent={<Icon20ListBulletOutline />}
                     >
                         Детали
-                    </Button> */}
+                    </Button> */ }
                 </NavbarContent>
+
                 <NavbarContent justify="end">
                     <ExportButton
-                        variant="ghost"
                         color="primary"
-                        startContent={<Icon20DownloadOutline />}
+                        startContent={ <Icon20DownloadOutline /> }
+                        variant="ghost"
                     >
                         Экспорт
                     </ExportButton>
                 </NavbarContent>
             </Navbar>
-            <main id="main-container" className="flex flex-col gap-8 m-8 justify-between h-full">
+
+            <main className="flex flex-col gap-8 m-8 justify-between h-full" id="main-container">
                 { children }
             </main>
+
             <footer>
                 <TimelineSection />
             </footer>
